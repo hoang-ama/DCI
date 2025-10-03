@@ -1,0 +1,526 @@
+:root {
+    --primary-color: #5d25e7;
+    --secondary-color: #f7f7f7;
+    --text-color: #333;
+    --white-text: #fff;
+    --grey-text: #666;
+    --dark-bg: #111;
+    --hover-color: #6a34ff;
+    --gradient-1: #5d25e7;
+    --gradient-2: #8030f2;
+    --gradient-3: #9e36fa;
+    --gradient-4: #c240ff;
+    --gradient-5: #d648ff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    background-color: var(--secondary-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.btn {
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: none;
+    font-size: 1rem;
+}
+
+.btn.nav-btn {
+    background-color: var(--white-text);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn.nav-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white-text);
+}
+
+.btn.hero-btn {
+    background: linear-gradient(90deg, var(--gradient-1), var(--gradient-5));
+    color: var(--white-text);
+    border: none;
+}
+
+.btn.hero-btn:hover {
+    background: linear-gradient(90deg, var(--gradient-5), var(--gradient-1));
+}
+
+section {
+    padding: 80px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+/* Header & Hero Section     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/image/homepage-bg.png');  */
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url("./image/DCI-Slider.png") no-repeat center/cover;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--white-text);
+    position: relative;
+}
+
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--white-text);
+}
+
+.nav-logo {
+    height: 120px;
+    width: auto;
+    display: block;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: var(--white-text);
+    font-weight: 500;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.25rem;
+    margin-bottom: 30px;
+}
+
+/* Mission Section */
+.mission-section {
+    text-align: center;
+}
+
+.mission-cards-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.mission-card {
+    background-color: var(--white-text);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    width: 250px;
+    transition: transform 0.3s ease;
+}
+
+.mission-card:hover {
+    transform: translateY(-10px);
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background-size: cover;
+}
+
+.icon-1 { background-color: #5d25e7; }
+.icon-2 { background-color: #8030f2; }
+.icon-3 { background-color: #9e36fa; }
+.icon-4 { background-color: #c240ff; }
+
+/* Who We Are Section */
+.who-we-are-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.content-left, .content-right {
+    flex: 1;
+}
+
+.who-we-are-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.content-right h2 {
+    text-align: left;
+}
+
+.content-right p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--grey-text);
+}
+
+/* Portfolio Section */
+.portfolio-section {
+    text-align: center;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 24px;
+    align-items: center;
+    margin-top: 40px;
+}
+
+/* Make each grid cell an even square. This targets both direct image children
+   and any wrapper element with a `.portfolio-item` class. */
+.portfolio-grid > * {
+    background: var(--white-text);
+    border-radius: 12px;
+    padding: 12px;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.portfolio-grid > *:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Keep logos visually consistent inside the square boxes. Images should
+   use object-fit so they scale correctly without distortion. */
+.portfolio-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: block;
+}
+
+.portfolio-logo:hover {
+    opacity: 1;
+    transform: scale(1.03);
+}
+
+/* Founder Section */
+.founder-section {
+    display: flex;
+    justify-content: center;
+    background-color: var(--white-text);
+}
+
+.founder-card {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 50px;
+    background-color: var(--secondary-color);
+    border-radius: 20px;
+    max-width: 900px;
+}
+
+.founder-image-container {
+    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.founder-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.founder-info {
+    font-style: italic;
+    color: var(--grey-text);
+    position: relative;
+    padding-left: 30px;
+}
+
+.founder-info .quote-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    position: absolute;
+    top: -10px;
+    left: 0;
+}
+
+.founder-info p {
+    margin-bottom: 15px;
+}
+
+.founder-info strong {
+    display: block;
+    margin-top: 10px;
+    font-style: normal;
+    color: var(--text-color);
+}
+
+/* Team Section */
+.team-section {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-direction: row-reverse;
+}
+
+.team-content {
+    flex: 1;
+}
+
+.team-image-container {
+    flex: 1;
+}
+
+.team-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.team-content h2 {
+    text-align: left;
+}
+
+.team-content p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--grey-text);
+}
+
+/* Blog Section */
+.blog-section {
+    text-align: center;
+}
+
+.blog-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 150px;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.blog-card {
+    width: 350px;
+    background-color: var(--white-text);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.blog-card:hover {
+    transform: translateY(-10px);
+}
+
+.blog-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+}
+
+.blog-content {
+    padding: 25px;
+}
+
+.blog-content h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.blog-content p {
+    color: var(--grey-text);
+    margin-bottom: 15px;
+}
+
+.blog-content .read-more {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Call to Action Section */
+.cta-section {
+    background: linear-gradient(90deg, var(--gradient-1), var(--gradient-5));
+    color: var(--white-text);
+    text-align: center;
+    padding: 80px 5%;
+}
+
+.cta-content h2 {
+    color: var(--white-text);
+    margin-bottom: 30px;
+}
+
+.cta-content .btn {
+    background-color: var(--white-text);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Footer Section */
+.footer-section {
+    background-color: var(--dark-bg);
+    color: var(--white-text);
+    padding: 50px 5%;
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-left .footer-logo {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.footer-left .footer-logo .footer-logo-image {
+    width: 20%;
+    height: 20%;
+    object-fit: contain;
+    display: block;
+}
+
+
+.social-icons a {
+    color: var(--white-text);
+    font-size: 1.5rem;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--primary-color);
+}
+
+.footer-right p {
+    margin-bottom: 5px;
+}
+
+.footer-right a {
+    color: var(--white-text);
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+    .who-we-are-section, .team-section {
+        flex-direction: column;
+    }
+    .founder-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .founder-info {
+        padding-left: 0;
+    }
+    .founder-info .quote-icon {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .nav-logo {
+        width: 120px;
+    }
+    .nav-links {
+        display: none; /* Hide for mobile for now, can be toggled with JS */
+    }
+    h2 {
+        font-size: 2rem;
+    }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+}

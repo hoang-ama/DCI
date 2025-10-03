@@ -1,4 +1,4 @@
-This is an excellent request. Drawing upon the visual structure of the provided template ("DCI Website.psf") and the strategic vision of DC Investment (DCI), I have created a comprehensive site map and detailed content for the primary pages of the website.
+The comprehensive site map and detailed content for the primary pages of the website.
 
 DCI is positioned as a **Leading High impact Startup Studio in Vietnam**, focusing on empowering the digital and sustainability transformation of the country.
 

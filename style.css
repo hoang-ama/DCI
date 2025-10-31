@@ -94,6 +94,46 @@ h2 {
     position: relative;
 }
 
+/* Sticky top header used on blog pages */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #f3f4f8; /* light gray background */
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+}
+.site-header .navbar {
+    position: relative;
+    padding: 16px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+}
+.site-header .nav-logo {
+    height: 56px;
+}
+.site-header .nav-links a { color: #1f2937; }
+
+/* News hero section that follows the sticky header */
+.news-hero {
+    background: linear-gradient(90deg, #3a2eb5, #4b2a8f); /* deep purple gradient */
+    color: var(--white-text);
+    padding: 60px 5% 40px;
+}
+.news-hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.news-hero h1 {
+    font-size: 3.25rem;
+    margin: 0 0 12px 0;
+    color: var(--white-text);
+}
+.news-hero p {
+    font-size: 1.125rem;
+    color: rgba(255,255,255,0.9);
+}
+
 .navbar {
     position: absolute;
     top: 0;
@@ -368,6 +408,69 @@ h2 {
     margin-top: 40px;
 }
 
+/* Home page: render the three most recent posts in a centered row.
+   Script appends a wrapper <div> inside #home-posts-container, so target
+   that wrapper's direct child to display the cards in a row. */
+#home-posts-container > div {
+    display: flex;
+    justify-content: center; /* center the row */
+    gap: 24px; /* space between cards */
+    flex-wrap: nowrap; /* keep them in a single row on wide screens */
+    margin-top: 40px;
+}
+
+/* Index page: make each generated post a stacked card (image above, content below)
+   without affecting the blog page's row layout. */
+#home-posts-container > div .post-row {
+    /* stack image above summary */
+    flex-direction: column;
+    align-items: stretch;
+    width: 360px;
+    max-width: 100%;
+    background: var(--white-text);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(16,24,40,0.06);
+    padding: 0;
+}
+
+#home-posts-container > div .post-image {
+    width: 100%;
+    height: 220px;
+    border-radius: 0; /* image fills the top edge */
+}
+
+#home-posts-container > div .post-summary {
+    padding: 22px;
+    text-align: left;
+}
+
+#home-posts-container > div .post-summary h3 {
+    font-size: 1.125rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+#home-posts-container > div .post-summary .post-meta {
+    margin-top: 12px;
+    color: #7a7a7a;
+}
+
+@media (max-width: 768px) {
+    /* On mobile stack the posts vertically and center them */
+    #home-posts-container > div {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* Allow blog cards to expand a bit on small screens while keeping padding */
+    .blog-card {
+        width: 100%;
+        max-width: 420px;
+    }
+}
+
 .blog-card {
     width: 350px;
     background-color: var(--white-text);
@@ -407,17 +510,229 @@ h2 {
     font-weight: 600;
 }
 
+
+/* Blog Section */
+
+blog-section h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.blog-section nav a {
+    color: #ffd700; /* Gold color for navigation link */
+    text-decoration: none;
+}
+
+
+/* Post Cards */
+.post {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post h3 {
+    color: #007bff;
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.post-meta {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 15px;
+    border-left: 3px solid #007bff;
+    padding-left: 10px;
+}
+
+.read-more-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Single Post View */
+.single-post {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.single-post h1 {
+    font-size: 2.5em;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+/* Blog page layout (centered with sidebar) */
+.blog-page {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 5%;
+    align-items: start;
+}
+
+.blog-main {
+    width: 100%;
+}
+
+.blog-sidebar .sidebar-card {
+    background: var(--white-text);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+}
+
+.sidebar-card h3 {
+    margin-bottom: 12px;
+    color: var(--primary-color);
+}
+
+.tags .tag {
+    display: inline-block;
+    background: #f2f5ff;
+    color: var(--primary-color);
+    padding: 6px 10px;
+    margin: 6px 6px 0 0;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+/* Post row: image left, summary right */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.post-row {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    background: var(--white-text);
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.post-image {
+    width: 320px;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.post-summary h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+}
+
+.post-summary .excerpt {
+    color: var(--grey-text);
+    margin-bottom: 12px;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Responsive: stack main + sidebar, and stack image above summary */
+@media (max-width: 900px) {
+    .blog-page {
+        grid-template-columns: 1fr;
+        padding: 20px 5%;
+    }
+    .blog-sidebar {
+        order: 2;
+    }
+    .blog-main {
+        order: 1;
+    }
+    .post-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .post-image {
+        width: 100%;
+        height: 220px;
+    }
+    .post-summary {
+        width: 100%;
+    }
+}
+
+
+/* Pagination Controls (NEW) */
+.pagination {
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+.pagination a {
+    color: #333;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    border-radius: 4px;
+}
+.pagination a.active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+.pagination a:hover:not(.active) {
+    background-color: #eee;
+}
+
+
+
 /* Call to Action Section */
 .cta-section {
     background: linear-gradient(90deg, var(--gradient-1), var(--gradient-5));
     color: var(--white-text);
     text-align: center;
-    padding: 80px 5%;
+    /* make the section span the full viewport width */
+    width: 100vw;
+    max-width: 100vw;
+    /* offset the section so it aligns with the viewport edges even when inside a centered container */
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 50px 0; /* vertical padding only; inner content padding handled below */
+    border: none;
+    border-radius: 0;
 }
+
+/* keep the CTA's inner content constrained and centered like other sections */
+.cta-section .cta-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+
 
 .cta-content h2 {
     color: var(--white-text);
     margin-bottom: 30px;
+}
+.cta-content p {
+    color: var(--white-text);
+    margin-bottom: 40px;
+    font-size: 1.2rem;
 }
 
 .cta-content .btn {

@@ -90,10 +90,62 @@
 .post-summary .excerpt { color: var(--grey-text); margin-bottom: 14px; font-size: 1rem; }
 .post-meta { font-size: 0.9rem; color: #777; }
 
+
+ /* Page-scoped styles for About page */
+.about-main {
+    max-width:1500px;
+    margin:40px auto;
+    padding:30px 5%;
+    }
+
+.about-main h1, .about-main h2 { text-align: left; }
+.about-main h2 { 
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 10px;
+}
+.about-main .btn { display: inline-block; margin-top: 30px; margin-bottom: 50px; }
+
 @media (max-width: 900px) {
   .site-header .navbar { max-width: 100%; padding: 12px 16px; }
   .news-hero-inner { padding-inline: 16px; }
   .blog-page { grid-template-columns: 1fr; padding: 20px 5%; }
   .post-row { flex-direction: column; align-items: center; text-align: center; }
   .post-image { width: 100%; height: 220px; }
+}
+
+/* Single post (blog-details) layout and alignment */
+.single-post {
+  max-width: 1100px; /* align with .news-hero-inner and navbar */
+  margin: 0px auto 48px; /* center the article inside the page */
+  padding: 70px 5%;
+  text-align: left; /* ensure paragraphs align left */
+  color: #222;
+}
+
+.single-post h1,
+.single-post h2,
+.single-post h3 {
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.single-post p { line-height: 1.7; color: var(--grey-text); }
+
+.single-post ul,
+.single-post ol {
+  margin-left: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.single-post blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 4px solid var(--primary-color);
+  background: rgba(242,245,255,0.25);
+}
+
+@media (max-width: 900px) {
+  .single-post { padding: 0 16px; }
 }

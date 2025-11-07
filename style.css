@@ -59,8 +59,15 @@ a {
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    border: none;
+    background-color: var(--white-text);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
     font-size: 1rem;
+}
+
+.btn:hover {
+    background-color: var(--primary-color);
+    color: var(--white-text);
 }
 
 .btn.nav-btn {
@@ -91,10 +98,10 @@ section {
 }
 
 h2 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: var(--primary-color);
 }
 
@@ -484,7 +491,7 @@ blog-section h2 {
 }
 
 .blog-section nav a {
-    color: #ffd700; /* Gold color for navigation link */
+    color: var(--primary-color); /* Gold color for navigation link */
     text-decoration: none;
 }
 
@@ -704,6 +711,11 @@ blog-section h2 {
     background-color: var(--white-text);
     color: var(--primary-color);
     font-weight: 600;
+    border: none;
+}
+.cta-content .btn:hover {
+    background: linear-gradient(90deg, var(--gradient-5), var(--gradient-1));
+    color: var(--white-text);
 }
 
 /* Footer Section */
@@ -790,7 +802,7 @@ blog-section h2 {
         display: none; /* Hide for mobile for now, can be toggled with JS */
     }
     h2 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
     .hero-content h1 {
         font-size: 2.5rem;

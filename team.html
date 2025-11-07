@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Our Team — DCI</title>
+    <link rel="icon" type="image/x-icon" href="./image/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="blog.css">
+    <style>
+    /* Team page scoped styles */
+    .news-hero { padding: 30px 5%; }
+    .news-hero-inner { max-width:1100px; margin:0 auto; }
+    .team-main { max-width:1100px; margin:40px auto; padding:0 5%; }
+    .team-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:24px; }
+    .team-card { background:#fff; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .22s ease, box-shadow .22s ease; box-shadow:0 8px 24px rgba(0,0,0,0.06); }
+    .team-card img { width:100%; height:320px; object-fit:cover; display:block; transform-origin:center; transition:transform .28s ease; }
+    .team-card:hover img { transform:scale(1.1); }
+    .team-card .card-body { padding:14px 16px; }
+    .team-card h3 { margin:0 0 6px 0; font-size:1.05rem; }
+    .team-card p { margin:0; color:var(--grey-text); }
+
+    /* Popup panel on the right */
+    .team-overlay { position:fixed; left:0; top:0; width:100%; height:100%; display:none; }
+    .team-overlay.show { display:block; }
+    .team-overlay .backdrop { position:absolute; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.35); }
+    .team-panel { position:fixed; right:0; top:0; width:50%; height:100%; background:#fff; box-shadow:-8px 0 40px rgba(0,0,0,0.12); transform:translateX(100%); transition:transform .28s ease; z-index:2000; overflow:auto; }
+    .team-overlay.show .team-panel { transform:translateX(0); }
+    .team-panel .panel-inner { padding:28px; max-width:520px; margin:0 auto; }
+    .team-panel img { width:100%; height:300px; object-fit:cover; border-radius:8px; }
+    .team-panel h2 { margin-top:18px; }
+    .team-panel p { line-height:1.6; color:var(--grey-text); }
+    .team-panel .links { margin-top:18px; }
+    .team-panel .close-btn { position:absolute; left:14px; top:14px; background:transparent;border:0;font-size:24px;cursor:pointer; }
+
+    @media (max-width:900px) {
+        .team-grid { grid-template-columns: repeat(1,1fr); }
+        .team-panel { width:100%; }
+    }
+    </style>
+</head>
+<body>
+
+    <header class="site-header site-header--large-logo">
+        <nav class="navbar">
+            <a href="index.html" class="logo" aria-label="DCI home">
+                <img src="./image/DCI_logo_color.svg" alt="DCI Logo" class="nav-logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#mission">Our Mission</a></li>
+                <li><a href="index.html#portfolio">Portfolio</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="blog.html">News</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="news-hero">
+        <div class="news-hero-inner">
+            <h1>Our Team</h1>
+            <p>Meet the founding and leadership team behind DCI.</p>
+        </div>
+    </section>
+
+    <main class="team-main">
+        <div class="team-grid" id="teamGrid">
+            <!-- Team cards populated by script -->
+        </div>
+    </main>
+
+    <!-- overlay + panel -->
+    <div class="team-overlay" id="teamOverlay" aria-hidden="true">
+        <div class="backdrop" id="teamBackdrop"></div>
+        <aside class="team-panel" role="dialog" aria-modal="true" id="teamPanel">
+            <button class="close-btn" id="teamClose">✕</button>
+            <div class="panel-inner" id="panelInner">
+                <!-- Filled dynamically -->
+            </div>
+        </aside>
+    </div>
+
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-logo">
+
+                <a href="#" target="_blank">
+                    <img src="./image/DC Logo_white.png" alt="DCI Logo" class="footer-logo-image">
+                </a>
+
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <p><strong>Contact:</strong></p>
+                <p>Email: <a href="mailto:contact@dci.com">contact@dci.com</a></p>
+                <p>Phone: +84934646882</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+// Sample team members - adjust images/titles/bios/linkedin as needed
+const teamMembers = [
+    { id: 'founder1', name: 'Nam Nguyen', title: 'Chairman & Co-Founder', image: './image/aNam1.jpg', bio: 'Nam leads strategy at DCI, with experience building shared mobility startups', linkedin: 'https://www.linkedin.com/in/nam-nguyen-2b48aa77/' },
+    { id: 'founder2', name: 'Minh Hoang', title: 'CEO & Co-Founder', image: './image/MinhHH.png', bio: 'Minh manages daily activites at DCI with experience building car-sharing startups across Vietnam and US.', linkedin: 'https://www.linkedin.com/in/hoanghongminh/' },
+    { id: 'founder2', name: 'Jen Vu Huong', title: 'CBO & Co-Founder', image: './image/JenVuhuong.webp', bio: 'Jen focuses on back of house and startup communities.', linkedin: 'https://www.linkedin.com/in/jenvuhuong/' },
+];
+
+const grid = document.getElementById('teamGrid');
+teamMembers.forEach(member => {
+    const card = document.createElement('div');
+    card.className = 'team-card';
+    card.setAttribute('data-id', member.id);
+    card.innerHTML = `
+        <img src="${member.image}" alt="${member.name}">
+        <div class="card-body">
+            <h3>${member.name}</h3>
+            <p>${member.title}</p>
+        </div>
+    `;
+    card.addEventListener('click', () => openPanel(member));
+    grid.appendChild(card);
+});
+
+const overlay = document.getElementById('teamOverlay');
+const backdrop = document.getElementById('teamBackdrop');
+const panel = document.getElementById('teamPanel');
+const panelInner = document.getElementById('panelInner');
+const closeBtn = document.getElementById('teamClose');
+
+function openPanel(member) {
+    panelInner.innerHTML = `
+        <img src="${member.image}" alt="${member.name}">
+        <h2>${member.name}</h2>
+        <h4 style="color:var(--primary-color);">${member.title}</h4>
+        <p>${member.bio}</p>
+        <div class="links"><a class="btn" href="${member.linkedin}" target="_blank">View on LinkedIn</a></div>
+    `;
+    overlay.classList.add('show');
+    overlay.setAttribute('aria-hidden','false');
+}
+
+function closePanel() {
+    overlay.classList.remove('show');
+    overlay.setAttribute('aria-hidden','true');
+}
+
+backdrop.addEventListener('click', closePanel);
+closeBtn.addEventListener('click', closePanel);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
+</script>
+</body>
+</html>

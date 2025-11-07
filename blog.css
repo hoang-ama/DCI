@@ -29,7 +29,7 @@
 
 /* News hero (full-bleed background, constrained inner column) */
 .news-hero {
-  background: linear-gradient(90deg, #3a2eb5, #4b2a8f);
+  background: linear-gradient(90deg, var(--gradient-1), var(--gradient-5));
   color: #fff;
   width: 100vw;
   max-width: 100vw;

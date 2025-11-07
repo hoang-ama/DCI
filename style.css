@@ -1,16 +1,17 @@
 :root {
-    --primary-color: #5d25e7;
-    --secondary-color: #f7f7f7;
+    --primary-color: #48A300;
+    --secondary-color: #F7F7F7;
     --text-color: #333;
-    --white-text: #fff;
+    --white-text: #FFF;
     --grey-text: #666;
     --dark-bg: #111;
-    --hover-color: #6a34ff;
-    --gradient-1: #5d25e7;
-    --gradient-2: #8030f2;
-    --gradient-3: #9e36fa;
-    --gradient-4: #c240ff;
-    --gradient-5: #d648ff;
+    --dark-footer: #363a3d;
+    --hover-color: #5CC700;
+    --gradient-1: #48A300;
+    --gradient-2: #3AB800;
+    --gradient-3: #28C700;
+    --gradient-4: #0BD600;
+    --gradient-5: #00DB0A;
 }
 
 * {
@@ -203,17 +204,21 @@ h2 {
 }
 
 .card-icon {
-    width: 60px;
-    height: 60px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     margin: 0 auto 20px;
-    background-size: cover;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: block;
 }
 
-.icon-1 { background-color: #5d25e7; }
-.icon-2 { background-color: #8030f2; }
-.icon-3 { background-color: #9e36fa; }
-.icon-4 { background-color: #c240ff; }
+/* Keep the brand gradient color but overlay an icon SVG centered */
+.icon-1 { background-image: url('./image/mission-1.svg'); }
+.icon-2 { background-image: url('./image/mission-2.svg'); }
+.icon-3 { background-image: url('./image/mission-3.svg'); }
+.icon-4 { background-image: url('./image/mission-4.svg'); }
 
 /* Who We Are Section */
 .who-we-are-section {
@@ -295,14 +300,13 @@ h2 {
 .founder-section {
     display: flex;
     justify-content: center;
-    background-color: var(--white-text);
 }
 
 .founder-card {
     display: flex;
     align-items: center;
-    gap: 40px;
-    padding: 50px;
+    gap: 50px;
+    padding: 10px;
     background-color: var(--secondary-color);
     border-radius: 20px;
     max-width: 900px;
@@ -310,8 +314,8 @@ h2 {
 
 .founder-image-container {
     flex-shrink: 0;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
@@ -339,7 +343,8 @@ h2 {
 }
 
 .founder-info p {
-    margin-bottom: 15px;
+    font-size: 1.2rem;
+    margin-bottom: 0px;
 }
 
 .founder-info strong {
@@ -378,7 +383,7 @@ h2 {
 
 .team-content p {
     font-size: 1.1rem;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     color: var(--grey-text);
 }
 
@@ -506,7 +511,7 @@ blog-section h2 {
 }
 
 .post h3 {
-    color: #007bff;
+    color: var(--primary-color);
     margin-top: 0;
     font-size: 1.5em;
 }
@@ -515,12 +520,12 @@ blog-section h2 {
     font-size: 0.9em;
     color: #777;
     margin-bottom: 15px;
-    border-left: 3px solid #007bff;
+    border-left: 3px solid var(--primary-color);
     padding-left: 10px;
 }
 
 .read-more-link a {
-    color: #007bff;
+    color: var(--primary-color);
     text-decoration: none;
     font-weight: bold;
 }
@@ -662,9 +667,9 @@ blog-section h2 {
     border-radius: 4px;
 }
 .pagination a.active {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
-    border: 1px solid #007bff;
+    border: 1px solid var(--primary-color);
 }
 .pagination a:hover:not(.active) {
     background-color: #eee;
@@ -720,7 +725,7 @@ blog-section h2 {
 
 /* Footer Section */
 .footer-section {
-    background-color: var(--dark-bg);
+    background-color: var(--dark-footer);
     color: var(--white-text);
     padding: 50px 5%;
     position: relative;
@@ -802,7 +807,7 @@ blog-section h2 {
         display: none; /* Hide for mobile for now, can be toggled with JS */
     }
     h2 {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
     .hero-content h1 {
         font-size: 2.5rem;

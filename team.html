@@ -26,12 +26,59 @@
     .team-overlay .backdrop { position:absolute; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.35); }
     .team-panel { position:fixed; right:0; top:0; width:50%; height:100%; background:#fff; box-shadow:-8px 0 40px rgba(0,0,0,0.12); transform:translateX(100%); transition:transform .28s ease; z-index:2000; overflow:auto; }
     .team-overlay.show .team-panel { transform:translateX(0); }
-    .team-panel .panel-inner { padding:28px; max-width:520px; margin:0 auto; }
-    .team-panel img { width:100%; height:300px; object-fit:cover; border-radius:8px; }
+
+    /* panel inner and top image */
+    .team-panel .panel-inner { padding:0; max-width:100%; margin:0; }
+    .team-panel .panel-top-img {
+        width:100%;
+        height:320px;
+        object-fit:cover;            /* cover fills the area, no empty space */
+        background:transparent;
+        padding:0;
+        box-sizing:border-box;
+        border-radius:12px 12px 0 0;
+        display:block;
+        margin:0;
+    }
+
+    /* body below the image: left meta column, right bio */
+    .team-panel .panel-body { display:flex; gap:32px; align-items:flex-start; padding:28px; }
+    .team-panel .panel-left { flex:0 0 36%; max-width:340px; }
+    .team-panel .panel-left h2 { font-size:2.1rem; margin:6px 0 8px; }
+    .team-panel .panel-left .panel-title { color:var(--primary-color); font-weight:700; margin-bottom:12px; }
+    .team-panel .panel-left .links { margin-top:14px; }
+    .team-panel .panel-right { flex:1; color:var(--grey-text); line-height:1.7; border-left:1px solid #f0f0f0; padding-left:28px; }
+    .team-panel .panel-right p { margin-top:0; }
+
+    /* responsive: stack on small screens */
+    @media (max-width:900px) {
+        .team-panel .panel-top-img { height:220px; }
+        .team-panel .panel-body { display:block; padding:20px; }
+        .team-panel .panel-right { border-left:none; padding-left:0; margin-top:18px; }
+    }
     .team-panel h2 { margin-top:18px; }
     .team-panel p { line-height:1.6; color:var(--grey-text); }
     .team-panel .links { margin-top:18px; }
-    .team-panel .close-btn { position:absolute; left:14px; top:14px; background:transparent;border:0;font-size:24px;cursor:pointer; }
+
+    /* Round (nut) close button in top-right of panel */
+    .team-panel .close-btn {
+        position:absolute;
+        right:14px;
+        top:14px;
+        width:44px;
+        height:44px;
+        border-radius:50%;
+        background:#0a0a0a;
+        color:#fff;
+        border:0;
+        font-size:20px;
+        line-height:1;
+        cursor:pointer;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 6px 18px rgba(0,0,0,0.15);
+    }
 
     @media (max-width:900px) {
         .team-grid { grid-template-columns: repeat(1,1fr); }
@@ -107,9 +154,9 @@
 <script>
 // Sample team members - adjust images/titles/bios/linkedin as needed
 const teamMembers = [
-    { id: 'founder1', name: 'Nam Nguyen', title: 'Chairman & Co-Founder', image: './image/aNam1.jpg', bio: 'Nam leads strategy at DCI, with experience building shared mobility startups', linkedin: 'https://www.linkedin.com/in/nam-nguyen-2b48aa77/' },
-    { id: 'founder2', name: 'Minh Hoang', title: 'CEO & Co-Founder', image: './image/MinhHH.png', bio: 'Minh manages daily activites at DCI with experience building car-sharing startups across Vietnam and US.', linkedin: 'https://www.linkedin.com/in/hoanghongminh/' },
-    { id: 'founder2', name: 'Jen Vu Huong', title: 'CBO & Co-Founder', image: './image/JenVuhuong.webp', bio: 'Jen focuses on back of house and startup communities.', linkedin: 'https://www.linkedin.com/in/jenvuhuong/' },
+    { id: 'founder1', name: 'Nam Nguyen', title: 'Founding Partner & Chairman', image: './image/aNam1.jpg', bgImage: './image/bg.NamNT.png', bio: 'Nam leads strategy at DCI, with experience building shared mobility startups', linkedin: 'https://www.linkedin.com/in/nam-nguyen-2b48aa77/' },
+    { id: 'founder2', name: 'Minh Hoang', title: 'Founding Partner & CEO', image: './image/H2M_crop.png', bgImage: './image/bg.MinhHH.png', bio: 'Minh manages daily activites at DCI with experience building car-sharing startups across Vietnam and US. As Co-founder of Chungxe, one of Vietnam largest vehicle-sharing platforms, Minh scaled operations to include thousands of cars and motorbikes and serve hundreds of thousands of users. With over a decade of experience as a tech entrepreneur, he pioneered mobility-sharing solutions across Southeast Asia, establishing partnerships with entities such as VinGroup electric vehicle rental subsidiary in both the US and Vietnam. Holding an engineer and MBA degree, Minh is deeply committed to sustainable transport and innovation, now expanding his influence through a new impact Startup Studio across Vietnam and North America.', linkedin: 'https://www.linkedin.com/in/hoanghongminh/' },
+    { id: 'founder3', name: 'Jen Vu Huong', title: 'Founding Partner & CBO', image: './image/JenVuhuong.webp', bgImage: './image/bg.JenVuHuong.png', bio: 'Jen focuses on back of house and startup communities.', linkedin: 'https://www.linkedin.com/in/jenvuhuong/' },
 ];
 
 const grid = document.getElementById('teamGrid');
@@ -134,13 +181,125 @@ const panel = document.getElementById('teamPanel');
 const panelInner = document.getElementById('panelInner');
 const closeBtn = document.getElementById('teamClose');
 
-function openPanel(member) {
+// --- Markdown-aware team panel loader --------------------------------------------------
+// small markdown -> HTML converter (supports headings, lists, links, bold, italic, paragraphs)
+function markdownToHTML(md) {
+    if (!md) return '';
+    // strip CRs, normalize
+    md = md.replace(/\r/g, '');
+    // basic link, bold, italic inline replacements
+    md = md.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    md = md.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    md = md.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+
+    // block-level: headings
+    md = md.replace(/^###### (.+)$/gm, '<h6>$1</h6>');
+    md = md.replace(/^##### (.+)$/gm, '<h5>$1</h5>');
+    md = md.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
+    md = md.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+    md = md.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+    md = md.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+    // unordered lists
+    md = md.replace(/^\s*[-*] (.+)$/gm, '<li>$1</li>');
+    md = md.replace(/(<li>[\s\S]+?<\/li>)/g, function(m) {
+        // wrap consecutive list items in <ul>
+        return m.replace(/(?:<\/li>\s*<li>)/g, '</li><li>');
+    });
+    // collapse adjacent <li> into ul blocks
+    md = md.replace(/(?:<\/li>\n?)(?=<li>)/g, '');
+    md = md.replace(/(?:^|\n)(<li>[\s\S]+?<\/li>)(?:\n|$)/g, function(_, items) {
+        return '<ul>' + items + '</ul>\n';
+    });
+
+    // blockquotes
+    md = md.replace(/^\> (.+)$/gm, '<blockquote>$1</blockquote>');
+
+    // paragraphs (lines separated by blank line)
+    const blocks = md.split(/\n{2,}/).map(block => block.trim()).filter(Boolean);
+    const html = blocks.map(block => {
+        if (/^<\/?(h\d|ul|li|blockquote|pre|img|a|p|strong|em)/i.test(block)) {
+            return block;
+        }
+        // if block already contains list or heading tags, return as-is
+        if (/^<h|^<ul|^<blockquote/.test(block)) return block;
+        // otherwise wrap in <p>
+        return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
+    }).join('\n\n');
+
+    return html;
+}
+
+// try to fetch markdown profile by member id or slug
+async function fetchMarkdownForMember(member) {
+    const candidates = [
+        `./team-profiles/${member.id}.md`,
+        `./team-profiles/${(member.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g,'')}.md`
+    ];
+    for (const url of candidates) {
+        try {
+            const res = await fetch(url);
+            if (!res.ok) continue;
+            const text = await res.text();
+            // support optional YAML frontmatter (---)
+            if (text.startsWith('---')) {
+                const parts = text.split('---');
+                // parts[1] = frontmatter, parts[2] = body (may include extra --- but common case)
+                const body = parts.slice(2).join('---').trim();
+                // simple frontmatter parse (key: value)
+                const fmLines = parts[1].split('\n').map(l => l.trim()).filter(Boolean);
+                const fm = {};
+                fmLines.forEach(line => {
+                    const idx = line.indexOf(':');
+                    if (idx > -1) {
+                        const k = line.slice(0, idx).trim();
+                        const v = line.slice(idx+1).trim();
+                        fm[k] = v.replace(/^['"]|['"]$/g,'');
+                    }
+                });
+                return { body, fm };
+            }
+            return { body: text, fm: null };
+        } catch (err) {
+            // continue to next candidate
+        }
+    }
+    return null;
+}
+
+async function openPanel(member) {
+    // prefer a horizontal bg image when available
+    const topImgSrc = member.bgImage || member.image;
+    // try fetch md
+    const mdRes = await fetchMarkdownForMember(member);
+    let contentHTML = '';
+    if (mdRes && mdRes.body) {
+        contentHTML = markdownToHTML(mdRes.body);
+        // if frontmatter contained alternate title/link, merge
+        if (mdRes.fm && mdRes.fm.linkedin) {
+            member.linkedin = mdRes.fm.linkedin;
+        }
+        if (mdRes.fm && mdRes.fm.title) {
+            member.title = mdRes.fm.title;
+        }
+    } else {
+        // fallback: simple bio + fields
+        contentHTML = `<h3>Overview</h3><p>${member.bio || ''}</p>`;
+    }
+
+    // build panel HTML: top image then two-column meta + markdown body (body displayed in right column)
     panelInner.innerHTML = `
-        <img src="${member.image}" alt="${member.name}">
-        <h2>${member.name}</h2>
-        <h4 style="color:var(--primary-color);">${member.title}</h4>
-        <p>${member.bio}</p>
-        <div class="links"><a class="btn" href="${member.linkedin}" target="_blank">View on LinkedIn</a></div>
+        <img class="panel-top-img" src="${topImgSrc}" alt="${member.name}">
+        <div class="panel-body">
+            <div class="panel-left" aria-hidden="false">
+                <h2>${member.name}</h2>
+                <div class="panel-title">${member.title || ''}</div>
+                <div class="links"><a class="btn" href="${member.linkedin || '#'}" target="_blank" rel="noopener noreferrer">View on LinkedIn</a></div>
+            </div>
+            <div class="panel-right">
+                ${contentHTML}
+            </div>
+        </div>
     `;
     overlay.classList.add('show');
     overlay.setAttribute('aria-hidden','false');

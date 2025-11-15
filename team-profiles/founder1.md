@@ -15,11 +15,11 @@ Nam has led product and operations for mobility platforms across Southeast Asia.
 - Oversaw operations, compliance, and customer experience.
 
 ## Selected Projects
-- Project A — brief description...
-- Project B — brief description...
+- Dichung — Leading Shared Mobility Marketplace
+- DC Express — Interprovince delivery ( ultrafast/same day/ next day)
 
 ## Education
-- B.Eng. — University X
+- Executive MBA at University of Hawaii at Manoa
 
 ## Contact
 - LinkedIn: [Nam Nguyen](https://www.linkedin.com/in/nam-nguyen-2b48aa77/)

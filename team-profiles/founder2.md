@@ -2,23 +2,23 @@
 title: Founding Partner & CEO
 linkedin: https://www.linkedin.com/in/hoanghongminh/
 ---
-# Minh Hoang
 
 Minh manages daily activities at DCI with experience building car-sharing startups across Vietnam and the US.
 
-## Overview
+### Overview
 As Co-founder of Chungxe, Minh scaled operations to thousands of vehicles and hundreds of thousands of users. He combines engineering and business experience to lead product-market fit and operational scaling.
 
-## Experience
+### Experience
 - Founder & CEO — Chungxe (vehicle-sharing)
 - Roles: Product, Ops, Strategy, Partnerships
 
-## Selected Achievements
-- Scaled to X users and Y vehicles.
-- Built partnerships with national EV programs.
+### Selected Achievements
+- Scaled to thousands of vehicles (car/ motorbike) and hundreds of thousands of users.
+- Built VinFast EV Rental Businesss in US and Vietnam market.
 
-## Education
-- B.Eng; MBA
+### Education
+- MBA at Solvay Business School 
+- B.E at Hanoi University of Scient and Technology
 
-## Contact
+### Contact
 - LinkedIn: [Minh Hoang](https://www.linkedin.com/in/hoanghongminh/)

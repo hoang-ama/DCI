@@ -12,8 +12,11 @@ Over the past 15+ years, she has coached leaders, trained founders, published au
 <br>
 🌱Let’s Rebirth Together
 Jen is looking forward to working with leaders, educators, founders, coaches, and innovators who are in the transition to:
+<br>
 🔹 Reclaim their voice
+<br>
 🔹 Realign their purpose
+<br>
 🔹 And rebirth their leadership
 <br>
 Let’s co-create your next chapter - with clarity, compassion, and soul ❤

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Our Team — DCI</title>
     <link rel="icon" type="image/x-icon" href="./image/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="blog.css">
     <style>
@@ -51,12 +52,12 @@
     .team-panel .panel-body { display:flex; gap:32px; align-items:flex-start; padding:28px; }
     .team-panel .panel-left { flex:0 0 30%; min-width:160px; text-align:left; }
     .team-panel .panel-left h2 { font-size:1.5rem; margin:0 0 8px 0; text-align:left; }
-    .team-panel .panel-left .panel-title { color:var(--accent-color-red); font-weight:700; margin-bottom:16px; text-align:left; }
+    .team-panel .panel-left .panel-title { color:#ED664D; font-weight:500; margin-bottom:16px; text-align:left; }
     /* Social icon links below title */
     .team-panel .panel-left .social-links { display:flex; gap:12px; margin-top:16px; }
-    .team-panel .panel-left .social-links a { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:#f0f0f0; color:var(--primary-color); text-decoration:none; transition:background .2s ease; }
-    .team-panel .panel-left .social-links a:hover { background:var(--primary-color); color:#fff; }
-    .team-panel .panel-left .social-links i { font-size:18px; }
+    .team-panel .panel-left .social-links a { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:#666; color:#FFF; text-decoration:none; transition:background .2s ease; }
+    .team-panel .panel-left .social-links a:hover { background:#ED664D; color:#fff; }
+    .team-panel .panel-left .social-links i { font-size:20px; }
 
     .team-panel .panel-right { flex:1; color:var(--grey-text); line-height:1.7; }
     .team-panel .panel-right p { margin-top:0; }
@@ -167,9 +168,9 @@
 <script>
 // Sample team members - adjust images/titles/bios/linkedin as needed
 const teamMembers = [
-    { id: 'founder1', name: 'Nam Nguyen', title: 'Founding Partner & Chairman', image: './image/aNam1.jpg', bgImage: './image/bg.NamNT.png', linkedin: 'https://www.linkedin.com/in/nam-nguyen-2b48aa77/', facebook: '#', email: 'namnt@dichung.vn' },
-    { id: 'founder2', name: 'Minh Hoang', title: 'Founding Partner & CEO', image: './image/H2M_crop.png', bgImage: './image/bg.MinhHH.png', linkedin: 'https://www.linkedin.com/in/hoanghongminh/', facebook: '#', email: 'minhhh@dcinvest.vn' },
-    { id: 'founder3', name: 'Jen Vu Huong', title: 'Founding Partner & CSO', image: './image/JenVuhuong.webp', bgImage: './image/bg.JenVuHuong.png', linkedin: 'https://www.linkedin.com/in/jenvuhuong/', facebook: '#', email: 'jenvuhuong@gmail.com' },
+    { id: 'founder1', name: 'Nam Nguyen', title: 'Founding Partner & Chairman', image: './image/aNam1.jpg', bgImage: './image/bg.NamNT.png', linkedin: 'https://www.linkedin.com/in/nam-nguyen-2b48aa77/', facebook: 'https://www.facebook.com/paradon', email: 'namnt@dichung.vn' },
+    { id: 'founder2', name: 'Minh Hoang', title: 'Founding Partner & CEO', image: './image/H2M_crop.png', bgImage: './image/bg.MinhHH.png', linkedin: 'https://www.linkedin.com/in/hoanghongminh/', facebook: 'https://www.facebook.com/Minh.Hoang.H', email: 'minhhh@dcinvest.vn' },
+    { id: 'founder3', name: 'Jen Vu Huong', title: 'Founding Partner & CSO', image: './image/JenVuhuong.webp', bgImage: './image/bg.JenVuHuong.png', linkedin: 'https://www.linkedin.com/in/jenvuhuong/', facebook: 'https://www.facebook.com/JenEmpowerLeaders', email: 'jenvuhuong@gmail.com' },
 ];
 
 const grid = document.getElementById('teamGrid');

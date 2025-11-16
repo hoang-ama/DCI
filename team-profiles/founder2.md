@@ -26,7 +26,3 @@ Passionate about sustainable transportation and innovation, Minh is currently le
 ### Education
 - MBA at Solvay Brussels School of Economics and Management
 - B.E, Electronics and Telecommunications at Hanoi University of Science and Technology
-
-### Contact
-- LinkedIn: [Minh Hoang](https://www.linkedin.com/in/hoanghongminh/)
-- Email: minhhh@dcinvest.vn

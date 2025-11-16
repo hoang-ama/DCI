@@ -6,19 +6,17 @@ linkedin: https://www.linkedin.com/in/jenvuhuong/
 Jen takes oversight responsibilities for leading the association’s administration, accomplishing the goals of the members and the board, and managing the philosophy of the organization.
 
 ### Overview
-“We were given birth once. And each day, we rebirth ourselves - to blossom from inside out.” - Jen VuHuong
 From a near-kidnapped silent countryside kid to a Chevening & Erasmus scholar, a global engineer, Jen has walked the path from impossible to inspired - and now, she dedicates her life to helping others unleash their full potential, lead with soul, speak their truth, and live their mission.
-
+<br>
 Over the past 15+ years, she has coached leaders, trained founders, published authors, and empowered changemakers from 50+ countries - guiding them through clarity, transformation, and authentic impact.
-
+<br>
 🌱Let’s Rebirth Together
 Jen is looking forward to working with leaders, educators, founders, coaches, and innovators who are in the transition to:
-🔹Reclaim their voice
-🔹Realign their purpose
-🔹And rebirth their leadership
-
-Let’s co-create your next chapter - with clarity, compassion, and soul.
-❤
+🔹 Reclaim their voice
+🔹 Realign their purpose
+🔹 And rebirth their leadership
+<br>
+Let’s co-create your next chapter - with clarity, compassion, and soul ❤
 
 ### Experience
 - Incubation Program Director at BK Holdings logo
@@ -38,8 +36,3 @@ Let’s co-create your next chapter - with clarity, compassion, and soul.
 - Master’s Degree , International management at University of the West of England
 - Master's degree, Business Innovation and Technology Management at Universitat de Girona
 - B.E, Electronics and Telecommunications at Hanoi University of Science and Technology
-
-### Contact
-- LinkedIn: [Jen Vu Huong](https://www.linkedin.com/in/jenvuhuong/)
-- Email: jenvuhuong@gmail.com
-- Web: https://jenvuhuong.com/coaching

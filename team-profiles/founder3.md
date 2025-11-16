@@ -1,17 +1,45 @@
 ---
-title: Founding Partner & CBO
+title: Founding Partner & Chief Staff Officer (CSO)
 linkedin: https://www.linkedin.com/in/jenvuhuong/
 ---
-# Jen Vu Huong
 
-Jen focuses on back-of-house operations and community building for startups.
+Jen takes oversight responsibilities for leading the association’s administration, accomplishing the goals of the members and the board, and managing the philosophy of the organization.
 
-## Overview
-Jen brings experience in operations, partnerships, and startup community programs.
+### Overview
+“We were given birth once. And each day, we rebirth ourselves - to blossom from inside out.” - Jen VuHuong
+From a near-kidnapped silent countryside kid to a Chevening & Erasmus scholar, a global engineer, Jen has walked the path from impossible to inspired - and now, she dedicates her life to helping others unleash their full potential, lead with soul, speak their truth, and live their mission.
 
-## Experience
-- Built community programs and startup services
-- Managed supply-side and operations teams
+Over the past 15+ years, she has coached leaders, trained founders, published authors, and empowered changemakers from 50+ countries - guiding them through clarity, transformation, and authentic impact.
 
-## Contact
+🌱Let’s Rebirth Together
+Jen is looking forward to working with leaders, educators, founders, coaches, and innovators who are in the transition to:
+🔹Reclaim their voice
+🔹Realign their purpose
+🔹And rebirth their leadership
+
+Let’s co-create your next chapter - with clarity, compassion, and soul.
+❤
+
+### Experience
+- Incubation Program Director at BK Holdings logo
+- Co-founder, Director at Lab2Market
+- Founder, Chairperson, Mentor and Coach at Hanoi Entrepreneur Community (HEC)
+- Founder, Trainer, Writer and Coach at J.E.N International People and Leadership Development Ltd.
+- Telecommunications Engineer and Staff trainer at Samsung Electronics
+
+
+### Selected Achievements
+- Built startup communities
+- Connect entrepreneurs, leaders & influencers around the world to build a supportive joyful insightful community
+- SIC - Sgrowth Innovation Coaching - Train coaches in innovation and entrepreneurship.
+
+### Education
+- Doctor of Philosophy (Education), Learning, Leadership, Innovation and Entrepreneurship at Tampere University
+- Master’s Degree , International management at University of the West of England
+- Master's degree, Business Innovation and Technology Management at Universitat de Girona
+- B.E, Electronics and Telecommunications at Hanoi University of Science and Technology
+
+### Contact
 - LinkedIn: [Jen Vu Huong](https://www.linkedin.com/in/jenvuhuong/)
+- Email: jenvuhuong@gmail.com
+- Web: https://jenvuhuong.com/coaching

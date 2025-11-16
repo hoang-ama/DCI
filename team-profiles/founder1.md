@@ -2,24 +2,31 @@
 title: Founding Partner & Chairman
 linkedin: https://www.linkedin.com/in/nam-nguyen-2b48aa77/
 ---
-# Nam Nguyen
 
-Nam leads strategy at DCI, with experience building shared mobility startups.
+Nam is a high-level executive who leads the board of directors, provides strategic oversight, and ensures the company's long-term vision is maintained, while also being an original founder of the organization. He acts as a liaison between the board and the executive team, overseeing the company's strategic direction, and managing relationships with key stakeholders like investors and shareholders.
 
-## Overview
-Nam has led product and operations for mobility platforms across Southeast Asia. He focuses on growth strategy, partnerships, and governance.
+### Overview
+Nam Nguyen, Founder and CEO of Dichung.vn since 2013, has led the shared mobility platform for over a decade, creating major impacts in Vietnam's transportation by reducing pollution and traffic via ride-sharing. Background in Finance and Investment, he also holds Exectutive MBA degree from University of Hawaii at Manoa.
 
-## Experience
-- Co-founded and scaled multiple mobility ventures.
-- Led partnerships with OEMs and fleet operators.
-- Oversaw operations, compliance, and customer experience.
+### Experience
+- Founder & CEO at Dichung 
+- Co-founder at Chungxe
+- Chairman at ITT Flygt
+- Investment Manager at IPA Investments
+- Project Sales Specialist at FPT Telecom
 
-## Selected Projects
+### Selected Projects
 - Dichung — Leading Shared Mobility Marketplace
-- DC Express — Interprovince delivery ( ultrafast/same day/ next day)
+- Dichungtaxi: Mobility Services (airport transfers, inter city transfers, hourly car rentals) in Vietnam
+- DC Express — Interprovince delivery (ultrafast/same day/ next day)
+- Chungxe - Self-drive vehicle rentals in Vietnam (motorbikes, cars)
 
-## Education
+### Education
 - Executive MBA at University of Hawaii at Manoa
+- Master's Degree, Banking and Finance at ESCP Business School
+- B.A at National Economic University of Vietnam
 
-## Contact
+
+### Contact
 - LinkedIn: [Nam Nguyen](https://www.linkedin.com/in/nam-nguyen-2b48aa77/)
+- Email: namnt@dichung.vn

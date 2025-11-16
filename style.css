@@ -1,6 +1,19 @@
 :root {
     --primary-color: #48A300;
+    --primary-color-light: #77A300;
+    --primary-color-dark:#00363D;
+
     --secondary-color: #F7F7F7;
+
+    --accent-color-red: #EF465E;
+    --accent-color-red-orange: #ED664D;
+    --accent-color-orange: #F99B2F;
+    --accent-color-yelow: #F0CA00;
+
+    --accent-color-cyan: #2CB8AF;
+    --accent-color-cyan-dark: #25AABB;
+
+
     --text-color: #333;
     --white-text: #FFF;
     --grey-text: #666;

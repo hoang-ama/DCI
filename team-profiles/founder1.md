@@ -17,7 +17,7 @@ Nam, Founder and CEO of Dichung.vn since 2013, has led the shared mobility platf
 
 ### Selected Projects
 - Dichung — Leading Shared Mobility Marketplace
-- Dichungtaxi: Mobility Services (airport transfers, inter city transfers, hourly car rentals) in Vietnam
+- DichungTaxi - Mobility Services (airport transfers, inter city transfers, hourly car rentals) in Vietnam
 - DC Express — Interprovince delivery (ultrafast/same day/ next day)
 - Chungxe - Self-drive vehicle rentals in Vietnam (motorbikes, cars)
 

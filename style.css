@@ -788,6 +788,90 @@ blog-section h2 {
     text-decoration: underline;
 }
 
+
+/* PAGE: ABOUT US */
+/* Infographic Vision & Mission Section */
+.vision-mission-infographic {
+    padding: 80px 5%;
+    text-align: center;
+}
+
+.vm-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.vm-graphic {
+    width: 380px;
+    max-width: 100%;
+}
+
+.vm-items {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 450px;
+}
+
+.vm-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+}
+
+.vm-icon {
+    font-size: 28px;
+    color: var(--primary-color);
+}
+
+
+
+/* Verticals Section */
+.about-verticals {
+    padding: 80px 5%;
+    text-align: center;
+}
+
+.vertical-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.vertical-item {
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+}
+
+.vertical-item:hover {
+    transform: translateY(-8px);
+}
+
+.v-icon {
+    font-size: 42px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.vertical-item h3 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+/* END PAGE: ABOUT US */
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .hero-content h1 {
@@ -849,4 +933,18 @@ blog-section h2 {
         text-align: center;
         gap: 30px;
     }
+/* PAGE: ABOUT US */
+     .vm-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .vm-item {
+        text-align: left;
+    }
+
+    .vertical-grid {
+        gap: 20px;
+    }
+
 }

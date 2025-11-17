@@ -15,14 +15,20 @@ Passionate about sustainable transportation and innovation, Minh is currently le
 ### Experience
 - Founder & CEO — Chungxe (vehicle-sharing platform)
 - CEO - GSM USA INC. (a company of the VinGroup, focusing on VinFast EV rental and sharing services in North America)
-- Director of International E-Learning Centre - Topica Edtech Group 
-- CEO - Telecommunication Network Solutions (Telenet)
-- Key Account Manager - Huawei Technologies Co., Ltd
+- Founder & CEO - Vshare (residential fleet-based car-sharing station chain)
+- Director of International E-Learning Centre - Topica Edtech Group
+- CEO - Telecommunication Network Solutions (aka Telenet, Telecom systems Integrator)
+- Key Account Manager - Huawei Technologies Co., Ltd (International Telecom Vendor)
+- Technical Manager - ZTE Corporation (Chinese Telecom Vendor)
 
 ### Selected Achievements
-- Scaled to biggest car-sharing platform in Vietnam with thousands of vehicles (car/ motorbike)
-- Build VinFast EV Rental Businesss in US and Vietnam market
+- Scaled to biggest car-sharing platform, Chungxe in Vietnam with thousands of vehicles (car & motorbike)
+- Build VinFast EV Rental Business (GSM & GF) of VinGroup in US and Vietnam market
+- AngelHack's First prize for Hackathon on Smart Transport held in Hanoi, 2018
+- Top 5 Smart Mobility applications at Oi Award, Hanoi Innovation Submit, 2019
 
 ### Education
 - MBA at Solvay Brussels School of Economics and Management
 - B.E, Electronics and Telecommunications at Hanoi University of Science and Technology
+- B.A of English Studies at Hanoi University
+- Graduated from Founder Institute (based in Silicon Valley)

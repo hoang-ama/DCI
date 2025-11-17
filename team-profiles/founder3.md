@@ -26,16 +26,16 @@ Let’s co-create your next chapter - with clarity, compassion, and soul ❤
 - Co-founder, Director at Lab2Market
 - Founder, Chairperson, Mentor and Coach at Hanoi Entrepreneur Community (HEC)
 - Founder, Trainer, Writer and Coach at J.E.N International People and Leadership Development Ltd.
-- Telecommunications Engineer and Staff trainer at Samsung Electronics
+- Telecommunications Engineer and Staff Trainer at Samsung Electronics
 
 
 ### Selected Achievements
 - Built startup communities
 - Connect entrepreneurs, leaders & influencers around the world to build a supportive joyful insightful community
-- SIC - Sgrowth Innovation Coaching - Train coaches in innovation and entrepreneurship.
+- SIC - Sgrowth Innovation Coaching - Train coaches in innovation and entrepreneurship
 
 ### Education
-- Doctor of Philosophy (Education), Learning, Leadership, Innovation and Entrepreneurship at Tampere University
-- Master’s Degree , International management at University of the West of England
-- Master's degree, Business Innovation and Technology Management at Universitat de Girona
+- PhD, Learning, Leadership, Innovation and Entrepreneurship at Tampere University
+- Master’s Degree, International management at University of the West of England
+- Master's Degree, Business Innovation and Technology Management at Universitat de Girona
 - B.E, Electronics and Telecommunications at Hanoi University of Science and Technology

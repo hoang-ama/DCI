@@ -6,7 +6,7 @@ linkedin: https://www.linkedin.com/in/hoanghongminh/
 Minh Hoang (Henry) is a top executive responsible for a company's overall vision, strategy, and success, overseeing all aspects of the business including operations, finances, and team leadership. He involves shaping company culture, driving strategic growth, managing key relationships with stakeholders, and ensuring long-term success.
 
 ### Overview
-Minh Hoang is a seasoned tech entrepreneur and founder who specializes in shared mobility platforms. Over the past 8 years, he has built and and expanded multiple ventures, including establishing one of Vietnam’s leading vehicle sharing platforms with thousands of vehicles (car/ motorbike) and hundreds of thousands of users. 
+Minh is a seasoned tech entrepreneur and founder who specializes in shared mobility platforms. Over the past 8 years, he has built and and expanded multiple ventures, including establishing one of Vietnam’s leading vehicle sharing platforms with thousands of vehicles (car/ motorbike) and hundreds of thousands of users. 
 
 With accumulated experience, Minh was trusted by the leader of Vingroup/Vinfast to be chosen as the project leader for deploying VinFast electric car rental business in the US and Vietnamese markets.
 
@@ -20,8 +20,8 @@ Passionate about sustainable transportation and innovation, Minh is currently le
 - Key Account Manager - Huawei Technologies Co., Ltd
 
 ### Selected Achievements
-- Scaled to thousands of vehicles (car/ motorbike) and hundreds of thousands of users.
-- Built VinFast EV Rental Businesss in US and Vietnam market.
+- Scaled to biggest car-sharing platform in Vietnam with thousands of vehicles (car/ motorbike)
+- Build VinFast EV Rental Businesss in US and Vietnam market
 
 ### Education
 - MBA at Solvay Brussels School of Economics and Management

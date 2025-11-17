@@ -3,10 +3,10 @@ title: Founding Partner & Chairman
 linkedin: https://www.linkedin.com/in/nam-nguyen-2b48aa77/
 ---
 
-Nam is a high-level executive who leads the board of directors, provides strategic oversight, and ensures the company's long-term vision is maintained, while also being an original founder of the organization. He acts as a liaison between the board and the executive team, overseeing the company's strategic direction, and managing relationships with key stakeholders like investors and shareholders.
+Nam Nguyen is a high-level executive who leads the board of directors, provides strategic oversight, and ensures the company's long-term vision is maintained, while also being an original founder of the organization. He acts as a liaison between the board and the executive team, overseeing the company's strategic direction, and managing relationships with key stakeholders like investors and shareholders.
 
 ### Overview
-Nam Nguyen, Founder and CEO of Dichung.vn since 2013, has led the shared mobility platform for over a decade, creating major impacts in Vietnam's transportation by reducing pollution and traffic via ride-sharing. Background in Finance and Investment, he also holds Exectutive MBA degree from University of Hawaii at Manoa.
+Nam, Founder and CEO of Dichung.vn since 2013, has led the shared mobility platform for over a decade, creating major impacts in Vietnam's transportation by reducing pollution and traffic via ride-sharing. Background in Finance and Investment, he also holds Exectutive MBA degree from University of Hawaii at Manoa.
 
 ### Experience
 - Founder & CEO at Dichung 
@@ -25,8 +25,3 @@ Nam Nguyen, Founder and CEO of Dichung.vn since 2013, has led the shared mobilit
 - Executive MBA at University of Hawaii at Manoa
 - Master's Degree, Banking and Finance at ESCP Business School
 - B.A at National Economic University of Vietnam
-
-
-### Contact
-- LinkedIn: [Nam Nguyen](https://www.linkedin.com/in/nam-nguyen-2b48aa77/)
-- Email: namnt@dichung.vn

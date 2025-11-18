@@ -828,18 +828,62 @@ blog-section h2 {
 }
 
 .vm-icon {
-    font-size: 28px;
-    color: var(--primary-color);
+    font-size: 42px;
+}
+
+.vm-icon-vision {
+    color: var(--accent-color-red-orange) !important;
 }
 
 
+.vm-icon-mission {
+    color: var(--primary-color-dark) !important;
+}
+
+.vm-icon-values {
+    color: var(--primary-color-light) !important;
+}
+
+
+/* --- Operational Funnel SECTION (Image Layout) --- */
+.operational-funnel {
+    padding: 60px 5%;
+    text-align: center;
+}
+
+.operational-funnel h2 {
+    color: var(--primary-color);
+}
+
+.operational-funnel p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: var(--grey-text);
+    text-align: left;
+}
+
+.funnel-image-container {
+    max-width: 1000px; /* Giới hạn kích thước tối đa của hình ảnh */
+    margin: 0px ; /* Căn giữa container */
+}
+
+.funnel-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
 
 /* Verticals Section */
 .about-verticals {
     padding: 80px 5%;
     text-align: center;
 }
-
+.about-verticals p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: var(--grey-text);
+    text-align: left;
+}
 .vertical-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -868,6 +912,72 @@ blog-section h2 {
 .vertical-item h3 {
     margin-bottom: 10px;
     color: var(--primary-color);
+}
+
+
+/* Three Core Activities */
+.three-activities {
+    padding: 80px 5%;
+    text-align: center;
+}
+
+.activity-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.activity-item {
+    background: #fff;
+    padding: 40px 25px;
+    border-radius: 18px;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.07);
+    transition: transform 0.3s ease;
+}
+
+.activity-item:hover {
+    transform: translateY(-10px);
+}
+
+.activity-icon {
+    font-size: 45px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.activity-item h3 {
+    margin-bottom: 12px;
+    color: var(--primary-color);
+}
+
+
+/* --- OUR UNIQUENESS SECTION (Image Layout) --- */
+.uniqueness-section {
+    padding: 60px 5%;
+    text-align: center;
+}
+
+.uniqueness-section h2 {
+    color: var(--primary-color);
+}
+
+.uniqueness-section p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: var(--grey-text);
+    text-align: left;
+}
+
+.uniqueness-image-container {
+    max-width: 800px; /* Giới hạn kích thước tối đa của hình ảnh */
+    margin: 0px auto; /* Căn giữa container */
+}
+
+.uniqueness-image {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* END PAGE: ABOUT US */
@@ -943,7 +1053,7 @@ blog-section h2 {
         text-align: left;
     }
 
-    .vertical-grid {
+    .vertical-grid .activity-grid {
         gap: 20px;
     }
 

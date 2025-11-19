@@ -1105,6 +1105,28 @@ blog-section h2 {
     display: block;
 }
 
+/* --- Cập nhật CSS cho Nút Hành động ở cuối trang --- */
+/* Đảm bảo container này nằm trong giới hạn max-width của các section */
+.page-footer-actions {
+    max-width: 1200px;
+    margin: 30px auto 50px; /* Thêm khoảng cách với footer */
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between; /* Đẩy hai nút ra hai góc */
+    align-items: center;
+}
+
+/* Tùy chỉnh màu sắc hoặc kiểu dáng cho nút Team để dễ phân biệt (Tùy chọn) */
+.btn.team-btn {
+    background-color: var(--primary-color);
+    color: var(--white-text);
+}
+
+.btn.team-btn:hover {
+    background-color: var(--hover-color); /* Sử dụng màu hover đã định nghĩa */
+    color: var(--white-text);
+}
+
 /* END PAGE: ABOUT US */
 
 
@@ -1261,6 +1283,13 @@ blog-section h2 {
 
     .vertical-grid .activity-grid {
         gap: 20px;
+    }
+
+    /* CTA Buttons at the end of About page  */
+    .page-footer-actions {
+        flex-direction: column; /* Xếp chồng trên màn hình nhỏ */
+        gap: 15px; /* Thêm khoảng cách giữa các nút */
+        align-items: center;
     }
 
 }

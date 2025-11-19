@@ -539,9 +539,34 @@ async function renderDetailPost() {
 }
 
 
-// --- 4. INITIALIZATION ---
+// --- 4. MOBILE MENU TOGGLE ---
+// Function to handle the mobile menu toggle functionality
 
-// Determine which function to run based on the current page's structure
+function initMobileMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Chỉ chạy nếu cả nút và menu đều tồn tại (giúp code không bị lỗi nếu header khác nhau)
+    if (menuToggle && navLinks) {
+        // Thêm nút toggle vào header (chỉ hiển thị trên mobile qua CSS)
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Đóng menu khi người dùng chọn một liên kết (chỉ áp dụng cho mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+    }
+}
+
+// --- 5. INITIALIZATION & COMMON UI FUNCTIONS ---
+
+// Determine which function(s) to run based on the current page's structure
 if (document.getElementById('single-post-container')) {
     // If element for detail page exists, run detail renderer
     renderDetailPost();
@@ -552,3 +577,6 @@ if (document.getElementById('single-post-container')) {
     // If element for home page exists, run home renderer
     renderHomePosts();
 }
+
+// **Chạy hàm khởi tạo Menu Mobile trên mọi trang**
+initMobileMenu();

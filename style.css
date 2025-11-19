@@ -132,6 +132,16 @@ h2 {
     color: var(--white-text);
     position: relative;
 }
+
+.menu-toggle {
+    display: none; /* Mặc định ẩn trên desktop */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--primary-color); /* Màu icon */
+    cursor: pointer;
+    padding: 5px;
+}
 /* Blog-specific header and hero styles moved to blog.css */
 /* See blog.css for .site-header, .site-header--large-logo, .news-hero, .news-hero-inner */
 
@@ -637,32 +647,6 @@ blog-section h2 {
     color: #777;
 }
 
-/* Responsive: stack main + sidebar, and stack image above summary */
-@media (max-width: 900px) {
-    .blog-page {
-        grid-template-columns: 1fr;
-        padding: 20px 5%;
-    }
-    .blog-sidebar {
-        order: 2;
-    }
-    .blog-main {
-        order: 1;
-    }
-    .post-row {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .post-image {
-        width: 100%;
-        height: 220px;
-    }
-    .post-summary {
-        width: 100%;
-    }
-}
-
 
 /* Pagination Controls (NEW) */
 .pagination {
@@ -788,6 +772,147 @@ blog-section h2 {
     text-decoration: underline;
 }
 
+
+/* Blog-specific styles (loaded only on blog.html and blog-details.html)
+   Purpose: keep blog layout, header and hero overrides isolated from global style.css
+*/
+
+/* Sticky header used on blog pages */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #f3f4f8;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+}
+.site-header .navbar {
+  position: relative;
+  padding: 14px 40px;
+  max-width: 1100px;
+  height: 70px; /* fixed height for consistent header size */
+  margin: 0 auto;
+  align-items: center;
+  display: flex;
+  gap: 20px;
+}
+.site-header .nav-links a { color: #1f2937; }
+
+/* support a modifier for pages that display a visually larger logo while keeping header height */
+.site-header--large-logo .nav-logo {
+  height: 96px; /* visually large but restrained to avoid huge header */
+}
+
+/* News hero (full-bleed background, constrained inner column) */
+.news-hero {
+  background: linear-gradient(90deg, var(--gradient-1), var(--gradient-5));
+  color: #fff;
+  width: 100vw;
+  max-width: 100vw;
+  /* height: 70px; /* fixed height for consistent header size */
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  box-sizing: border-box;
+  padding: 30px 5% 30px;
+}
+.news-hero-inner {
+  max-width: 1100px; /* align hero inner width with header/navbar */
+  margin: 0 auto;
+}
+
+/* Blog page layout */
+.blog-page {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 40px;
+  max-width: 1500px; /* increase to match header and hero */
+  margin: 0 auto;
+  padding: 40px 5%;
+  align-items: start;
+}
+.blog-main { width: 100%; }
+.blog-sidebar .sidebar-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  margin-bottom: 24px;
+}
+.sidebar-card h3 { margin-bottom: 12px; color: var(--primary-color); }
+.tags .tag {
+  display: inline-block;
+  background: #f2f5ff;
+  color: var(--primary-color);
+  padding: 6px 10px;
+  margin: 6px 6px 0 0;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* Post rows (blog list) */
+.posts-list { display: flex; flex-direction: column; gap: 28px; }
+.post-row {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  background: #fff;
+  padding: 22px; /* slightly more breathing room */
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+.post-image { width: 420px; height: 230px; background-size: cover; background-position: center; border-radius: 12px; flex-shrink: 0; }
+.post-summary h3 { margin: 0 0 12px 0; font-size: 1.4rem; line-height: 1.15; }
+.post-summary .excerpt { color: var(--grey-text); margin-bottom: 14px; font-size: 1rem; }
+.post-meta { font-size: 0.9rem; color: #777; }
+
+
+ /* Page-scoped styles for About page */
+.about-main {
+    max-width:1500px;
+    margin:40px auto;
+    padding:30px 5%;
+    }
+
+.about-main h1, .about-main h2 { text-align: left; }
+.about-main h2 { 
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin: 10px;
+}
+.about-main .btn { display: inline-block; margin-top: 30px; margin-bottom: 50px; }
+
+
+/* Single post (blog-details) layout and alignment */
+.single-post {
+  max-width: 1100px; /* align with .news-hero-inner and navbar */
+  margin: 0px auto 48px; /* center the article inside the page */
+  padding: 70px 5%;
+  text-align: left; /* ensure paragraphs align left */
+  color: #222;
+}
+
+.single-post h1,
+.single-post h2,
+.single-post h3 {
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.single-post p { line-height: 1.7; color: var(--grey-text); }
+
+.single-post ul,
+.single-post ol {
+  margin-left: 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.single-post blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 4px solid var(--primary-color);
+  background: rgba(242,245,255,0.25);
+}
 
 /* PAGE: ABOUT US */
 /* Infographic Vision & Mission Section */
@@ -982,7 +1107,11 @@ blog-section h2 {
 
 /* END PAGE: ABOUT US */
 
-/* Responsive Design */
+
+
+
+/* ----- RESPONSIVE DESIGN ----- */
+
 @media (max-width: 1024px) {
     .hero-content h1 {
         font-size: 3rem;
@@ -1002,27 +1131,103 @@ blog-section h2 {
     }
 }
 
-@media (max-width: 768px) {
-    .navbar {
+
+/* Responsive: stack main + sidebar, and stack image above summary */
+@media (max-width: 900px) {
+    .blog-page {
+        grid-template-columns: 1fr;
+        padding: 20px 5%;
+    }
+    .blog-sidebar {
+        order: 2;
+    }
+    .blog-main {
+        order: 1;
+    }
+    .post-row {
         flex-direction: column;
-        gap: 20px;
+        align-items: center;
+        text-align: center;
     }
+    .post-image {
+        width: 100%;
+        height: 220px;
+    }
+    .post-summary {
+        width: 100%;
+    }
+/* Blog page: Adjust site header and news hero padding */
+    .site-header .navbar { max-width: 100%; padding: 12px 16px; }
+    .news-hero-inner { padding-inline: 16px; }
+    .blog-page { grid-template-columns: 1fr; padding: 20px 5%; }
+    .post-row { flex-direction: column; align-items: center; text-align: center; }
+    .post-image { width: 100%; height: 220px; }
+    .single-post { padding: 0 16px; }
+
+}
+
+
+@media (max-width: 768px) {
+
+    /* Đảm bảo thanh nav luôn nằm ngang và trải đều */
+    .navbar {
+        flex-direction: row; /* LUÔN là một thanh ngang */
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+        padding: 15px 5%;
+    }
+
+/* Logo: Đảm bảo logo có kích thước phù hợp và nằm ở góc trái */
     .nav-logo {
-        width: 120px;
+        height: 40px; /* Kích thước nhỏ hơn trên mobile */
+        width: auto;
     }
+
+    /* Nav Links: Ẩn menu chính trên mobile */
     .nav-links {
         display: none; /* Hide for mobile for now, can be toggled with JS */
+        /* Nếu muốn menu dropdown, chúng ta sẽ dùng JS để thêm class 'active' */
+        position: absolute;
+        top: 70px; /* Xuống dưới header */
+        left: 0;
+        width: 100%;
+        background-color: var(--white-text);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        flex-direction: column;
+        gap: 0;
+        padding: 10px 0;
     }
-    h2 {
-        font-size: 2rem;
+
+    .nav-links.active {
+        display: flex; /* Hiện menu khi active */
     }
+
+    .nav-links li a {
+        color: var(--text-color);
+        padding: 10px 20px;
+        display: block;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Nút Toggle: Hiện nút menu trên mobile */
+    .menu-toggle {
+        display: block; 
+        color: var(--primary-color);
+    }
+
+    /* Đảm bảo các phần tử khác trong header bị ảnh hưởng bởi mobile layout được điều chỉnh */
     .hero-content h1 {
         font-size: 2.5rem;
     }
+
+    h2 {
+        font-size: 2rem;
+    }
+    
     .hero-content p {
         font-size: 1rem;
     }
-
 
         /* On mobile stack the posts vertically and center them */
     #home-posts-container > div {
@@ -1043,6 +1248,7 @@ blog-section h2 {
         text-align: center;
         gap: 30px;
     }
+
 /* PAGE: ABOUT US */
      .vm-container {
         flex-direction: column;

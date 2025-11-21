@@ -771,6 +771,15 @@ blog-section h2 {
     text-decoration: underline;
 }
 
+.footer-bottom {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--white-text);
+  padding-top: 10px;
+  /* border-top: 1px solid #4caf50; /* Màu xanh nhạt hơn */
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 /* Blog-specific styles (loaded only on blog.html and blog-details.html)
    Purpose: keep blog layout, header and hero overrides isolated from global style.css
@@ -1296,11 +1305,19 @@ blog-section h2 {
     }
 
 
-    .footer-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 30px;
-    }
+    /* Footer */
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+    align-items: left;
+    padding: 0px 30px;
+  }
+
+  .footer-bottom {
+    padding-top: 20px;
+    font-size: 0.8rem;
+  }
+
 
 /* PAGE: ABOUT US */
      .vm-container {
@@ -1315,6 +1332,33 @@ blog-section h2 {
     .vertical-grid .activity-grid {
         gap: 20px;
     }
+
+    /* Uniqueness Image: Tăng kích thước trên Mobile */
+    .uniqueness-image-container {
+        /* Ghi đè giới hạn max-width 800px của desktop */
+        max-width: 100%;
+        /* Tùy chọn: Đẩy hình ảnh ra sát mép hơn nếu cần, bằng cách giảm padding của section cha */
+        padding: 0 10px; /* Thêm padding nhẹ nếu cần */
+    }
+
+     .uniqueness-image {
+        width: 130%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        align-items: center;
+     }
+
+    /* Đảm bảo section cha không bị padding ngang quá lớn, giúp container image lớn hơn */
+    .uniqueness-section {
+        padding: 60px 0; /* Giảm padding ngang của section */
+    }
+
+    /* Đảm bảo các nội dung khác trong section vẫn có padding */
+    .uniqueness-section h2, .uniqueness-section p {
+        padding: 0 5%;
+    }
+
 
     /* CTA Buttons at the end of About page  */
     .page-footer-actions {

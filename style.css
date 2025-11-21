@@ -218,7 +218,6 @@ h2 {
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    width: 250px;
     transition: transform 0.3s ease;
 }
 
@@ -1251,7 +1250,39 @@ blog-section h2 {
         font-size: 1rem;
     }
 
-        /* On mobile stack the posts vertically and center them */
+    /* Mission Cards: Bật Vuốt Ngang */
+    .mission-cards-container {
+        /* Chuyển từ Grid sang Flexbox cho mobile */
+        display: flex;
+        overflow-x: auto; /* Cho phép cuộn ngang */
+        scroll-snap-type: x mandatory; /* (Tùy chọn) Giúp các thẻ căn vào vị trí khi vuốt */
+        -webkit-overflow-scrolling: touch; /* Tăng trải nghiệm cuộn trên iOS */
+        /* Đảm bảo container này có thể trải rộng hết chiều ngang viewport */
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
+        padding: 0 20px; /* Thêm padding ngang để thẻ không dính mép */
+        padding-bottom: 20px; /* Thêm padding dưới để có không gian cho thanh cuộn */
+        gap: 20px;
+    }
+
+    .mission-card {
+        /* Đặt kích thước cố định để buộc cuộn ngang */
+        flex: 0 0 75%; /* Chiếm 75% chiều rộng màn hình để người dùng biết còn thẻ khác */
+        width: 75%;
+        max-width: 300px; /* Giới hạn tối đa 300px nếu màn hình quá rộng */
+        scroll-snap-align: start; /* Căn thẻ khi cuộn */
+    }
+
+    /* Đảm bảo tiêu đề section nằm đúng chỗ, không bị ảnh hưởng bởi việc container tràn ra */
+    .mission-section {
+        padding: 80px 0; /* Bỏ padding ngang để container có thể tràn ra */
+    }
+    .mission-section h2, .mission-section p {
+        padding: 0 5%; /* Thêm padding ngang trở lại cho text */
+    }
+
+    /* Blog on the home page - posts vertically and center them */
     #home-posts-container > div {
         flex-direction: column;
         align-items: center;

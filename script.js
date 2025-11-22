@@ -1,5 +1,7 @@
 // script.js
 
+document.addEventListener('DOMContentLoaded', () => { // Start of DOMContentLoaded event listener
+
 // --- 1. POST DATA ---
 // Note: Dates are in YYYY-MM-DD format for accurate sorting.
 const postsData = [
@@ -580,3 +582,4 @@ if (document.getElementById('single-post-container')) {
 
 // **Chạy hàm khởi tạo Menu Mobile trên mọi trang**
 initMobileMenu();
+});

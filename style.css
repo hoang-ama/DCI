@@ -1199,6 +1199,7 @@ blog-section h2 {
 
 @media (max-width: 768px) {
 
+
     /* Đảm bảo thanh nav luôn nằm ngang và trải đều */
     .navbar {
         flex-direction: row; /* LUÔN là một thanh ngang */
@@ -1208,10 +1209,16 @@ blog-section h2 {
         padding: 15px 5%;
     }
 
+    .btn.nav-btn {
+    display: none; /* Ẩn nút CTA trên thanh nav trên mobile */
+    }
+
+
 /* Logo: Đảm bảo logo có kích thước phù hợp và nằm ở góc trái */
     .nav-logo {
-        height: 40px; /* Kích thước nhỏ hơn trên mobile */
+        height: 100px; /* Kích thước nhỏ hơn trên mobile */
         width: auto;
+        align-items: center; /* Giữ logo căn giữa theo chiều dọc trong header */
     }
 
     /* Nav Links: Ẩn menu chính trên mobile */
@@ -1244,6 +1251,14 @@ blog-section h2 {
     .menu-toggle {
         display: block; 
         color: var(--primary-color);
+    }
+
+        /* Header & Hero Section     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/image/homepage-bg.png');  */
+    .hero-section {
+        background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url("./image/DCI-Slider_Mobile.png") no-repeat center/cover;
+    }
+    .hero-content {
+        padding: 0 30px;
     }
 
     /* Đảm bảo các phần tử khác trong header bị ảnh hưởng bởi mobile layout được điều chỉnh */

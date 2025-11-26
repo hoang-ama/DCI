@@ -1,0 +1,275 @@
+    /* --- Team Page Styles : team-panel.css --- */
+    /* Ensure page-footer layout so footer stays at bottom on short pages */
+    body.page-with-footer { min-height: 100vh; display: flex; flex-direction: column; }
+    body.page-with-footer main { flex: 1 0 auto; }
+
+    .news-hero { padding: 30px 5%; }
+    .news-hero-inner { max-width:1100px; margin:0 auto; }
+    .team-main { max-width:1100px; margin:40px auto; padding:0 5%; }
+    .team-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:24px; }
+    .team-card { background:#fff; border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .22s ease, box-shadow .22s ease; box-shadow:0 8px 24px rgba(0,0,0,0.06); }
+    .team-card img { width:100%; height:320px; object-fit:cover; display:block; transform-origin:center; transition:transform .28s ease; }
+    .team-card:hover img { transform:scale(1.1); }
+    .team-card .card-body { padding:14px 16px; }
+    .team-card h3 { margin:0 0 6px 0; font-size:1.05rem; }
+    .team-card p { margin:0; color:var(--grey-text); }
+
+    /* Popup panel on the right */
+    /* overlay must sit above footer and cover entire viewport */
+    .team-overlay { position:fixed; left:0; top:0; width:100%; height:100vh; display:none; z-index:9999; }
+    .team-overlay.show { display:block; }
+    .team-overlay .backdrop { position:absolute; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.35); }
+    /* panel fills viewport height and scrolls internally */
+    .team-panel { position:fixed; right:0; top:0; width:50%; height:100vh; background:#fff; box-shadow:-8px 0 40px rgba(0,0,0,0.12); transform:translateX(100%); transition:transform .28s ease; z-index:10000; overflow:auto; }
+    .team-overlay.show .team-panel { transform:translateX(0); }
+    .team-panel h2 { margin-top:18px; }
+    .team-panel p { line-height:1.6; color:var(--grey-text); }
+    .team-panel .links { margin-top:18px; }
+    /* panel inner and top image */
+    .team-panel .panel-inner { padding:0; max-width:100%; margin:0; padding-bottom:72px; box-sizing:border-box; } /* bottom padding so content doesn't butt against edge */
+    .team-panel .panel-top-img {
+        width:100%;
+        height:320px;
+        object-fit:cover;            /* cover fills the area, no empty space */
+        background:transparent;
+        padding:0;
+        box-sizing:border-box;
+        border-radius:12px 12px 0 0;
+        display:block;
+        margin:0;
+    }
+
+
+    /* body below the image: left meta column (30%), right bio (70%) */
+    .team-panel .panel-body { display:flex; gap:32px; align-items:flex-start; padding:28px; }
+    .team-panel .panel-left { flex:0 0 30%; min-width:160px; text-align:left; }
+    .team-panel .panel-left h2 { font-size:1.5rem; margin:0 0 8px 0; text-align:left; }
+    .team-panel .panel-left .panel-title { color:#ED664D; font-weight:500; margin-bottom:16px; text-align:left; }
+    /* Social icon links below title */
+    .team-panel .panel-left .social-links { display:flex; gap:12px; margin-top:16px; }
+    .team-panel .panel-left .social-links a { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:#666; color:#FFF; text-decoration:none; transition:background .2s ease; }
+    .team-panel .panel-left .social-links a:hover { background:#ED664D; color:#fff; }
+    .team-panel .panel-left .social-links i { font-size:20px; }
+
+    .team-panel .panel-right { flex:1; color:var(--grey-text); line-height:1.7; }
+    .team-panel .panel-right p { margin-top:0; }
+
+
+    /* Round (nut) close button in top-right of panel */
+    .team-panel .close-btn {
+        position:absolute;
+        right:14px;
+        top:14px;
+        width:44px;
+        height:44px;
+        border-radius:50%;
+        background:#0a0a0a;
+        color:#fff;
+        border:0;
+        font-size:20px;
+        line-height:1;
+        cursor:pointer;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        box-shadow:0 6px 18px rgba(0,0,0,0.15);
+    }
+
+/* --- PAGE: COMPANIES --- */
+
+/* Hero Section for subpages */
+.hero-subpage {
+    background: linear-gradient(90deg, var(--primary-color), #4CAF50); /* Green Gradient */
+    color: var(--white-text);
+    padding: 100px 5% 60px; /* Adjust top padding to clear sticky header */
+    text-align: center;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw); /* Full width effect */
+}
+
+.hero-content-subpage h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: var(--white-text);
+}
+
+.hero-content-subpage p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+
+/* Companies Grid Section */
+.companies-grid-section {
+    background-color: var(--secondary-color); /* Light background */
+    padding: 60px 0;
+}
+
+.companies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Grid layout */
+    gap: 25px;
+    padding: 0 20px; 
+}
+
+.company-item {
+    background-color: var(--white-text);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 180px; 
+    text-align: center;
+}
+
+.company-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.company-item img {
+    max-width: 120px; 
+    height: auto;
+    margin-bottom: 15px;
+    filter: grayscale(0%); 
+}
+
+.company-item h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+
+
+
+/* --- START: Company Panel Styles (Copied/Adapted from Team Panel) --- */
+
+/* Base Overlay (Covers the whole screen) */
+.company-overlay { position:fixed; left:0; top:0; width:100%; height:100vh; display:none; z-index:9999; }
+.company-overlay.show { display:block; }
+.company-overlay .backdrop { position:absolute; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.35); }
+
+/* Panel (Slides in from the right) */
+.company-panel { position:fixed; right:0; top:0; width:55%; /* Slightly wider than team panel if needed */ height:100vh; background:#fff; box-shadow:-8px 0 40px rgba(0,0,0,0.12); transform:translateX(100%); transition:transform .28s ease; z-index:10000; overflow:auto; }
+.company-overlay.show .company-panel { transform:translateX(0); }
+
+/* Inner Content Structure */
+.company-panel .panel-inner { padding:0; max-width:100%; margin:0; padding-bottom:72px; box-sizing:border-box; }
+.company-panel .close-btn { 
+    /* Close button is already styled by team-panel CSS */
+    z-index: 10001; 
+}
+
+/* Header Section: Logo (Left) and Hero Image (Right) */
+.company-panel .panel-header {
+    display: flex;
+    align-items: stretch; /* Stretch to fill height */
+    height: 220px; /* Fixed height for the header image/logo */
+    background: var(--secondary-color);
+}
+
+.company-panel .header-logo-area {
+    flex: 0 0 35%; /* Logo takes 35% of header width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.company-panel .header-logo-area img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.company-panel .header-hero-img {
+    flex: 1; /* Image takes the rest (65%) */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Use data-img in JS to set background-image */
+}
+
+/* Body Section: Left (Meta) and Right (Markdown Content) */
+.company-panel .panel-body { display:flex; gap:32px; align-items:flex-start; padding:28px; }
+.company-panel .panel-left { flex:0 0 30%; min-width:180px; text-align:left; }
+.company-panel .panel-right { flex:1; color:var(--grey-text); line-height:1.7; }
+
+/* Left Column Styling (Meta Data) */
+.company-panel .company-name { font-size:1.8rem; margin:0 0 12px 0; text-align:left; color:var(--primary-color-dark); }
+
+.company-panel .company-meta-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+.company-panel .company-meta-item:last-child { border-bottom: none; }
+
+.company-panel .meta-label { font-weight: 500; color: var(--grey-text); display: block; margin-bottom: 3px; font-size: 0.9rem; }
+.company-panel .meta-value { font-weight: 600; color: var(--text-color); font-size: 1rem; }
+.company-panel .meta-value a { color: var(--accent-color-red-orange); }
+
+/* Right Column Styling (Markdown Content) - Reusing general styles */
+.company-panel .panel-right h3 { color: var(--primary-color); margin-top: 15px; font-size: 1.3rem; }
+.company-panel .panel-right p { margin-bottom: 15px; }
+
+/* --- END: Company Panel Styles --- */
+
+@media (max-width: 1024px) {
+ /* Companies page */
+    .company-panel { width: 65%; } /* Widen panel on medium screens */
+}
+
+    /* responsive: stack on small screens */
+@media (max-width:900px) {
+        .team-grid { grid-template-columns: repeat(1,1fr); }
+        .team-panel { width:100%; }
+        .team-panel .panel-top-img { height:220px; }
+        .team-panel .panel-body { display:block; padding:20px; }
+        .team-panel .panel-left { flex:1; margin-bottom:20px; text-align:left; }
+        .team-panel .panel-left .social-links { margin-top:12px; }
+        .team-panel .panel-right { margin-top:0; }
+
+
+            /* Companies page */
+        .company-panel { width: 100%; } /* Full width on mobile */
+        .company-panel .panel-body { display:block; padding:20px; }
+        .company-panel .panel-left { flex:1; margin-bottom:20px; text-align:left; }
+        .company-panel .panel-right { margin-top:0; }
+        
+        .company-panel .panel-header {
+            height: 180px; /* Shorter header on mobile */
+        }
+        .company-panel .header-logo-area {
+            flex: 0 0 50%; /* Logo takes half on mobile */
+        }
+        .company-panel .header-hero-img {
+            flex: 1; /* Image takes other half */
+        }
+}
+
+
+
+
+   @media (max-width: 768px) {
+
+    /* Companies Panel page */
+    .company-panel .panel-header {
+        display: block; /* Stack logo area above image */
+        height: auto;
+    }
+    .company-panel .header-logo-area {
+        flex: 1;
+        padding: 15px;
+    }
+    .company-panel .header-hero-img {
+        height: 120px;
+    }
+   }
+   

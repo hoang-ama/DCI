@@ -1138,6 +1138,51 @@ blog-section h2 {
 /* END PAGE: ABOUT US */
 
 
+.close-button {
+    color: var(--text-color);
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.popup-logo {
+    max-width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.popup-name {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.popup-description {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.popup-links .btn {
+    margin: 0 10px;
+    background-color: var(--primary-color);
+    color: var(--white-text);
+    border: none;
+}
+.popup-links .btn:hover {
+    background-color: var(--hover-color);
+}
 
 
 /* ----- RESPONSIVE DESIGN ----- */
@@ -1380,6 +1425,28 @@ blog-section h2 {
         flex-direction: column; /* Xếp chồng trên màn hình nhỏ */
         gap: 15px; /* Thêm khoảng cách giữa các nút */
         align-items: center;
+    }
+
+    /* Responsive for Companies Page */
+    .hero-content-subpage h1 {
+        font-size: 2.2rem;
+    }
+    .hero-content-subpage p {
+        font-size: 1rem;
+    }
+    .companies-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
+        gap: 15px;
+    }
+    .company-item {
+        padding: 15px;
+        min-height: 150px;
+    }
+    .company-item img {
+        max-width: 90px;
+    }
+    .company-item h4 {
+        font-size: 1rem;
     }
 
 }

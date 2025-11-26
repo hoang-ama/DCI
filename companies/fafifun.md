@@ -5,7 +5,7 @@ FaFiFun is a financial training program for Vietnamese Kids. With the mission of
 Leading financial training program for Vietnamese Kids
 ### Signature products  
 K12 financial training program
-### Customer segment: 
+### Customer segment
 B2B, B2C 
 
 

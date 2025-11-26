@@ -318,6 +318,15 @@ h2 {
     transform: scale(1.03);
 }
 
+.portfolio-section-actions {
+    display:flex;
+    justify-content:center;
+    margin-top: 32px; /* ensure at least 30px spacing from the grid */
+}
+.portfolio-section-actions .btn {
+    margin-top: 0;
+}
+
 /* Founder Section */
 .founder-section {
     display: flex;
@@ -1122,6 +1131,11 @@ blog-section h2 {
     display: flex;
     justify-content: space-between; /* Đẩy hai nút ra hai góc */
     align-items: center;
+}
+
+/* modifier: left aligned actions */
+.page-footer-actions--left {
+    justify-content: flex-start;
 }
 
 /* Tùy chỉnh màu sắc hoặc kiểu dáng cho nút Team để dễ phân biệt (Tùy chọn) */

@@ -9,7 +9,7 @@ Ridesharing, Carpooling
 Bus, private car, taxi
 ### Business Line
 Transfer, delivery, travel
-### Customer segment: 
+### Customer segment 
 Local, traveller, business
 
 

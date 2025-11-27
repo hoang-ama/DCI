@@ -194,7 +194,7 @@ const companiesData = [
         description: 'TotMart is the leading online marketplace for sustainability products in Vietnam.'
     },
     {
-        id: 'oncar', name: 'OnCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/onCar_logo.png', vertical: 'Transport Tech', stage: 'Proof-of-Concept', year: 2025,
+        id: 'oncar', name: 'OnCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/Oncar_hero.jpg', vertical: 'Transport Tech', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://oncar.vn', email: 'partner@oncar.vn',
         description: 'Oncar is the car charter transport tech company specializing in full-trip car rental in Vietnam.'
     },

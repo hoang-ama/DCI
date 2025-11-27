@@ -99,56 +99,6 @@
     opacity: 0.9;
 }
 
-
-/* Companies Grid Section */
-.companies-grid-section {
-    background-color: var(--secondary-color); /* Light background */
-    padding: 60px 0;
-}
-
-.companies-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Grid layout */
-    gap: 25px;
-    padding: 0 20px; 
-}
-
-.company-item {
-    background-color: var(--white-text);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 25px;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    min-height: 180px; 
-    text-align: center;
-}
-
-.company-item:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-}
-
-.company-item img {
-    max-width: 120px; 
-    height: auto;
-    margin-bottom: 15px;
-    filter: grayscale(0%); 
-}
-
-.company-item h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-
-
-
 /* --- START: Company Panel Styles (Copied/Adapted from Team Panel) --- */
 
 /* Base Overlay (Covers the whole screen) */
@@ -247,7 +197,7 @@
             height: 180px; /* Shorter header on mobile */
         }
         .company-panel .header-logo-area {
-            flex: 0 0 50%; /* Logo takes half on mobile */
+            flex: 0 0 30%; /* Logo takes half on mobile */
         }
         .company-panel .header-hero-img {
             flex: 1; /* Image takes other half */
@@ -258,6 +208,7 @@
 
 
    @media (max-width: 768px) {
+    
 
     /* Companies Panel page */
     .company-panel .panel-header {
@@ -268,8 +219,29 @@
         flex: 1;
         padding: 15px;
     }
-    .company-panel .header-hero-img {
-        height: 120px;
+
+    /* NEW RULE: Target the logo image inside the header area */
+    .company-panel .header-logo-area img {
+        max-height: 100px; /* Giới hạn chiều cao logo tối đa 100px */
+        width: auto;
     }
+    /* END NEW RULE */
+    
+    .company-panel .header-hero-img {
+        height: 200px;
+    }
+
+
+    
+    /* Bố cục nội dung chính */
+    .company-panel .panel-body { 
+        padding: 20px; 
+        display: block; /* Stack left and right columns */
+    }
+    .company-panel .panel-left { 
+        margin-bottom: 20px; 
+        min-width: unset; 
+    }
+
    }
    

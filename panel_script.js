@@ -194,7 +194,7 @@ const companiesData = [
         description: 'TotMart is the leading online marketplace for sustainability products in Vietnam.'
     },
     {
-        id: 'oncar', name: 'OnCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/Oncar_hero.jpg', vertical: 'Transport Tech', stage: 'Proof-of-Concept', year: 2025,
+        id: 'oncar', name: 'OnCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/onCar_hero.png', vertical: 'Transport Tech', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://oncar.vn', email: 'partner@oncar.vn',
         description: 'Oncar is the car charter transport tech company specializing in full-trip car rental in Vietnam.'
     },
@@ -204,7 +204,7 @@ const companiesData = [
         description: 'Vshare a residential car-sharing service.'
     },
     {
-        id: 'carx', name: 'CarX', logo: './image/logos/CarX_logo.png', heroImage: './image/logos/CarX_hero.jpg', vertical: 'Automotive Tech', stage: 'Proof-of-Concept', year: 2020,
+        id: 'carx', name: 'CarX', logo: './image/logos/CarX_logo.png', heroImage: './image/logos/CarX_hero.png', vertical: 'Automotive Tech', stage: 'Proof-of-Concept', year: 2020,
         website: 'https://carx.vn', email: 'contact@carx.vn',
         description: 'CarX offers an innovative online auto-retail experience, simplifying the process of buying and selling used cars with transparency and trust.'
     },
@@ -215,12 +215,12 @@ const companiesData = [
     },
     {
         id: 'dcexpress', name: 'DC Express', logo: './image/logos/DCExpress_trans.png', heroImage: './image/logos/DCExpress_hero.png', vertical: 'Logistics', stage: 'Growth', year: 2020,
-        website: 'https://dichungexpress.com/', email: 'contact@dichungexpress.com',
+        website: 'https://dichungexpress.com', email: 'contact@dichungexpress.com',
         description: 'Interprovince delivery (ultrafast/same day/ next day).'
     },
     {
-        id: 'dctransport', name: 'DC Transport', logo: './image/logos/DCTransport_trans.png', heroImage: './image/logos/DCTransport_hero.jpg', vertical: 'Transport Tech', stage: 'Transition', year: 2019,
-        website: 'https://dichungtransport.com/', email: 'contact@dichungtransport.com',
+        id: 'dctransport', name: 'DC Transport', logo: './image/logos/DCTransport_trans.png', heroImage: './image/logos/DCTransport_hero.png', vertical: 'Transport Tech', stage: 'Transition', year: 2019,
+        website: 'https://dichungtransport.com', email: 'contact@dichungtransport.com',
         description: 'DiChung Transport focuses on exploiting wasted means of transportation including transporting people and transporting goods.'
     },
     {
@@ -239,13 +239,13 @@ const companiesData = [
         description: 'NextU is the co-living platform designed for young professionals seeking community, convenience, and sustainability in urban living.'
     },
     {
-        id: 'youthplus', name: 'Youth+', logo: './image/logos/Youthplus_logo.png', heroImage: './image/logos/Youthplus_hero.jpeg', vertical: 'Community', stage: 'Seed', year: 2018,
-        website: 'https://youth.com.vn/', email: 'contact@youth.com.vn',
+        id: 'youthplus', name: 'Youth+', logo: './image/logos/Youthplus_logo.png', heroImage: './image/logos/Youthplus_hero.png', vertical: 'Community', stage: 'Seed', year: 2018,
+        website: 'https://youth.com.vn', email: 'contact@youth.com.vn',
         description: 'Youth+ is a community-driven initiative empowering young individuals through educational programs, mentorship, and social impact projects.'
     },
     {
-        id: 'fafifun', name: 'FaFiFun', logo: './image/logos/FFF_logo.webp', heroImage: './image/logos/FFF_hero.jpeg', vertical: 'Edu Tech', stage: 'Growth', year: 2021,
-        website: 'https://fafifun.edu.vn/', email: 'chamsockhachhang@mdj.vn',
+        id: 'fafifun', name: 'FaFiFun', logo: './image/logos/FFF_logo.webp', heroImage: './image/logos/FFF_hero.png', vertical: 'Edu Tech', stage: 'Growth', year: 2021,
+        website: 'https://fafifun.edu.vn', email: 'chamsockhachhang@mdj.vn',
         description: 'FaFiFun is a financial training program for Vietnamese Kids.'
     },
 ];

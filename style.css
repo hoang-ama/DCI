@@ -279,8 +279,9 @@ h2 {
 .portfolio-grid {
     display: grid;
     /* FIX: Sets exactly 5 columns, forcing each cell to take up more space on desktop */
-    grid-template-columns: repeat(5, 1fr); 
-    gap: 24px;
+    /* grid-template-columns: repeat(5, 1fr); */ 
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Grid layout */
+    gap: 25px;
     align-items: center;
     margin-top: 40px;
 }
@@ -1201,6 +1202,57 @@ blog-section h2 {
 }
 
 
+
+/* ----- COMPANIES PAGE ----- */
+/* Companies Grid Section */
+.companies-grid-section {
+    background-color: var(--secondary-color); /* Light background */
+    padding: 60px 0;
+}
+
+.companies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Grid layout */
+    gap: 25px;
+    padding: 0 20px; 
+}
+
+
+.company-item {
+    background-color: var(--white-text);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 180px; 
+    text-align: center;
+}
+
+.company-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.company-item img {
+    max-width: 120px; 
+    height: auto;
+    margin-bottom: 15px;
+    filter: grayscale(0%); 
+}
+
+.company-item h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+
+
 /* ----- RESPONSIVE DESIGN ----- */
 
 @media (max-width: 1024px) {
@@ -1461,7 +1513,7 @@ blog-section h2 {
     .hero-content-subpage p {
         font-size: 1rem;
     }
-    .companies-grid {
+    .companies-grid, .portfolio-grid {
         grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
         gap: 15px;
     }

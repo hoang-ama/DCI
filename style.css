@@ -1446,6 +1446,12 @@ blog-section h2 {
         align-items: center;
     }
 
+    /* Ensure left-aligned variant centers on mobile so single buttons appear centered */
+    .page-footer-actions.page-footer-actions--left {
+        justify-content: center;
+        width: 100%;
+    }
+
     /* Responsive for Companies Page */
     .hero-content-subpage h1 {
         font-size: 2.2rem;

@@ -234,6 +234,11 @@ const companiesData = [
         description: 'DiChung Travel offers personalized and group travel services, focusing on sustainable tourism and unique cultural experiences.'
     },
     {
+        id: 'nextu', name: 'NextU', logo: './image/logos/NextU_logo.png', heroImage: './image/logos/NextU_hero.png', vertical: 'Sustainable Living', stage: 'Proof-of-Concept', year: 2025,
+        website: 'https://nextu.vn', email: 'hello@nextliving.com',
+        description: 'NextU is the co-living platform designed for young professionals seeking community, convenience, and sustainability in urban living.'
+    },
+    {
         id: 'youthplus', name: 'Youth+', logo: './image/logos/Youthplus_logo.png', heroImage: './image/logos/Youthplus_hero.jpeg', vertical: 'Community', stage: 'Seed', year: 2018,
         website: 'https://youth.com.vn/', email: 'contact@youth.com.vn',
         description: 'Youth+ is a community-driven initiative empowering young individuals through educational programs, mentorship, and social impact projects.'

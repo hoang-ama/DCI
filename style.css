@@ -271,13 +271,15 @@ h2 {
 }
 
 /* Portfolio Section */
+
 .portfolio-section {
     text-align: center;
 }
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    /* FIX: Sets exactly 5 columns, forcing each cell to take up more space on desktop */
+    grid-template-columns: repeat(5, 1fr); 
     gap: 24px;
     align-items: center;
     margin-top: 40px;

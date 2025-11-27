@@ -1268,6 +1268,11 @@ blog-section h2 {
         padding: 15px 5%;
     }
 
+    /* Center the logo in the hero header on small screens (homepage) */
+    .hero-section .navbar {
+        justify-content: center; /* logo centered horizontally */
+    }
+
     .btn.nav-btn {
     display: none; /* Ẩn nút CTA trên thanh nav trên mobile */
     }

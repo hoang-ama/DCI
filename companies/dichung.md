@@ -11,5 +11,3 @@ Bus, private car, taxi
 Transfer, delivery, travel
 ### Customer segment 
 Local, traveller, business
-
-

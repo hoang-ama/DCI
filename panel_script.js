@@ -3,24 +3,27 @@
 const teamMembers = [
     { id: 'founder1', name: 'Nam Nguyen', title: 'Founding Partner & Chairman', image: './image/NamNT.jpg', bgImage: './image/bg.NamNT.png', linkedin: 'https://www.linkedin.com/in/nam-nguyen-2b48aa77/', facebook: 'https://www.facebook.com/paradon', email: 'namnt@dichung.vn' },
     { id: 'founder2', name: 'Minh Hoang', title: 'Founding Partner & CEO', image: './image/MinhHH.png', bgImage: './image/bg.MinhHH.png', linkedin: 'https://www.linkedin.com/in/hoanghongminh/', facebook: 'https://www.facebook.com/Minh.Hoang.H', email: 'minhhh@dcinvest.vn' },
-    { id: 'founder3', name: 'Jen Vu Huong', title: 'Founding Partner & CSO', image: './image/JenVH.webp', bgImage: './image/bg.JenVuHuong.png', linkedin: 'https://www.linkedin.com/in/jenvuhuong/', facebook: 'https://www.facebook.com/JenEmpowerLeaders', email: 'jenvuhuong@gmail.com' },
+    { id: 'founder3', name: 'Jen Vu Huong', title: 'Founding Partner & CSO', image: './image/JenVH.webp', bgImage: './image/bg.JenVH.png', linkedin: 'https://www.linkedin.com/in/jenvuhuong/', facebook: 'https://www.facebook.com/JenEmpowerLeaders', email: 'jenvuhuong@gmail.com' },
 ];
 
 const grid = document.getElementById('teamGrid');
-teamMembers.forEach(member => {
-    const card = document.createElement('div');
-    card.className = 'team-card';
-    card.setAttribute('data-id', member.id);
-    card.innerHTML = `
-        <img src="${member.image}" alt="${member.name}">
-        <div class="card-body">
-            <h3>${member.name}</h3>
-            <p>${member.title}</p>
-        </div>
-    `;
-    card.addEventListener('click', () => openPanel(member));
-    grid.appendChild(card);
-});
+// Only populate the team grid on pages that include #teamGrid
+if (grid) {
+    teamMembers.forEach(member => {
+        const card = document.createElement('div');
+        card.className = 'team-card';
+        card.setAttribute('data-id', member.id);
+        card.innerHTML = `
+            <img src="${member.image}" alt="${member.name}">
+            <div class="card-body">
+                <h3>${member.name}</h3>
+                <p>${member.title}</p>
+            </div>
+        `;
+        card.addEventListener('click', () => openPanel(member));
+        grid.appendChild(card);
+    });
+}
 
 const overlay = document.getElementById('teamOverlay');
 const backdrop = document.getElementById('teamBackdrop');
@@ -157,46 +160,48 @@ async function openPanel(member) {
 }
 
 function closePanel() {
+    if (!overlay) return;
     overlay.classList.remove('show');
     overlay.setAttribute('aria-hidden','true');
 }
 
-backdrop.addEventListener('click', closePanel);
-closeBtn.addEventListener('click', closePanel);
+// Attach listeners only if elements exist (some pages don't include the team overlay)
+if (backdrop) backdrop.addEventListener('click', closePanel);
+if (closeBtn) closeBtn.addEventListener('click', closePanel);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
 
 
 // --- COMPANY DATA ---
 const companiesData = [
     {
-        id: 'dichung', name: 'DiChung', logo: './image/logos/DC_trans.png', heroImage: './image/logos/DC_hero.jpg', vertical: 'Shared Mobility', stage: 'Growth', year: 2013,
+        id: 'dichung', name: 'DiChung', logo: './image/logos/DC_trans.png', heroImage: './image/logos/DC_hero.png', vertical: 'Shared Mobility', stage: 'Transition', year: 2013,
         website: 'https://dichung.vn', email: 'contact@dichung.vn',
-        description: 'DiChung is the leading ride-sharing platform'
+        description: 'DiChung is the leading ride-sharing platform. '
     },
     {
-        id: 'chungxe', name: 'Chungxe', logo: './image/logos/CX_trans.png', heroImage: './image/logos/Chungxe_hero.jpg', vertical: 'Shared Mobility', stage: 'Transition', year: 2018,
+        id: 'chungxe', name: 'Chungxe', logo: './image/logos/CX_trans.png', heroImage: './image/logos/CX_hero.png', vertical: 'Shared Mobility', stage: 'Transition', year: 2018,
         website: 'https://chungxe.vn', email: 'contact@chungxe.vn',
-        description: 'Chungxe offers a diverse fleet of vehicles for rent, from motorbikes to cars, providing flexible and affordable transportation solutions within the Sharing Economy.'
+        description: 'Chungxe is the online vehicle rental and sharing platform.'
     },
     {
-        id: 'parkchung', name: 'ParkChung', logo: './image/logos/Parkchung_logo.png', heroImage: './image/logos/Parkchung_hero.jpg', vertical: 'Shared Mobility', stage: 'Proof-of-Concept', year: 2025,
+        id: 'parkchung', name: 'ParkChung', logo: './image/logos/Parkchung_logo.png', heroImage: './image/logos/Parkchung_hero.png', vertical: 'Shared Mobility', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://parkchung.vn', email: 'contact@parkchung.vn',
-        description: 'ParkChung offers smart parking solutions, helping drivers find available parking spots quickly and efficiently, reducing urban congestion in Shared Mobility.'
+        description: 'Parkchung is an online, cashless, pre-booked parking marketplace.'
     },
     {
-        id: 'totmart', name: 'TotMart', logo: './image/logos/TotMart_logo.png', heroImage: './image/logos/TotMart_hero.jpg', vertical: 'Sustainable Consumption', stage: 'Seed', year: 2022,
-        website: 'https://totmart.vn', email: 'contact@totmart.vn',
-        description: 'TotMart is an e-commerce platform focused on sustainable consumption, offering eco-friendly products and promoting responsible shopping habits in the Circular Economy.'
+        id: 'totmart', name: 'TotMart', logo: './image/logos/TotMart_logo.png', heroImage: './image/logos/TotMart_hero.png', vertical: 'eCommerce', stage: 'Seed', year: 2020,
+        website: 'https://totmart.com.vn/', email: 'contact@totmart.com.vn',
+        description: 'TotMart is the leading online marketplace for sustainability products in Vietnam.'
     },
     {
-        id: 'oncar', name: 'OnCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/OnCar_hero.jpg', vertical: 'Transport Tech', stage: 'Proof-of-Concept', year: 2025,
-        website: 'https://oncar.vn', email: 'contact@oncar.vn',
-        description: 'Oncar provides premium car charter services, offering comfort and convenience for business and leisure travelers in the Mobility sector.'
+        id: 'oncar', name: 'OnCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/onCar_logo.png', vertical: 'Transport Tech', stage: 'Proof-of-Concept', year: 2025,
+        website: 'https://oncar.vn', email: 'partner@oncar.vn',
+        description: 'Oncar is the car charter transport tech company specializing in full-trip car rental in Vietnam.'
     },
     {
-        id: 'vshare', name: 'Vshare', logo: './image/logos/Vshare_logo.png', heroImage: './image/logos/Vshare_hero.jpg', vertical: 'Transport Tech', stage: 'Growth', year: 2021,
+        id: 'vshare', name: 'Vshare', logo: './image/logos/Vshare_logo.png', heroImage: './image/logos/Vshare_hero.png', vertical: 'Transport Tech', stage: 'Seed', year: 2022,
         website: 'https://vshare.asia', email: 'contact@vshare.asia',
-        description: 'Vshare is a peer-to-peer car sharing platform, allowing individuals to rent out their personal vehicles, maximizing asset utilization and fostering the Sharing Economy.'
+        description: 'Vshare a residential car-sharing service.'
     },
     {
         id: 'carx', name: 'CarX', logo: './image/logos/CarX_logo.png', heroImage: './image/logos/CarX_hero.jpg', vertical: 'Automotive Tech', stage: 'Proof-of-Concept', year: 2020,
@@ -204,33 +209,33 @@ const companiesData = [
         description: 'CarX offers an innovative online auto-retail experience, simplifying the process of buying and selling used cars with transparency and trust.'
     },
     {
-        id: 'agrix', name: 'AgriX', logo: './image/logos/AgriX_logo.png', heroImage: './image/logos/AgriX_hero.jpg', vertical: 'Agri Tech', stage: 'Proof-of-Concept', year: 2025,
+        id: 'agrix', name: 'AgriX', logo: './image/logos/AgriX_logo.png', heroImage: './image/logos/AgriX_hero.png', vertical: 'Agri Tech', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://agrix.vn', email: 'contact@agrix.vn',
-        description: 'AgriX is a smart agriculture platform leveraging technology to optimize crop yields, improve farming efficiency, and promote sustainable practices in the Green Economy.'
+        description: 'AgriX is a smart agriculture platform leveraging technology to optimize crop yields, improve farming efficiency, and promote sustainable practices'
     },
     {
-        id: 'dcexpress', name: 'DC Express', logo: './image/logos/DCExpress_trans.png', heroImage: './image/logos/DCExpress_hero.jpg', vertical: 'Logistics', stage: 'Growth', year: 2020,
-        website: 'https://dcexpress.vn', email: 'contact@dcexpress.vn',
-        description: 'DC Express provides fast and reliable express delivery services for both B2C and B2B clients, ensuring timely and secure package transportation in Logistics.'
+        id: 'dcexpress', name: 'DC Express', logo: './image/logos/DCExpress_trans.png', heroImage: './image/logos/DCExpress_hero.png', vertical: 'Logistics', stage: 'Growth', year: 2020,
+        website: 'https://dichungexpress.com/', email: 'contact@dichungexpress.com',
+        description: 'Interprovince delivery (ultrafast/same day/ next day).'
     },
     {
-        id: 'dctransport', name: 'DC Transport', logo: './image/logos/DCTransport_trans.png', heroImage: './image/logos/DCTransport_hero.jpg', vertical: 'Logistics', stage: 'Transition', year: 2019,
-        website: 'https://dichungtransport.vn', email: 'contact@dctransport.vn',
-        description: 'DiChung Transport specializes in large-scale logistics and freight services, offering efficient and cost-effective solutions for businesses.'
+        id: 'dctransport', name: 'DC Transport', logo: './image/logos/DCTransport_trans.png', heroImage: './image/logos/DCTransport_hero.jpg', vertical: 'Transport Tech', stage: 'Transition', year: 2019,
+        website: 'https://dichungtransport.com/', email: 'contact@dichungtransport.com',
+        description: 'DiChung Transport focuses on exploiting wasted means of transportation including transporting people and transporting goods.'
     },
     {
-        id: 'dctech', name: 'DC Tech', logo: './image/logos/DCTech_trans.png', heroImage: './image/logos/DCTech_hero.jpg', vertical: 'SaaS', stage: 'Launch', year: 2025,
+        id: 'dctech', name: 'DC Tech', logo: './image/logos/DCTech_trans.png', heroImage: './image/logos/DCTech_hero.png', vertical: 'SaaS', stage: 'Growth', year: 2020,
         website: 'https://dctech.vn', email: 'contact@dctech.vn',
         description: 'DC Tech is a SaaS platform providing advanced technological solutions for mobility and logistics operations, enhancing efficiency and scalability.'
     },
     {
         id: 'dichungtravel', name: 'DiChung Travel', logo: './image/logos/DCTravel_trans.png', heroImage: './image/logos/DCTravel_hero.jpg', vertical: 'Travel Tech', stage: 'Seed', year: 2021,
-        website: 'https://dichungtravel.vn', email: 'contact@dichungtravel.vn',
+        website: 'https://dichungtravel.com', email: 'info@dichungtravel.com',
         description: 'DiChung Travel offers personalized and group travel services, focusing on sustainable tourism and unique cultural experiences.'
     },
     {
-        id: 'youthplus', name: 'Youth+', logo: './image/logos/Youthplus_logo.png', heroImage: './image/logos/Youthplus_hero.jpg', vertical: 'Community', stage: 'Seed', year: 2022,
-        website: 'https://youthplus.vn', email: 'contact@youthplus.vn',
+        id: 'youthplus', name: 'Youth+', logo: './image/logos/Youthplus_logo.png', heroImage: './image/logos/Youthplus_hero.jpeg', vertical: 'Community', stage: 'Seed', year: 2018,
+        website: 'https://youth.com.vn/', email: 'contact@youth.com.vn',
         description: 'Youth+ is a community-driven initiative empowering young individuals through educational programs, mentorship, and social impact projects.'
     },
     {

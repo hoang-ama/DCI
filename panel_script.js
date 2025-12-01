@@ -176,77 +176,77 @@ const companiesData = [
     {
         id: 'dichung', name: 'DiChung', logo: './image/logos/DC_trans.png', heroImage: './image/logos/DC_hero.png', vertical: 'Shared Mobility', stage: 'Transition', year: 2013,
         website: 'https://dichung.vn', email: 'contact@dichung.vn',
-        description: 'DiChung is the leading ride-sharing platform. '
+        description: 'Carpooling & Ridesharing platform. '
     },
     {
         id: 'chungxe', name: 'Chungxe', logo: './image/logos/CX_trans.png', heroImage: './image/logos/CX_hero.png', vertical: 'Shared Mobility', stage: 'Transition', year: 2018,
         website: 'https://chungxe.vn', email: 'contact@chungxe.vn',
-        description: 'Chungxe is the online vehicle rental and sharing platform.'
+        description: 'Vehicle rental and sharing platform.'
     },
     {
         id: 'parkchung', name: 'ParkChung', logo: './image/logos/Parkchung_logo.png', heroImage: './image/logos/Parkchung_hero.png', vertical: 'Shared Mobility', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://parkchung.vn', email: 'contact@parkchung.vn',
-        description: 'Parkchung is an online, cashless, pre-booked parking marketplace.'
+        description: 'Online parking marketplace.'
     },
     {
         id: 'totmart', name: 'TotMart', logo: './image/logos/TotMart_logo.png', heroImage: './image/logos/TotMart_hero.png', vertical: 'eCommerce', stage: 'Seed', year: 2020,
         website: 'https://totmart.com.vn/', email: 'contact@totmart.com.vn',
-        description: 'TotMart is the leading online marketplace for sustainability products in Vietnam.'
+        description: 'eCommerce for green products.'
     },
     {
-        id: 'oncar', name: 'OnCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/onCar_hero.png', vertical: 'Transport Tech', stage: 'Proof-of-Concept', year: 2025,
+        id: 'oncar', name: 'onCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/onCar_hero.png', vertical: 'Transport Tech', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://oncar.vn', email: 'partner@oncar.vn',
-        description: 'Oncar is the car charter transport tech company specializing in full-trip car rental in Vietnam.'
+        description: 'Bus charter rental.'
     },
     {
         id: 'vshare', name: 'Vshare', logo: './image/logos/Vshare_logo.png', heroImage: './image/logos/Vshare_hero.png', vertical: 'Transport Tech', stage: 'Seed', year: 2022,
         website: 'https://vshare.asia', email: 'contact@vshare.asia',
-        description: 'Vshare a residential car-sharing service.'
+        description: 'Residential carsharing service.'
     },
     {
         id: 'carx', name: 'CarX', logo: './image/logos/CarX_logo.png', heroImage: './image/logos/CarX_hero.png', vertical: 'Automotive Tech', stage: 'Proof-of-Concept', year: 2020,
         website: 'https://carx.vn', email: 'contact@carx.vn',
-        description: 'CarX offers an innovative online auto-retail experience, simplifying the process of buying and selling used cars with transparency and trust.'
+        description: 'Online Auto mall.'
     },
     {
         id: 'agrix', name: 'AgriX', logo: './image/logos/AgriX_logo.png', heroImage: './image/logos/AgriX_hero.png', vertical: 'Agri Tech', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://agrix.vn', email: 'contact@agrix.vn',
-        description: 'AgriX is a smart agriculture platform leveraging technology to optimize crop yields, improve farming efficiency, and promote sustainable practices'
+        description: 'AgiDrone for smart agriculture.'
     },
     {
         id: 'dcexpress', name: 'DC Express', logo: './image/logos/DCExpress_trans.png', heroImage: './image/logos/DCExpress_hero.png', vertical: 'Logistics', stage: 'Growth', year: 2020,
         website: 'https://dichungexpress.com', email: 'contact@dichungexpress.com',
-        description: 'Interprovince delivery (ultrafast/same day/ next day).'
+        description: 'Ultrafast interprovince delivery.'
     },
     {
         id: 'dctransport', name: 'DC Transport', logo: './image/logos/DCTransport_trans.png', heroImage: './image/logos/DCTransport_hero.png', vertical: 'Transport Tech', stage: 'Transition', year: 2019,
         website: 'https://dichungtransport.com', email: 'contact@dichungtransport.com',
-        description: 'DiChung Transport focuses on exploiting wasted means of transportation including transporting people and transporting goods.'
+        description: 'Mobility operator'
     },
     {
         id: 'dctech', name: 'DC Tech', logo: './image/logos/DCTech_trans.png', heroImage: './image/logos/DCTech_hero.png', vertical: 'SaaS', stage: 'Growth', year: 2020,
         website: 'https://dctech.vn', email: 'contact@dctech.vn',
-        description: 'DC Tech is a SaaS platform providing advanced technological solutions for mobility and logistics operations, enhancing efficiency and scalability.'
+        description: 'SaaS platform for Mobility.'
     },
     {
-        id: 'dichungtravel', name: 'DiChung Travel', logo: './image/logos/DCTravel_trans.png', heroImage: './image/logos/DCTravel_hero.jpg', vertical: 'Travel Tech', stage: 'Seed', year: 2021,
+        id: 'dichungtravel', name: 'DC Travel', logo: './image/logos/DCTravel_trans.png', heroImage: './image/logos/DCTravel_hero.jpg', vertical: 'Travel Tech', stage: 'Seed', year: 2021,
         website: 'https://dichungtravel.com', email: 'info@dichungtravel.com',
-        description: 'DiChung Travel offers personalized and group travel services, focusing on sustainable tourism and unique cultural experiences.'
+        description: 'Personalized travel services.'
     },
     {
         id: 'nextu', name: 'NextU', logo: './image/logos/NextU_logo.png', heroImage: './image/logos/NextU_hero.png', vertical: 'Sustainable Living', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://nextu.vn', email: 'hello@nextliving.com',
-        description: 'NextU is the co-living platform designed for young professionals seeking community, convenience, and sustainability in urban living.'
+        description: 'Co-living platform.'
     },
     {
         id: 'youthplus', name: 'Youth+', logo: './image/logos/Youthplus_logo.png', heroImage: './image/logos/Youthplus_hero.png', vertical: 'Community', stage: 'Seed', year: 2018,
         website: 'https://youth.com.vn', email: 'contact@youth.com.vn',
-        description: 'Youth+ is a community-driven initiative empowering young individuals through educational programs, mentorship, and social impact projects.'
+        description: 'Youth community platform.'
     },
     {
         id: 'fafifun', name: 'FaFiFun', logo: './image/logos/FFF_logo.webp', heroImage: './image/logos/FFF_hero.png', vertical: 'Edu Tech', stage: 'Growth', year: 2021,
         website: 'https://fafifun.edu.vn', email: 'chamsockhachhang@mdj.vn',
-        description: 'FaFiFun is a financial training program for Vietnamese Kids.'
+        description: 'Financial education for Kids.'
     },
 ];
 
@@ -397,3 +397,76 @@ function renderCompaniesPage() {
         } 
     });
 }
+
+// --- NEW: RENDER PORTFOLIO GRID ON INDEX PAGE WITH FLIP EFFECT ---
+
+function createPortfolioCardHTML(company) {
+    // Check if the current page is the index.html and if the portfolio grid exists
+    if (!document.getElementById('portfolioGrid')) {
+        return `<img src="${company.logo}" alt="${company.name} Logo" class="portfolio-logo">`;
+    }
+
+    // Return the full flip card structure for the index page
+    return `
+        <div class="portfolio-item-wrapper" data-company-id="${company.id}">
+            <div class="portfolio-card">
+                <div class="card-face card-face-front">
+                    <img src="${company.logo}" alt="${company.name} Logo" class="portfolio-logo">
+                </div>
+                <div class="card-face card-face-back">
+                    <h4 class="card-title">${company.name}</h4>
+                    <p class="card-vertical">${company.vertical}</p>
+                    <p class="card-description">${company.description.substring(0, 70)}...</p>
+                    <a href="${company.website}" class="card-link">Details &rarr;</a>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// Function to attach the click listener to all portfolio items for flipping
+function addFlipListeners() {
+    const wrappers = document.querySelectorAll('.portfolio-item-wrapper');
+    wrappers.forEach(wrapper => {
+        wrapper.addEventListener('click', (e) => {
+            // Check if the click target is the link itself, if so, don't flip, just follow the link
+            if (e.target.closest('.card-link')) {
+                return;
+            }
+            wrapper.classList.toggle('flipped');
+        });
+        
+        // Optional: Reset flip when mouse leaves the card (for desktop UX)
+        wrapper.addEventListener('mouseleave', () => {
+             wrapper.classList.remove('flipped');
+        });
+    });
+}
+
+// Function to dynamically render the Portfolio Grid on index.html
+function renderIndexPortfolioGrid() {
+    const container = document.getElementById('portfolioGrid');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    // Sort items randomly or by a specific rule if needed, here we use the first 16 items
+    const displayCompanies = companiesData.slice(0, 16); 
+    
+    displayCompanies.forEach(company => {
+        const cardHTML = createPortfolioCardHTML(company);
+        container.innerHTML += cardHTML;
+    });
+
+    // Attach flip listeners after all elements are added
+    setTimeout(addFlipListeners, 100); 
+}
+
+// --- GLOBAL INITIALIZATION UPDATE ---
+document.addEventListener('DOMContentLoaded', () => {
+    // NEW: Check for the index page portfolio grid
+    if (document.getElementById('portfolioGrid')) {
+        renderIndexPortfolioGrid();
+    } 
+    
+});

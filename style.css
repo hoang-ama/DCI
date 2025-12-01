@@ -305,6 +305,117 @@ h2 {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
+
+
+/* --- PORTFOLIO CARD FLIP EFFECT (index.html) --- */
+
+/* 1. Bọc ngoài (Wrapper) - Đặt perspective cho hiệu ứng 3D */
+.portfolio-item-wrapper {
+    /* Đảm bảo mỗi item chiếm 1 ô trong grid */
+    min-height: 180px; 
+    perspective: 1000px; /* Thêm chiều sâu 3D */
+    cursor: pointer;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Shadow cho wrapper thay vì card */
+    position: relative; /* Quan trọng cho việc định vị các thẻ con */
+}
+
+/* 2. Thẻ Card - Container chịu trách nhiệm xoay */
+.portfolio-card {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d; /* Cho phép các mặt con lật trong không gian 3D */
+    transition: transform 0.6s ease-in-out; /* Tốc độ lật */
+    background: var(--white-text);
+    border-radius: 12px;
+}
+
+/* Thêm class 'flipped' khi card được click */
+.portfolio-item-wrapper.flipped .portfolio-card {
+    transform: rotateY(180deg);
+}
+
+/* 3. Mặt trước và Mặt sau (Faces) */
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Ẩn mặt sau khi nó quay về phía người xem */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+/* Mặt trước */
+.card-face-front {
+    /* Logo đã được style trong .portfolio-logo */
+    background-color: var(--white-text);
+}
+/* Đảm bảo logo bên trong card-face-front hiển thị đúng */
+.card-face-front img.portfolio-logo {
+    max-width: 80%; /* Logo nhỏ lại một chút để vừa vặn */
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 0;
+    transition: none; /* Tắt hiệu ứng hover cũ */
+}
+.portfolio-logo:hover {
+    transform: none; /* Vô hiệu hóa hover scale cũ */
+}
+
+/* Mặt sau (Thông tin) */
+.card-face-back {
+    background-color: var(--primary-color-light); /* Màu nền xanh lá nhạt cho mặt sau */
+    color: var(--white-text);
+    transform: rotateY(180deg); /* Quay mặt sau 180 độ để nó hiển thị khi mặt trước ẩn */
+    text-align: center;
+}
+
+.card-face-back .card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: var(--white-text);
+}
+
+.card-face-back .card-vertical {
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: #c7ffd9;
+}
+
+.card-face-back .card-description {
+    font-size: 0.95rem;
+    color: var(--white-text);
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.card-face-back .card-link {
+    color: var(--accent-color-orange); /* Màu vàng cam làm nổi bật link */
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+
+/* Reset lại box-shadow/hover cho wrapper để nó trông gọn gàng hơn */
+.portfolio-grid > * {
+    padding: 0; /* Xóa padding 12px cũ */
+    box-shadow: none; /* Xóa box-shadow cũ */
+}
+.portfolio-grid > *:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+
+
 /* Keep logos visually consistent inside the square boxes. Images should
    use object-fit so they scale correctly without distortion. */
 .portfolio-logo {

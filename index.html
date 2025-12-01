@@ -83,27 +83,25 @@ develop sustainable businesses in sharing economy, green economy and circular ec
     <section id="portfolio" class="portfolio-section">
         <h2>Our Portfolio</h2>
         <p>We are building and operationally developing high-potential businesses across various verticals, including sharing, green, and circular economy. Our ecosystem comprises leaders in platform businesses (Dichung, Chungxe, Parkchung, TotMart) and operation businesses (DC Express, Dichung Transport, Dichung Travel, Vshare).</p>
-        <div class="portfolio-grid">
-            <img src="./image/logos/DC_trans.png" alt="Portfolio Logo 1" class="portfolio-logo">
-            <img src="./image/logos/CX_trans.png" alt="Portfolio Logo 2" class="portfolio-logo">
-            <img src="./image/logos/Parkchung_logo.png" alt="Portfolio Logo 3" class="portfolio-logo">
-            <img src="./image/logos/TotMart_logo.png" alt="Portfolio Logo 4" class="portfolio-logo">
-            <img src="./image/logos/onCar_logo.png" alt="Portfolio Logo 5" class="portfolio-logo">
-            <img src="./image/logos/Vshare_logo.png" alt="Portfolio Logo 6" class="portfolio-logo">
-            <img src="./image/logos/CarX_logo.png" alt="Portfolio Logo 7" class="portfolio-logo">
-            <img src="./image/logos/AgriX_logo.png" alt="Portfolio Logo 8" class="portfolio-logo">
-            <img src="./image/logos/DCExpress_trans.png" alt="Portfolio Logo 9" class="portfolio-logo">
-            <img src="./image/logos/DCTransport_trans.png" alt="Portfolio Logo 10" class="portfolio-logo">
-            <img src="./image/logos/DCTech_trans.png" alt="Portfolio Logo 11" class="portfolio-logo">
-            <img src="./image/logos/DCTravel_trans.png" alt="Portfolio Logo 12" class="portfolio-logo">
-            <img src="./image/logos/NextU_logo.png" alt="Portfolio Logo 13" class="portfolio-logo">
-             <!--   <img src="./image/logos/Dichoichung_logo.png" alt="Portfolio Logo 16" class="portfolio-logo"> -->    
-            <img src="./image/logos/Youthplus_logo.png" alt="Portfolio Logo 14" class="portfolio-logo">
-            <img src="./image/logos/FFF_logo.webp" alt="Portfolio Logo 15" class="portfolio-logo">          
+        <div class="portfolio-grid" id="portfolioGrid">
+
+            <!-- Card Flip -->            
+            <div class="portfolio-item-wrapper" data-company-id="dichung">
+                <div class="portfolio-card">
+                    <div class="card-face card-face-front"><img src="./image/logos/DC_trans.png" alt="DiChung Logo" class="portfolio-logo"></div>
+                    <div class="card-face card-face-back">
+                        <h4 class="card-title">DiChung</h4>
+                        <p class="card-vertical">Shared Mobility</p>
+                        <p class="card-description">Leading ride-sharing platform</p>
+                        <a href="https://dichung.vn" target="_blank" class="card-link">Visit Website</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="portfolio-section-actions">
-            <a href="companies.html" class="btn">Explore all companies</a>
-        </div>
+            <div class="portfolio-section-actions">
+                <a href="companies.html" class="btn">Explore all startups </a>
+            </div>
+
     </section>
 
     <section class="team-section">
@@ -182,5 +180,6 @@ develop sustainable businesses in sharing economy, green economy and circular ec
     </footer>
 
     <script src="script.js"></script>
+    <script src="panel_script.js"></script>
 </body>
 </html>

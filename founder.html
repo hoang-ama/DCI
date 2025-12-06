@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta property="og:image" content="http://dcinvest.vn/image/DCI Logo_new.png" />
+    <meta property="og:title" content="DCI - From Founder Potential to Industry Leadership" />
+    <meta property="og:description" content="DCI partners with Visionary Founders, providing co-creation, capital, and operational excellence to build high-impact ventures." />
+    <meta property="og:url" content="http://dcinvest.vn/founder.html" />
+
+    <title>Co-builder with DCI — Founder Portal</title>
+    <link rel="icon" type="image/x-icon" href="./image/favicon.png">
+    <link rel="stylesheet" href="style.css">
+       <link rel="stylesheet" href="panel_style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="page-with-footer">
+
+    <header class="site-header site-header--large-logo">
+        <nav class="navbar">
+            <a href="/" class="logo" aria-label="DCI home">
+                <img src="./image/DCI_logo_color.svg" alt="DCI Logo" class="nav-logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="companies.html">Portfolio</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+
+            <button class="menu-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+        </nav>
+    </header>
+
+    <section class="news-hero founder-hero">
+        <div class="news-hero-inner">
+           <h1>Apply as a Founder</h1>
+           <p>From Founder Potential to Industry Leadership.</p>
+        </div>
+    </section>
+
+    <main class="founder-main">
+        <p>DCI is a co-builder. We provide the operational excellence, structured growth roadmap, and co-creation partnership needed to transform visionary ideas into sustainable, market-leading ventures across the Sharing, Green, and Circular Economies.</p>
+                
+        <section class="investor-persona">
+         <h2>Founders' Persona</h2>
+            <p>This description outlines the persona of 'The Conscious Co-builders’, a specific type of Founder that DCI targets. It delves into their characteristics, needs, and how DCI offers value to them.</p>
+            <div class="investor-persona-grid">
+                <div class="investor-persona-item"><i class="fas fa-user-tie icon-investor"></i>
+                    <h3>Who They Are?</h3>
+                    <li>Visionary entrepreneurs in <span style="color: var(--primary-color-dark);font-weight:bold">sharing, green, or circular economy</span>.</li>
+                    <li>Purpose-driven, yet pragmatic in <span style="color: var(--primary-color-dark);font-weight:bold">execution</span>.</li>
+                    <li><span style="color: var(--primary-color-dark);font-weight:bold">Rooted</span> in deep expertise or technology core.</li>
+                </div>
+                <div class="investor-persona-item investor-persona-item-needs"> <i class="fas fa-link icon-needs"></i>
+                    <h3>Their Needs</h3>
+                    <li>Strategic co-creation, mentorship, and access to conscious capital.</li>
+                    <li>Structured growth roadmap toward scalability and impact.</li>
+                    <li>Support in storytelling, fundraising, and leadership evolution.</li>
+               </div>
+                <div class="investor-persona-item"><i class="fas fa-hand-holding-dollar icon-value"></i>
+                    <h3>DCI’s Value to Them</h3>
+                    <li><span style="color: var(--primary-color-dark);font-weight:bold">Co-building</span> business model & market strategy.</li>
+                    <li>Connecting with <span style="color: var(--primary-color-dark);font-weight:bold">cross-venture</span> synergies.</li>
+                    <li><span style="color: var(--primary-color-dark);font-weight:bold">Empowering growth</span> through leadership & operational excellence.</li>
+                </div>  
+            </div>
+            <p style="color: var(--primary-color-dark);font-size: 1.5rem; text-align: center;"> <i class="fas fa-quote-left quote-icon"></i> From Founder potential to <span style="color: var(--primary-color);font-weight:bold">Industry leadership </span><i class="fas fa-quote-right quote-icon"></i></p>
+        </section>   
+        
+        <div class="page-footer-actions">
+            <a href="about.html" class="btn">Learn about our model</a>
+            <button id="openInvestorFormBtn" class="btn team-btn">Apply as a Founder </button>
+        </div>
+
+    </main>
+<!-- overlay + panel -->
+    <div id="investorOverlay" class="investor-overlay team-overlay" aria-hidden="true">
+    <div class="backdrop" id="investorBackdrop"></div>
+    <aside class="investor-panel team-panel" role="dialog" aria-modal="true" id="investorPanel">
+        <button class="close-btn" id="investorClose">✕</button>
+        <div class="panel-inner" id="investorPanelInner">
+            <div class="investor-form-card">
+                <form id="investorForm" novalidate>
+                    <h3>Founder Inquiry Form</h3>
+
+                    <div class="form-section">
+                        <h4>Founder Interest</h4>
+                        <select id="type" name="type" required>
+                            <option value="" disabled selected>Job Position *</option>
+                            <option value="angel">CEO</option>
+                            <option value="vc">CTO</option>
+                            <option value="corporate">CMO</option>
+                            <option value="lp">CSO</option>
+                            <option value="other">Other</option>
+                        </select>
+                        
+                        <select id="startup" name="type" required>
+                            <option value="" disabled selected>Target Startup *</option>
+                            <option value="dichung">DiChung</option>
+                            <option value="chungxe">Chungxe</option>
+                            <option value="parkchung">Parkchung</option>
+                            <option value="totmart">TotMart</option>
+                            <option value="oncar">onCar</option>
+                            <option value="dcexpress">DC Express</option>
+                            <option value="dctech">DC Tech</option>
+                            <option value="nextu">NextU</option>
+                            <option value="dichungtravel">Dichung Travel</option>
+                            <option value="vshare">Vshare</option>
+                            <option value="other">Other</option>
+                        </select>
+                        
+                        <select id="vertical" name="vertical" required>
+                            <option value="" disabled selected>Preferred Vertical *</option>
+                            <option value="sharing">Sharing Economy</option>
+                            <option value="green">Green Economy</option>
+                            <option value="circular">Circular Economy</option>
+                            <option value="all">All DCI Verticals</option>
+                        </select>
+
+                        <select id="stage" name="stage" required>
+                            <option value="" disabled selected>Preferred Startup Stage *</option>
+                            <option value="seed">Seed / Proof-of-Concept</option>
+                            <option value="growth">Growth / Series A</option>
+                            <option value="later">Later Stage</option>
+                        </select>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Your Contact Details</h4>
+                        <div class="form-row">
+                            <input type="text" id="name" name="name" placeholder="Full Name *" required>
+                            <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+                        </div>
+                        <input type="email" id="email" name="email" placeholder="Email Address *" required>
+                        <input type="text" id="company" name="company" placeholder="LinkedIn Profile URL">
+                       
+                        <textarea id="pitch" name="pitch" placeholder="Briefly describe your idea or expertise (max 500 chars)*" maxlength="500" required></textarea>
+                        
+                    </div>
+                    
+                    <button type="submit" class="btn hero-btn">Submit Inquiry</button>
+                    <div id="formStatus" aria-live="polite" style="margin-top:15px; text-align:center;"></div>
+                </form>
+            </div>
+        </div>
+    </aside>
+    </div>
+
+    <footer class="footer-section">
+        <div class="footer-content">
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <a href="#" target="_blank">
+                        <img src="./image/DC Logo_white.png" alt="DCI Logo" class="footer-logo-image">
+                    </a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="footer-right">
+                <p><strong>Contact</strong></p>
+                <p><i class="fas fa-envelope"></i>&nbsp<a href="mailto:contact@dcinvest.vn">contact@dcinvest.vn</a></p>
+                <p><i class="fas fa-phone"></i>&nbsp 19006022</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright © 2025 by DCI</p>
+        </div>
+    </footer>
+<script src="script.js"></script>
+<script src="panel_script.js"></script>
+</body>
+</html>

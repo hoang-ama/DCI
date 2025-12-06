@@ -186,6 +186,11 @@ h2 {
     text-decoration: underline;
 }
 
+.nav-link-active {
+    font-weight: 700;
+    text-decoration: underline;
+}
+
 .hero-content {
     text-align: center;
 }
@@ -1002,7 +1007,7 @@ blog-section h2 {
     max-width:1500px;
     margin:40px auto;
     padding:30px 5%;
-    }
+}
 
 .about-main h1, .about-main h2 { text-align: left; }
 .about-main h2 { 
@@ -1171,6 +1176,35 @@ blog-section h2 {
 }
 
 
+/* --- OUR UNIQUENESS SECTION (Image Layout) --- */
+.uniqueness-section {
+    padding: 60px 5%;
+    text-align: center;
+}
+
+.uniqueness-section h2 {
+    color: var(--primary-color);
+}
+
+.uniqueness-section p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: var(--grey-text);
+    text-align: left;
+}
+
+.uniqueness-image-container {
+    max-width: 800px; /* Giới hạn kích thước tối đa của hình ảnh */
+    margin: 0px auto; /* Căn giữa container */
+}
+
+.uniqueness-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
 /* Three Core Activities */
 .three-activities {
     padding: 80px 5%;
@@ -1207,34 +1241,20 @@ blog-section h2 {
     color: var(--primary-color);
 }
 
-
-/* --- OUR UNIQUENESS SECTION (Image Layout) --- */
-.uniqueness-section {
-    padding: 60px 5%;
-    text-align: center;
-}
-
-.uniqueness-section h2 {
-    color: var(--primary-color);
-}
-
-.uniqueness-section p {
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-    color: var(--grey-text);
+/* About us _ Section: Partner with us */
+.partner-section {
+    padding: 80px 5% 0px;
     text-align: left;
 }
 
-.uniqueness-image-container {
-    max-width: 800px; /* Giới hạn kích thước tối đa của hình ảnh */
-    margin: 0px auto; /* Căn giữa container */
+.partner-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 10px;
 }
 
-.uniqueness-image {
-    width: 100%;
-    height: auto;
-    display: block;
-}
+
 
 /* --- Cập nhật CSS cho Nút Hành động ở cuối trang --- */
 /* Đảm bảo container này nằm trong giới hạn max-width của các section */
@@ -1637,6 +1657,250 @@ blog-section h2 {
     }
     .company-item h4 {
         font-size: 1rem;
+    }
+
+}
+
+
+/* --- PAGE: INVESTOR/ FOUNDER --- */
+
+.investor-main, .founder-main {
+    max-width:1500px;
+    margin:40px auto;
+    padding:30px 5%;
+}
+
+/* Investor-philosophy Section */
+.investor-philosophy {
+    padding: 80px 5%;
+    text-align: center;
+}
+.investor-philosophy p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: var(--grey-text);
+    text-align: left;
+}
+.philosophy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.philosophy-item {
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+}
+
+.philosophy-item:hover {
+    transform: translateY(-8px);
+}
+
+.icon-growth, .icon-longterm , .icon-impact {
+    font-size: 42px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.philosophy-item  h3 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+/* investor-taste Section */
+.investor-taste {
+    padding: 80px 5%;
+    text-align: center;
+}
+.investor-taste p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: var(--grey-text);
+    text-align: left;
+}
+.taste-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.taste-item {
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+}
+
+.taste-item:hover {
+    transform: translateY(-8px);
+}
+
+.icon-early, .icon-strategic , .icon-synergy{
+    font-size: 42px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.taste-item  h3 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+/* Investor-Approach Section */
+.investor-approach {
+    padding: 80px 5%;
+    text-align: left;
+}
+.investor-approach p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: var(--grey-text);
+    text-align: left;
+}
+.investor-approach h3 {
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+/* investor-persona Section */
+.investor-persona {
+    padding: 80px 5%;
+    text-align: center;
+}
+.investor-persona p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    color: var(--grey-text);
+    text-align: left;
+}
+.investor-persona-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.investor-persona-item {
+    background: #fff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    transition: transform 0.3s ease;
+}
+
+.investor-persona-item-needs {
+    background: var(--primary-color); 
+}
+
+.investor-persona-item:hover {
+    transform: translateY(-8px);
+}
+
+.icon-investor , .icon-value {
+    font-size: 42px;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.icon-needs {
+    font-size: 42px;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.investor-persona-item  h3 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+
+.investor-persona-item  li {
+ text-align: left;
+}
+
+.investor-persona-item-needs  h3, .investor-persona-item-needs li {
+    color: var(--secondary-color);
+}
+
+/* Form Styles */
+.form-section {
+    margin-bottom: 20px;
+}
+#investorForm h3 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #ddd;
+    text-align: center;
+}
+
+.form-section h4 {
+    color: var(--primary-color-dark);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #ddd;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row input, .form-row select {
+    flex: 1;
+}
+
+.investor-form-card input[type="text"],
+.investor-form-card input[type="email"],
+.investor-form-card input[type="tel"],
+.investor-form-card select,
+.investor-form-card textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+.investor-form-card select {
+    appearance: none; 
+    background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666666%22%20d%3D%22M287%2069.4L146.2%20207.9%205.4%2069.4c-6.2-6.2-16.4-6.2-22.6%200s-6.2%2016.4%200%2022.6l152%20146.4c3.1%203.1%207.2%204.7%2011.3%204.7s8.2-1.6%2011.3-4.7l152-146.4c6.2-6.2%206.2-16.4%200-22.6s-16.4-6.2-22.6%200z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 10px center;
+    background-size: 10px;
+    padding-right: 30px;
+}
+
+.investor-form-card .btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Responsive adjustment */
+@media (max-width: 900px) {
+
+    .philosophy-grid, .taste-grid, .investor-persona-grid {
+        gap: 20px;
+    }
+    .form-row {
+        flex-direction: column; 
+        gap: 0;
+    }
+    .form-row input, .form-row select {
+        margin-bottom: 15px;
+    }
+
+    .investor-form-card {
+        order: 1; 
     }
 
 }

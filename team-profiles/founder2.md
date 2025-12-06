@@ -29,6 +29,6 @@ Passionate about sustainable transportation and innovation, Minh is currently le
 
 ### Education
 - MBA at Solvay Brussels School of Economics and Management
-- B.E, Electronics and Telecommunications at Hanoi University of Science and Technology
+- B.E of Electronics and Telecommunications at Hanoi University of Science and Technology
 - B.A of English Studies at Hanoi University
 - Graduated from Founder Institute (based in Silicon Valley)

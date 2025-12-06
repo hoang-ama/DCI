@@ -582,5 +582,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else if (document.querySelector('.companies-grid')) { // Check for companies page container
         renderCompaniesPage();
     }
+
 });
 

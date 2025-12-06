@@ -462,59 +462,11 @@ function renderIndexPortfolioGrid() {
     setTimeout(addFlipListeners, 100); 
 }
 
-// --- NEW INVESTOR PANEL LOGIC ---
-
-// Function to open the Investor Form Panel
-function openInvestorFormPanel() {
-    const overlay = document.getElementById('investorOverlay');
-    if (overlay) {
-        overlay.classList.add('show');
-        overlay.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden'; // Lock background scroll
-    }
-}
-
-// Function to close the Investor Form Panel
-function closeInvestorFormPanel() {
-    const overlay = document.getElementById('investorOverlay');
-    if (overlay) {
-        overlay.classList.remove('show');
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = ''; // Unlock background scroll
-    }
-}
-
 // --- GLOBAL INITIALIZATION UPDATE ---
 document.addEventListener('DOMContentLoaded', () => {
     // NEW: Check for the index page portfolio grid
     if (document.getElementById('portfolioGrid')) {
         renderIndexPortfolioGrid();
     } 
-
-    // Investor Panel Initialization Logic (NEW)
-    const openBtn = document.getElementById('openInvestorFormBtn');
-    const closeBtn = document.getElementById('investorClose');
-    const backdrop = document.getElementById('investorBackdrop');
-    const overlay = document.getElementById('investorOverlay');
-
-    if (openBtn) {
-        // Gắn sự kiện mở panel
-        openBtn.addEventListener('click', openInvestorFormPanel);
-    }
-    if (closeBtn) {
-        // Gắn sự kiện đóng panel (nút X)
-        closeBtn.addEventListener('click', closeInvestorFormPanel);
-    }
-    if (backdrop) {
-        // Gắn sự kiện đóng panel (click ngoài)
-        backdrop.addEventListener('click', closeInvestorFormPanel);
-    }
-    
-    // Gắn sự kiện đóng panel (phím Escape)
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay && overlay.classList.contains('show')) {
-            closeInvestorFormPanel();
-        }
-    });
     
 });

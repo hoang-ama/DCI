@@ -2,13 +2,14 @@ The comprehensive site map and detailed content for the primary pages of the web
 
 DCI is positioned as a **Leading High impact Startup Studio in Vietnam**, focusing on empowering the digital and sustainability transformation of the country.
 
+## Menu:
 
-index.html
-about.html > team.html
-blog.html > blog-details.html
-contact.html > privacy.html
-
-
+*Mission*  -> index.html/mission (Home page only)
+*About us*  -> about.html (investor.html <> founder.html)
+*Portfolio* -> companies.html
+*Team* -> team.html
+*Blog* -> blog.html/blog-details.html
+*Contact* -> contact.html/privacy.html
 
 ---
 

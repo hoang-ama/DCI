@@ -4,7 +4,7 @@
 // Note: Dates are in YYYY-MM-DD format for accurate sorting.
 const postsData = [
     {
-          id: 12,
+          id: 13,
         title: "What is the Startup Studio?",
         date: "2025-12-08",
         imageUrl: "./image/What-is-Startup-Studio.png",
@@ -40,7 +40,7 @@ This article explores the concept of a startup studio, its key characteristics, 
 Startup studios are a unique model for building startups that leverage shared resources, internal ideation, and hands-on involvement to increase the chances of success for new ventures.`
     },
      {
-          id: 11,
+          id: 12,
         title: "Startup Studio vs. Other models",
         date: "2025-12-08",
         imageUrl: "./image/Startup-Studio-vs-Incubators-Accelerators-VCs.png",
@@ -84,6 +84,36 @@ A startup studio systematically builds companies from scratch, acting as a co-fo
 
 ### Conclusion
 Startup studios are a unique model for building startups that leverage shared resources, internal ideation, and hands-on involvement to increase the chances of success for new ventures. They differ significantly from incubators, accelerators, and venture capital firms in their approach to startup creation and support.`
+    },
+      {
+          id: 11,
+        title: "The Evolution of Startup Studios",
+        date: "2025-12-08",
+        imageUrl: "./image/The-Evolution-of-Startup-Studios.jpg",
+        content: "The Startup Studio model has evolved through several waves since its inception in the 1990s...",
+    detail: `
+Startup Studios have been around for some time and the business model has come a long way since its inception, which can be traced all the way back to Bill Gross​, who founded Idealab in 1996.
+
+### Summary
+- The startup studio model has evolved through several waves since its inception in the 1990s.
+- Each wave has brought new approaches and focuses, adapting to changing technologies and market trends.
+- From Idealab's initial concept to the present day, startup studios have continually refined their approach to building successful startups.    
+
+### 1. First Wave 
+Idealab’s initial concept was further developed with the advent of the first wave of venture studios in the early 2000s. Studios realized that it would be more beneficial to provide funding to their own startups, rather than having to attract and raise external capital.
+
+### 2. Second Wave
+From 2009 onwards, the second wave of venture studios brought on a new digital edge to the entrepreneurial support ecosystem, offering additional services with the rise of web hosting, APIs, and social media marketing.
+
+### 3. Third Wave
+In 2013, the third wave started to make a breakthrough with its lean startup methodology, prioritizing on-demand mobile services and data as valuable assets. This wave also saw the rise of corporate venture studios, where large companies created their own studios to foster innovation and develop new products or services.
+
+### 4. Fourth Wave and Beyond
+In 2015, the fourth wave of venture studios emerged focusing on a long-term vision that leverages disruptive technology to create even more resilient, sustainable, and value-generating startups.
+
+### Conclusion
+The evolution of startup studios reflects the changing landscape of entrepreneurship and innovation. From their inception in the 1990s to the present day, startup studios have adapted to new technologies and market trends, continually refining their approach to building successful startups. As the entrepreneurial ecosystem continues to evolve, startup studios are likely to play an increasingly important role in fostering innovation and driving economic growth.
+> Source: Some content has been taken from this article: https://nextbigthing.ag/blog/venture-studio-business-model-explained/`
     },
     {
         id: 10,

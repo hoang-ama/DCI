@@ -94,41 +94,41 @@
                         <h4>Founder Interest</h4>
                         <select id="type" name="type" required>
                             <option value="" disabled selected>Job Position *</option>
-                            <option value="angel">CEO</option>
-                            <option value="vc">CTO</option>
-                            <option value="corporate">CMO</option>
-                            <option value="lp">CSO</option>
-                            <option value="other">Other</option>
+                            <option value="CEO">CEO</option>
+                            <option value="CTO">CTO</option>
+                            <option value="CMO">CMO</option>
+                            <option value="CSO">CSO</option>
+                            <option value="Other">Other</option>
                         </select>
                         
-                        <select id="startup" name="type" required>
+                        <select id="startup" name="startup" required>
                             <option value="" disabled selected>Target Startup *</option>
-                            <option value="dichung">DiChung</option>
-                            <option value="chungxe">Chungxe</option>
-                            <option value="parkchung">Parkchung</option>
-                            <option value="totmart">TotMart</option>
-                            <option value="oncar">onCar</option>
-                            <option value="dcexpress">DC Express</option>
-                            <option value="dctech">DC Tech</option>
-                            <option value="nextu">NextU</option>
-                            <option value="dichungtravel">Dichung Travel</option>
-                            <option value="vshare">Vshare</option>
-                            <option value="other">Other</option>
+                            <option value="Dichung">DiChung</option>
+                            <option value="Chungxe">Chungxe</option>
+                            <option value="Parkchung">Parkchung</option>
+                            <option value="Totmart">TotMart</option>
+                            <option value="onCar">onCar</option>
+                            <option value="DCExpress">DC Express</option>
+                            <option value="DCTech">DC Tech</option>
+                            <option value="NextU">NextU</option>
+                            <option value="DichungTravel">Dichung Travel</option>
+                            <option value="Vshare">Vshare</option>
+                            <option value="Other">Other</option>
                         </select>
                         
                         <select id="vertical" name="vertical" required>
                             <option value="" disabled selected>Preferred Vertical *</option>
-                            <option value="sharing">Sharing Economy</option>
-                            <option value="green">Green Economy</option>
-                            <option value="circular">Circular Economy</option>
-                            <option value="all">All DCI Verticals</option>
+                            <option value="Sharing">Sharing Economy</option>
+                            <option value="Green">Green Economy</option>
+                            <option value="Circular">Circular Economy</option>
+                            <option value="All">All DCI Verticals</option>
                         </select>
 
                         <select id="stage" name="stage" required>
                             <option value="" disabled selected>Preferred Startup Stage *</option>
-                            <option value="seed">Seed / Proof-of-Concept</option>
-                            <option value="growth">Growth / Series A</option>
-                            <option value="later">Later Stage</option>
+                            <option value="Seed">Seed / Proof-of-Concept</option>
+                            <option value="Growth">Growth / Series A</option>
+                            <option value="Later">Later Stage</option>
                         </select>
                     </div>
 
@@ -139,7 +139,7 @@
                             <input type="tel" id="phone" name="phone" placeholder="Phone Number">
                         </div>
                         <input type="email" id="email" name="email" placeholder="Email Address *" required>
-                        <input type="text" id="company" name="company" placeholder="LinkedIn Profile URL">
+                        <input type="text" id="profile" name="profile" placeholder="LinkedIn Profile URL">
                        
                         <textarea id="pitch" name="pitch" placeholder="Briefly describe your idea or expertise (max 500 chars)*" maxlength="500" required></textarea>
                         
@@ -177,6 +177,65 @@
             <p>Copyright © 2025 by DCI</p>
         </div>
     </footer>
+<script>
+// Form to Gsheet using Google Apps Script
+// Gsheet Form:  https://docs.google.com/spreadsheets/d/1woxiw6TP_-PVjolN0-_miMDjQnhoWuKdx0QZ6JnrKxE/
+
+const scriptURL = 'https://script.google.com/macros/s/AKfycbztxAG4XDVPCOX8Gul3w6ckqqHMfCKek7Qft6bjBNq8wjeNEoUpBNQdHqGmkD86pNHSXQ/exec';
+
+document.addEventListener('DOMContentLoaded', () => {
+const contactForm = document.forms['investorForm'];
+if (contactForm) {
+contactForm.addEventListener('submit', e => {
+e.preventDefault();
+const type = document.getElementById('type').value.trim();
+const startup = document.getElementById('startup').value.trim();
+const vertical = document.getElementById('vertical').value.trim();
+const stage = document.getElementById('stage').value.trim();
+const name = document.getElementById('name').value.trim();
+const phone = document.getElementById('phone').value.trim();
+const email = document.getElementById('email').value.trim();
+const profile = document.getElementById('profile').value.trim();
+const pitch = document.getElementById('pitch').value.trim();
+
+const formStatus = document.getElementById('formStatus');
+const btn = investorForm.querySelector('.btn');
+
+if (!type || !startup || !vertical || !stage || !name || !phone || !email || !profile || !pitch) {
+formStatus.textContent = 'Please fill in all required fields.';
+return;
+}
+
+if (!email.includes('@') || !email.includes('.')) {
+formStatus.textContent = 'Please enter a valid email address.';
+return;
+}
+
+formStatus.textContent = '';
+btn.disabled = true;
+
+const data = new FormData(investorForm);
+data.append('sheetName', 'Founder');
+
+fetch(scriptURL, { method: 'POST', body: data })
+.then(response => {
+if (!response.ok) {
+throw new Error('Network response was not ok');
+}
+formStatus.textContent = 'Thanks — your info has been sent successfully. We will get back to you shortly.';
+contactForm.reset();
+})
+.catch(error => {
+console.error('Error!', error.message);
+formStatus.textContent = 'There was an error sending your message. Please try again later.';
+})
+.finally(() => {
+btn.disabled = false;
+});
+});
+}
+});
+</script>    
 <script src="script.js"></script>
 <script src="panel_script.js"></script>
 </body>

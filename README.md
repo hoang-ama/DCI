@@ -1,6 +1,90 @@
-The comprehensive site map and detailed content for the primary pages of the website.
+# DCI - High-Impact Startup Studio Website
 
-DCI is positioned as a **Leading High impact Startup Studio in Vietnam**, focusing on empowering the digital and sustainability transformation of the country.
+This repository contains the front-end code for the DCI (Impact Startup Studio) corporate website, focusing on digital and sustainable transformation ventures in Vietnam.
+
+## 📁 Project Structure
+
+The project follows a standard structure for a static/semi-dynamic website, separating content pages, stylesheets, scripts, and assets.
+
+
+. ├── .github/ │ └── workflows/ │ └── deploy.yml # CI/CD deployment configuration for Google Cloud Storage ├── companies/ │ └── *.md # Markdown source files containing detailed content for each Portfolio Company ├── image/ │ ├── logos/ │ ├── ... # All website image assets (logos, hero images, banners, etc.) ├── team-profiles/ │ └── *.md # Markdown source files containing detailed bios for each Team Member ├── index.html # Homepage (Trang chủ) ├── about.html # About Us page (Về chúng tôi) ├── companies.html # Portfolio / Companies listing page (Danh mục đầu tư) ├── team.html # Team listing page (Đội ngũ) ├── blog.html # Blog listing page (Danh sách bài viết) ├── blog-details.html # Single Blog Post detail page (Chi tiết bài viết) ├── contact.html # Contact page (Liên hệ) ├── founder.html # Founder application page (Cổng thông tin Founder) ├── investor.html # Investor portal page (Cổng thông tin Nhà đầu tư) ├── privacy.html # Privacy Policy page (Chính sách bảo mật) ├── style.css # Main site global CSS (CSS toàn cục) ├── panel_style.css # CSS for modal panels (Team member/Company details, Investor form) ├── script.js # Core site functionality and Blog logic └── panel_script.js # Interactive panel logic (Team/Company/Investor forms, Portfolio flip cards)
+
+
+***
+
+## 📝 File Descriptions
+
+| File/Folder | Mục đích chính | Nội dung nổi bật |
+| :--- | :--- | :--- |
+| **`index.html`** | The main landing page, featuring mission overview, portfolio highlights (with flip cards), and blog previews. | Hero, Mission, Portfolio, Blog Preview, CTA. |
+| **`about.html`** | Details about the DCI Startup Studio model, vision, mission, and verticals (Sharing, Green, Circular Economy). | Infographics, Mission/Vision statements, Core Activities. |
+| **`companies.html`** | A grid view listing all portfolio companies with interactive detail panels. | Dynamic company grid loaded by `panel_script.js`. |
+| **`team.html`** | A grid view listing all founding and leadership team members with interactive bio panels. | Dynamic team grid loaded by `panel_script.js`. |
+| **`blog.html`**, **`blog-details.html`** | Pages for displaying the blog list and single posts. | Dynamic post rendering handled by **`script.js`**. |
+| **`investor.html`**, **`founder.html`** | Dedicated portals with personas and call-to-action buttons to open the inquiry forms. | Form interaction handled by **`panel_script.js`**. |
+| **`companies/*.md`**, **`team-profiles/*.md`** | **Data Source**. These Markdown files provide detailed, structured content for the dynamic side panels (Team/Company bios and information). | Overview, Vision, Mission, Experience, Education, etc. |
+| **`style.css`** | **Global Styling**. Contains all responsive layouts, color variables, typography, and general element styling. | Global styles, header/footer styles, main layout. |
+| **`panel_style.css`** | **Panel Styling**. Manages the look and feel of the right-hand sliding overlay panels (Team, Company, and Forms), including transitions and responsiveness. | Styles for `.team-panel`, `.company-panel`, `.investor-panel`. |
+| **`script.js`** | **Core Logic & Blog**. Contains post data (`postsData`), utility functions (e.g., `slugify`, markdown conversion), and the core rendering logic for the **Blog** and **Homepage** post sections. | `renderBlogPage()`, `renderDetailPost()`, Mobile Menu Toggle. |
+| **`panel_script.js`**| **Interactive Panel Logic**. Contains data (`teamMembers`, `companiesData`) and functions to dynamically render grids, handle click-to-open logic for the sliding side panels, and manage the flip-card effect on `index.html`. | `openPanel()`, `openCompanyPanel()`, `renderIndexPortfolioGrid()`. |
+
+***
+
+## 🔗 Component Linking (HTML, CSS, and JS)
+
+The website uses a standard linking methodology for modern web development, ensuring styles are loaded early and scripts are deferred to the end of the document body for optimal performance (non-blocking render).
+
+### 1. CSS Linking
+All stylesheets are linked in the `<head>` section of the HTML files.
+* **Global Styles:** Every page links to the global stylesheet:
+    ```html
+    <link rel="stylesheet" href="style.css">
+    ```
+* **Panel Styles:** Pages featuring the dynamic side panels (`team.html`, `companies.html`, `investor.html`, `founder.html`) additionally include `panel_style.css`:
+    ```html
+    <link rel="stylesheet" href="panel_style.css">
+    ```
+
+### 2. JavaScript Linking
+Scripts are loaded just before the closing `</body>` tag to ensure the DOM is fully loaded before the scripts attempt to manipulate it.
+
+* **For pages with interactive panels (e.g., `team.html`):**
+    The `panel_script.js` is typically included first as it contains the data and core functions (`markdownToHTML`, `openPanel`, etc.) used by various DOM manipulation logic, followed by `script.js` (which handles generic utility like the mobile menu and blog rendering).
+    ```html
+    <script src="panel_script.js"></script>
+    <script src="script.js"></script>
+    ```
+* **For simple content pages (e.g., `contact.html`, `about.html`):**
+    Only the main logic file is needed:
+    ```html
+    <script src="script.js"></script>
+    ```
+
+### 3. Data Flow
+* **Markdown to HTML:** The contents of `companies/*.md` and `team-profiles/*.md` are read by fetch requests in **`panel_script.js`** (or **`script.js`** for blog posts) and converted into HTML using the embedded `markdownToHTML` utility function before being injected into the respective detail panels.
+* **Dynamic Grids:** **`panel_script.js`** uses data arrays (`companiesData`, `teamMembers`) to dynamically render the grids on `companies.html` and `team.html`.
+
+***
+
+## 🚀 Getting Started
+
+To run this project locally:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [repository-url]
+    cd DCI-website
+    ```
+2.  **Run with a Local Server:**
+    Because the site uses `fetch` to load local Markdown (`*.md`) files, you must use a simple local web server to avoid browser security restrictions (CORS/file protocol).
+    * **Recommended:** Use the **Live Server** extension in VS Code.
+    * **Alternative (Python):** Run the following command in the project root directory:
+        ```bash
+        python3 -m http.server
+        ```
+3.  **Access:** Open your browser and navigate to `http://localhost:8000` (or the address provided by your server).
+
+
 
 ## Menu:
 
@@ -13,129 +97,3 @@ DCI is positioned as a **Leading High impact Startup Studio in Vietnam**, focusi
 
 ---
 
-## DCI Website Site Map
-
-The site map is based on the navigation elements visible in the provided template: **Our Mission, Portfolio, About Us, Blog, and Contact**.
-
-| Level 1 Page | Level 2 Sub-Page | Key Content Focus (DCI Concept) |
-| :--- | :--- | :--- |
-| **I. Home** | | Overview, Mission Highlights, Who We Are, Portfolio Intro, Key CTAs |
-| **II. Our Mission** | | Vision, Core Mission, Impact Focus (Sharing, Green, Circular Economies), Investment Philosophy |
-| **III. Portfolio** | **III.A. Current Ventures** | Detailed list and descriptions of core portfolio companies (Dichung, Chungxe, DC Transport, etc.) |
-| | **III.B. Focus Verticals** | Deep dive into the three economic pillars: Sharing, Green, and Circular Economies |
-| | **III.C. Potential Ventures** | Areas identified for future investment and building (Mobility Finance, Infrastructure, etc.) |
-| **IV. About Us** | **IV.A. The Studio Model** | Defining DCI as a Venture Studio, competitive advantages, and founding approach |
-| | **IV.B. Team & Approach** | Leadership, Investment Taste (Strategic/Early Stage), Active Participation model |
-| **V. Blog** | | News, insights, industry articles |
-| **VI. Contact** | | Contact information and Pitch Submission portal |
-
----
-
-## Full Content Outline
-
-The content below integrates DCI's specific mandates and focus areas directly into the structure implied by the template.
-
-### I. Home Page Content
-
-The homepage should feature compelling headlines and summarize the most critical aspects of DCI’s model and mission.
-
-| Section | Content | Citation Support |
-| :--- | :--- | :--- |
-| **Hero Section** | **Let's future together**. **We are a startup studio, building and investing in groundbreaking technology ventures**. DCI is the **Leading High impact Startup Studio in Vietnam**, dedicated to empowering the **digital and sustainability transformation of Vietnam**. | |
-| **Our Mission** | **To create impactful technological solutions that revolutionize markets and improve lives**. | |
-| **DCI’s Four Pillars** (Mapping the template's DCI One to DCI Four to DCI's actual methodology) | **DCI One: Ideation & Concept** Starting with an idea and validating the initial proof-of-concept stage. | |
-| | **DCI Two: Strategy & Validation** Market research and business strategy, focusing on concepts that contribute to sustainable development. | |
-| | **DCI Three: Tech & Team Building** Technology development and team building, actively participating in the operation process and supporting founders. | |
-| | **DCI Four: Growth & Scale** Accelerating growth and scaling up operations until reaching market fit and attracting new investors. | |
-| **Who We Are** | **DCI is more than an investor; we are a dedicated partner**, helping startups turn their ideas into reality, from the inception phase to long-term success. We operate as a strategic investor, committed to growing companies that serve millions of people with a long-term view. | |
-| **Our Portfolio** | We are proud to partner with exceptional and promising startups focused on the **Sharing Economy, Green Economy, and Circular Economy**. Our ecosystem includes leaders in **Shared Mobility** (Dichung, Chungxe) and **Sustainable Consumption** (Totmart, Totfood). | |
-| **CTAs** | **Get in Touch Now** / **Ready to make impact? Join us!** | |
-
-### II. Our Mission Page Content
-
-This page details DCI's purpose, scope, and philosophical commitment.
-
-| Section | Content | Citation Support |
-| :--- | :--- | :--- |
-| **Vision & Core Mission** | **Vision:** To be the pioneer investment company that empowers the digital and sustainability transformation of Vietnam. **Mission:** To increase welfare and productivity of society through initiating, incubating, and scaling high impact startups. | |
-| **Our Solution** | We invest and build high impact startups that contribute directly to the sustainable development of Vietnam. We actively seek out **smart, growth oriented entrepreneurs** who demonstrate **social empathy**. We focus on creating a supportive **ecosystem of businesses** for long-term business advantage. | |
-| **Focus Verticals** | **SHARING ECONOMY:** Businesses promoting collaborative consumption, enabling people to rent, borrow, or share assets like cars, homes, or skills, thereby promoting resource efficiency and offering cost-effective solutions. **GREEN ECONOMY:** Businesses focused on low carbon, efficient, and clean consumption and production, including sectors like renewable energy and sustainable agriculture. **CIRCULAR ECONOMY:** Businesses aiming to eliminate waste and pollution by keeping resources in use for as long as possible, moving away from the "take-make-dispose" linear model. | |
-| **Investment Philosophy** | **Growth Investing:** Focusing on empowering entrepreneurs and businesses to create products/services that serve millions of people. **Long-term investing:** Investing with a long-term view, prioritizing companies that embrace game-changing trends and set new service standards in the industry. **Impact investing:** Prioritizing models that create value and have a good impact on the community, balancing business factors and social values. | |
-
-### III. Portfolio Page Content
-
-This page showcases DCI's active holdings and future focus areas.
-
-#### III.A. Current Ventures (Portfolio Listing)
-
-DCI's current portfolio is structured into Platform, Operation, and Software businesses, primarily within the mobility and logistic ecosystem.
-
-| Category | Company | Positioning & Products | Citation Support |
-| :--- | :--- | :--- | :--- |
-| **Platform Business (MarketPlace)** | **Dichung** | **Leading Shared Mobility Marketplace**. Signature products: ridesharing, carpooling. Distribution products: bus, private car, taxi. Serves local, traveler, and business segments. | |
-| | **Parkchung** | Platform Business. Share Parking. | |
-| **Operation Business** | **Chungxe** | **Leading Vehicle Sharing Operator**. Signature products: motorbike sharing/carsharing, car subscription. Also offers car rental and car leasing. | |
-| | **DC Transport** (DichungTaxi, DichungBus, DCCar) | Light asset transportation company. Signature products: DichungTaxi, DichungBus, DCCar. DichungTaxi focuses on carpooling service for intra-city and airport transfer. DichungBus provides vanpooling services. | |
-| | **DC Logistic** (DichungExpress, DichungTruck) | Light asset logistic company. Signature products: DichungExpress (interprovince delivery), DichungCargo (digital forwarder), DichungTruck (EV three-wheel Truck for modular cargo). | |
-| | **DC Travel** | Operation Business. Travel services. | |
-| **Software Business** | **DC Tech** | SaaS for mobility and logistic companies. Also includes Xeca (SaaS/Bus management). | |
-| **Others (Sustainable Focus)**| **NextU** | Sustainable Living. Potential Co-living. | |
-| | **Totmart, Totfood, Totfarm** (DC Distribution) | Sustainable Consumption businesses. Totmart focuses on Online shopping. | |
-
-#### III.B. Focus Verticals (Summary)
-
-DCI focuses on investment opportunities within the three core sustainable economies.
-
-| Vertical | Market Relevance |
-| :--- | :--- |
-| **Sharing Economy** | The global sharing economy market is projected to reach $1.4 trillion by 2030. Key sectors include transportation, accommodation, and services. In ASEAN, the market is expected to reach $631.32 billion by 2029. |
-| **Green Economy** | Global growth is forecast to reach $77.46 billion by 2029. Key sectors in ASEAN include renewable energy, sustainable agriculture, and electric mobility. |
-| **Circular Economy** | Shifting to a circular economy in Southeast Asia is expected to reach $1.5 trillion by 2030. Businesses focus on reuse, refurbishment, and closed-loop systems. |
-
-#### III.C. Potential Ventures
-
-DCI also identifies several strategic areas for future development.
-
-*   **Distribution business:** Includes Incar Shopping (souvenir/delights/essentials) and Mobility Shopping (Shop from mobilitized vender). **DCShop** (Shopping in Car), and **DCFresh** (Digitalizing street vendors, empowering micro businesses).
-*   **Media business:** Mobility Ads and Infotainment Infrastructure. **DCMEDIA** offers Mobility Ads and Infortainment In Car digital radio podcast/channel.
-*   **Infrastructure business:** Includes Rest stops and Charging stations. **DCSTATION** provides small stations for shared vehicle access, battery swap, or EV charging. **DCSTOP** offers rest stop plus charging stations near airports or highways.
-*   **AutoMotive Business:** Micro Mobility focus. **DC MOTOR** trades or manufactures electric automotive focused on mini mobility (three-wheel, four-wheel) for multipurpose use (passenger, delivery combination).
-*   **Finance business:** Mobility financing / insurance. **DCFINANCE** focuses on Mobility and Automotive finance products.
-
-### IV. About Us Page Content
-
-This page defines DCI’s operational model and investment approach.
-
-#### IV.A. The Studio Model: Building Startups at Scale
-
-DCI operates as a startup studio, meaning it aims to repeatedly build portfolio companies in parallel.
-
-*   **Definition:** A startup studio (also known as a venture builder or startup factory) is a structure whose aim is to **repeatedly build products into companies**. Unlike incubators or accelerators, studios generally **generate ideas internally** and act as an institutional co-founder.
-*   **Core Operating Principles:** Studios use a reusable infrastructure of resources and a cross-disciplinary core management team. This model involves: taking a core team; adding shared infrastructure and in-house funding; generating ideas internally; **building multiple startups in parallel**; and, if an idea fails, reassigning the team to a new project.
-*   **DCI’s Advantage:** The studio model provides a safety net, reducing the risk of failure, and allows for **faster startup build time**. DCI leverages a model where the studio acts as the **"3rd Co-founder model"**, providing specialized expertise in marketing, design, and development.
-*   **Success Metrics:** Startups founded out of studios are more likely to succeed than traditional startups. Studio companies typically reach **Series A metrics within 12 months**, and studios aim for high ownership (30% or more) early in the venture lifecycle.
-
-#### IV.B. Team & Approach
-
-*   **Investment Taste & Stage:** DCI has an **early stage focus**, looking for pioneering business models at the **proof-of-concept stage** and moving toward market fit. Investment decisions are based on the goal of creating the **ecosystem** (Synergy investment).
-*   **Strategic Role:** DCI functions as a **strategic investor**, not just a financial investor. This involves **active participation in the operation process** to support the business until the growth stage.
-*   **Talent Strategy:** We choose **experienced and qualified entrepreneurs** to partner with and invest in seed funding. A crucial approach is sharing the enough majority of shares with the executive team (CEO and key person) to ensure they are highly motivated to work.
-*   **Ecosystem Management:** Each portfolio company actively grows business in its segment, but benefits from the strength of the collective portfolio with coordination from DC Invest. **DC Invest acts as the unit to raise capital and invest** for the companies in the portfolio.
-
-### V. Blog Page Content
-
-The Blog page serves as a repository for news and updates, demonstrating DCI's commitment to thought leadership and transparency.
-
-*   **Content Type:** Articles covering **Industry Trends**, **Lessons Learned from Portfolio Companies**, and **Market Insights** related to the focus verticals (Sharing, Green, Circular Economies).
-*   **Example Topics:** Insights into digital transformation in Vietnam, how the sharing economy promotes resource efficiency, or details on actively participating in operations with portfolio CEOs.
-
-### VI. Contact Page Content
-
-The contact page must provide clear communication paths and a call to action for potential partners or entrepreneurs.
-
-*   **Title:** Partner with DCI / Submit Your Pitch
-*   **Contact Details (Based on Footer):**
-    *   Email: contact@dci.com
-    *   Phone: +84934546882
-    *   Location (If provided, or general Vietnam focus): Leading High impact Startup Studio in Vietnam.
-*   **Call to Action:** **"It’s your turn! Can't wait to hear from you. Submit pitch"**. We are non stop looking for entrepreneurs who are smart, growth oriented and social empathy to help them start and scale their business.

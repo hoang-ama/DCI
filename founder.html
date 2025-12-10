@@ -184,9 +184,9 @@
 const scriptURL = 'https://script.google.com/macros/s/AKfycbztxAG4XDVPCOX8Gul3w6ckqqHMfCKek7Qft6bjBNq8wjeNEoUpBNQdHqGmkD86pNHSXQ/exec';
 
 document.addEventListener('DOMContentLoaded', () => {
-const contactForm = document.forms['investorForm'];
-if (contactForm) {
-contactForm.addEventListener('submit', e => {
+const investorForm = document.forms['investorForm'];
+if (investorForm) {
+investorForm.addEventListener('submit', e => {
 e.preventDefault();
 const type = document.getElementById('type').value.trim();
 const startup = document.getElementById('startup').value.trim();
@@ -223,7 +223,7 @@ if (!response.ok) {
 throw new Error('Network response was not ok');
 }
 formStatus.textContent = 'Thanks — your info has been sent successfully. We will get back to you shortly.';
-contactForm.reset();
+investorForm.reset();
 })
 .catch(error => {
 console.error('Error!', error.message);

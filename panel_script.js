@@ -1,9 +1,12 @@
 // panel_script.js Sample team members - adjust images/titles/bios/linkedin as needed
 // --- TEAM DATA ---
 const teamMembers = [
-    { id: 'founder1', name: 'Nam Nguyen', title: 'Founding Partner & Chairman', image: './image/NamNT.jpg', bgImage: './image/bg.NamNT.png', linkedin: 'https://www.linkedin.com/in/nam-nguyen-2b48aa77/', facebook: 'https://www.facebook.com/paradon', email: 'namnt@dichung.vn' },
-    { id: 'founder2', name: 'Minh Hoang', title: 'Founding Partner & CEO', image: './image/MinhHH.png', bgImage: './image/bg.MinhHH.png', linkedin: 'https://www.linkedin.com/in/hoanghongminh/', facebook: 'https://www.facebook.com/Minh.Hoang.H', email: 'minhhh@dcinvest.vn' },
-    { id: 'founder3', name: 'Jen Vu Huong', title: 'Founding Partner & CSO', image: './image/JenVH.webp', bgImage: './image/bg.JenVH.png', linkedin: 'https://www.linkedin.com/in/jenvuhuong/', facebook: 'https://www.facebook.com/JenEmpowerLeaders', email: 'jenvuhuong@gmail.com' },
+    { id: 'NamNT', name: 'Nam Nguyen', title: 'DCI Founding Partner & Chairman', image: './image/NamNT.jpg', bgImage: './image/bg.NamNT.png', linkedin: 'https://www.linkedin.com/in/nam-nguyen-2b48aa77/', facebook: 'https://www.facebook.com/paradon', email: 'namnt@dichung.vn' },
+    { id: 'MinhHH', name: 'Minh Hoang', title: 'DCI Founding Partner & CEO', image: './image/MinhHH.png', bgImage: './image/bg.MinhHH.png', linkedin: 'https://www.linkedin.com/in/hoanghongminh/', facebook: 'https://www.facebook.com/Minh.Hoang.H', email: 'minhhh@dcinvest.vn' },
+    { id: 'JenVH', name: 'Jen Vu Huong', title: 'DCI Founding Partner & CSO', image: './image/JenVH.webp', bgImage: './image/bg.JenVH.png', linkedin: 'https://www.linkedin.com/in/jenvuhuong/', facebook: 'https://www.facebook.com/JenEmpowerLeaders', email: 'jenvuhuong@gmail.com' },
+    { id: 'Taka', name: 'Takahiro Hosokawa', title: 'Parkchung Co-Founder & CEO', image: './image/Takahiro.png', bgImage: './image/bg.Taka.png', linkedin: 'https://www.linkedin.com/in/takahiro-hosokawa-853931176/', facebook: 'https://www.facebook.com/profile.php?id=100004193649646', email: 'taka@dichung.vn' },
+    { id: 'LinhNV', name: 'Linh Nguyen', title: 'YouthPlus Founder & CEO', image: './image/LinhNV.jpeg', bgImage: './image/bg.LinhNV.png', linkedin: 'https://www.linkedin.com/in/peterhoangminh/', facebook: 'https://www.facebook.com/nguyenvanlinh.dav/', email: 'linhnv@youth.com.vn' },
+    { id: 'GiangNH', name: 'Giang Ngo', title: 'FaFiFun Founder & CEO', image: './image/GiangNH.jpg', bgImage: './image/bg.GiangNH.png', linkedin: 'https://www.linkedin.com/in/ngohuonggiangrichmom/', facebook: 'https://www.facebook.com/giangnh511', email: 'ceo@mdj.vn' },
 ];
 
 const grid = document.getElementById('teamGrid');

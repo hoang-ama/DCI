@@ -406,6 +406,65 @@ Quantum computing is promising but remains an emerging tech; keep an eye on prac
 const sortedPosts = postsData.sort((a, b) => new Date(b.date) - new Date(a.date));
 
 
+// --- NEW: JOBS DATA ---
+const jobsData = [
+    {
+        id: 1,
+        title: "Senior Full Stack Developer",
+        department: "Technology",
+        type: "Full-time",
+        location: "Hanoi/Remote",
+        company: "DC Tech",
+        description: "Develop and maintain SaaS platform features using Node.js and React. Requires 5+ years experience.",
+        link: "https://dcinvest.vn/careers/senior-dev",
+        slug: "senior-full-stack-developer" // <--- THÊM TRƯỜNG NÀY
+    },
+    {
+        id: 2,
+        title: "Product Manager (Mobility)",
+        department: "Business",
+        type: "Full-time",
+        location: "Hanoi",
+        company: "DiChung",
+        description: "Define product roadmap for shared mobility services, focusing on user acquisition and retention.",
+        link: "https://dcinvest.vn/careers/pm-mobility",
+        slug: "product-manager-mobility"
+    },
+    {
+        id: 3,
+        title: "Digital Marketing Specialist",
+        department: "Marketing",
+        type: "Full-time",
+        location: "Hanoi",
+        company: "DCI Studio",
+        description: "Manage digital campaigns (SEO, SEM) for DCI and portfolio companies. Focus on performance marketing.",
+        link: "https://dcinvest.vn/careers/digital-marketing",
+        slug: "digital-marketing-specialist"
+    },
+    {
+        id: 4,
+        title: "Operations Intern",
+        department: "Business",
+        type: "Internship",
+        location: "Ho Chi Minh City",
+        company: "Chungxe",
+        description: "Assist with fleet management, logistics coordination, and customer service optimization.",
+        link: "https://dcinvest.vn/careers/ops-intern",
+        slug: "operations-intern"
+    },
+    {
+        id: 5,
+        title: "HR & Talent Acquisition",
+        department: "HR",
+        type: "Full-time",
+        location: "Hanoi",
+        company: "DCI Studio",
+        description: "Lead recruitment process for senior management and engineering roles across the studio ecosystem.",
+        link: "https://dcinvest.vn/careers/hr-talent",
+        slug: "hr-talent-acquisition"
+    }
+];
+
 // --- 2. COMMON FUNCTIONS ---
 
 // Function to create the HTML structure for a single post card
@@ -650,6 +709,168 @@ async function renderDetailPost() {
     document.getElementById('post-title-meta').textContent = post.title;
 }
 
+// --- 4. CAREERS PAGE RENDERING FUNCTIONS ---
+
+// Function to create the HTML structure for a single job posting (reusing .post-row style)
+function createJobHTML(job) {
+    // SỬA ĐỔI LINK Apply Now
+    const jobLink = `job-details.html?id=${job.id}&slug=${job.slug}`;
+    return `
+        <article class="post-row job-row">
+            <div class="post-summary" style="flex: 1;">
+                <h3 style="margin-bottom: 5px;">${job.title} - ${job.company}</h3>
+                <p class="excerpt">${job.description}</p>
+                <p class="post-meta" style="margin-top: 10px;">
+                    <i class="fas fa-building"></i> ${job.department} &bull; 
+                    <i class="fas fa-map-marker-alt"></i> ${job.location} &bull; 
+                    <i class="fas fa-clock"></i> ${job.type}
+                </p>
+            </div>
+            <div style="flex-shrink: 0; display: flex; align-items: center;">
+                <a href="${jobLink}" class="btn" style="white-space: nowrap;">Apply Now</a>
+            </div>
+        </article>
+    `;
+}
+
+// Function to render the careers page with filtering logic
+function renderCareersPage() {
+    const container = document.getElementById('jobs-list');
+    const departmentFilters = document.getElementById('department-filters');
+    const typeFilters = document.getElementById('type-filters');
+    if (!container) return;
+
+    let currentDepartmentFilter = 'All';
+    let currentTypeFilter = 'All';
+
+    // Core rendering function
+    function updateJobList() {
+        container.innerHTML = '';
+        const filteredJobs = jobsData.filter(job => {
+            const departmentMatch = currentDepartmentFilter === 'All' || job.department === currentDepartmentFilter;
+            const typeMatch = currentTypeFilter === 'All' || job.type === currentTypeFilter;
+            return departmentMatch && typeMatch;
+        });
+
+        if (filteredJobs.length === 0) {
+            container.innerHTML = `<p style="text-align: center; color: var(--grey-text); padding: 30px;">No open positions found matching the current filters.</p>`;
+        } else {
+            let jobsHTML = '';
+            filteredJobs.forEach(job => {
+                jobsHTML += createJobHTML(job);
+            });
+            container.innerHTML = jobsHTML;
+        }
+    }
+
+    // Initialize job list
+    updateJobList();
+    
+    // Setup Department Filtering
+    if (departmentFilters) {
+        departmentFilters.addEventListener('click', (e) => {
+            if (e.target.classList.contains('btn')) {
+                // Reset active class
+                departmentFilters.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+
+                currentDepartmentFilter = e.target.getAttribute('data-filter') || 'All';
+                updateJobList();
+            }
+        });
+    }
+
+    // Setup Job Type Filtering
+    if (typeFilters) {
+        typeFilters.addEventListener('click', (e) => {
+            if (e.target.classList.contains('tag')) {
+                // Check if already active, toggle it
+                const isCurrentlyActive = e.target.classList.contains('active');
+                
+                typeFilters.querySelectorAll('.tag').forEach(tag => tag.classList.remove('active'));
+
+                if (!isCurrentlyActive) {
+                    e.target.classList.add('active');
+                    currentTypeFilter = e.target.getAttribute('data-filter');
+                } else {
+                    currentTypeFilter = 'All';
+                }
+                updateJobList();
+            }
+        });
+    }
+}
+
+// Function to fetch and render the Markdown content for a single job
+async function renderJobDetails() {
+    const contentContainer = document.getElementById('job-content-container');
+    const titleMeta = document.getElementById('job-title-meta');
+    const heroDesc = document.getElementById('job-description-hero');
+    const jobTitleField = document.getElementById('jobTitleField');
+    const form = document.getElementById('jobApplyForm');
+
+    if (!contentContainer) return;
+
+    // 1. Get the ID and slug from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const jobId = parseInt(urlParams.get('id'));
+    const jobSlug = urlParams.get('slug');
+
+    // 2. Find the job data
+    const job = jobsData.find(j => j.id === jobId);
+
+    if (!job || !jobSlug) {
+        contentContainer.innerHTML = '<h1>Error: Job posting not found.</h1>';
+        return;
+    }
+
+    // 3. Construct Markdown filename and fetch content
+    const filename = `./jobs-details/${jobSlug}.md`;
+    let jobContentMD = '';
+
+    try {
+        const res = await fetch(filename);
+        if (!res.ok) throw new Error('Markdown file not found');
+        jobContentMD = await res.text();
+    } catch (err) {
+        // Fallback: Use job description if markdown fails
+        jobContentMD = `# ${job.title} - ${job.company}\n\n### Mô tả Tóm tắt\n${job.description}\n\n*Vui lòng kiểm tra lại cấu trúc file Markdown tại: ${filename}*`;
+    }
+
+    // 4. Render Content
+    contentContainer.innerHTML = `
+        <article class="single-post">
+            ${markdownToHTML(jobContentMD)}
+        </article>
+    `;
+    
+    // 5. Update titles and hidden form field
+    const pageTitle = `${job.title} - ${job.company}`;
+    titleMeta.textContent = pageTitle;
+    heroDesc.textContent = `${job.department} position in ${job.location}.`;
+    jobTitleField.value = pageTitle; // Đặt tên công việc vào trường ẩn của form
+
+    // 6. Setup Form Submission (Simulated)
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const status = document.getElementById('applyFormStatus');
+        if (!form.checkValidity()) {
+            status.textContent = 'Please fill all required fields.';
+            return;
+        }
+        
+        status.textContent = 'Submitting application...';
+        
+        // GIẢ LẬP GỬI DỮ LIỆU ĐẾN GOOGLE SHEET / BACKEND
+        // LƯU Ý: Nếu bạn dùng Apps Script, bạn cần cấu hình lại hàm này để gửi dữ liệu form
+        // Bao gồm cả file CV (rất phức tạp với Apps Script, nên dùng Google Form hoặc dịch vụ backend thực)
+        
+        setTimeout(() => {
+            status.textContent = `Application for "${jobTitleField.value}" received successfully! We will contact you soon.`;
+            form.reset();
+        }, 1200);
+    });
+}
 
 // --- 4. MOBILE MENU TOGGLE ---
 // Function to handle the mobile menu toggle functionality
@@ -693,6 +914,10 @@ document.addEventListener('DOMContentLoaded', () => {
         renderHomePosts();
     } else if (document.querySelector('.companies-grid')) { // Check for companies page container
         renderCompaniesPage();
+    } else if (document.getElementById('careers-posts-container')) { // <--- NEW CAREERS LOGIC
+        renderCareersPage();
+    } else if (document.getElementById('job-content-container')) { // <--- NEW JOB DETAILS LOGIC
+        renderJobDetails();
     }
 
 });

@@ -12,7 +12,10 @@
 
     <title>DCI - Startup Studio</title>
     <link rel="icon" type="image/x-icon" href="./image/favicon.png">
+
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="panel_style.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -31,14 +34,13 @@
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#team">Team</a></li>
                 <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
-            <a href="contact.html" class="btn nav-btn">Get in Touch</a>
+            <a href="#contact" class="btn nav-btn">Get in Touch</a>
         </nav>
         <div class="hero-content">
             <h1>Let's future together</h1>
             <p>We are the pioneering high-impact startup studio where investments and businesses create deep, meaningful impact while ensuring financial sustainability.</p>
-            <a href="contact.html" class="btn hero-btn">Get in Touch Now</a>
+            <a href="#" class="btn hero-btn">Build with us</a>
         </div>
     </header>
 
@@ -152,6 +154,23 @@ develop sustainable businesses in sharing economy, green economy and circular ec
             <a href="contact.html" class="btn">Get In Touch</a>
         </div>
     </section>
+
+     <!-- overlay + panel -->
+      
+    <div id="buildOverlay" class="investor-overlay team-overlay" aria-hidden="true">
+        <div class="backdrop" id="buildBackdrop"></div>
+        <aside class="build-panel team-panel" role="dialog" aria-modal="true" id="buildPanel">
+            <button class="close-btn" id="buildClose">✕</button>
+            <div class="panel-inner" id="buildPanelInner" style="text-align: center; padding: 40px 20px;">
+                <h2 style="color: var(--white-text); font-size: 3rem; margin-bottom: 30px;">Ready to start building?</h2>
+               
+            <div class="menu-align-bottom">
+                <a href="founder.html" class="menu-link-item">Co-found with DCI</a>
+                <a href="careers.html" class="menu-link-item">Join a Team</a>
+            </div>
+        </div>
+        </aside>
+    </div>    
 
     <footer class="footer-section">
         <div class="footer-content">

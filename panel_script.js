@@ -487,6 +487,27 @@ function closeInvestorFormPanel() {
     }
 }
 
+
+// Function to open the Build With Us Panel
+    function openBuildPanel() {
+        const overlay = document.getElementById('buildOverlay');
+        if (overlay) {
+            overlay.classList.add('show');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden'; // Lock background scroll
+        }
+    }
+
+    // Function to close the Build With Us Panel
+    function closeBuildPanel() {
+        const overlay = document.getElementById('buildOverlay');
+        if (overlay) {
+            overlay.classList.remove('show');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = ''; // Unlock background scroll
+        }
+    }
+
 // --- GLOBAL INITIALIZATION UPDATE ---
 document.addEventListener('DOMContentLoaded', () => {
     // NEW: Check for the index page portfolio grid
@@ -499,6 +520,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeBtn = document.getElementById('investorClose');
     const backdrop = document.getElementById('investorBackdrop');
     const overlay = document.getElementById('investorOverlay');
+
+    // --- NEW: BUILD WITH US PANEL INITIALIZATION ---
+        const buildBtn = document.querySelector('.hero-content .btn.hero-btn');
+        const buildCloseBtn = document.getElementById('buildClose');
+        const buildBackdrop = document.getElementById('buildBackdrop');
+        const buildOverlay = document.getElementById('buildOverlay');
+
+        if (buildBtn) {
+            // Thay đổi hành vi mặc định của nút 'Build with us' thành mở panel
+            buildBtn.addEventListener('click', (e) => {
+                e.preventDefault(); // Ngăn chặn chuyển hướng đến contact.html
+                openBuildPanel();
+            });
+        }
+        
+        // Gắn sự kiện đóng cho Panel mới
+        if (buildCloseBtn) buildCloseBtn.addEventListener('click', closeBuildPanel);
+        if (buildBackdrop) buildBackdrop.addEventListener('click', closeBuildPanel);
+
+        // Gán sự kiện đóng panel (phím Escape) cho panel mới
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && buildOverlay && buildOverlay.classList.contains('show')) {
+                closeBuildPanel();
+            }
+        });
+        // --- END: BUILD WITH US PANEL INITIALIZATION ---
 
     if (openBtn) {
         // Gắn sự kiện mở panel

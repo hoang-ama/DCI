@@ -171,81 +171,6 @@
 
 /* --- END: Company Panel Styles --- */
 
-@media (max-width: 1024px) {
- /* Companies page */
-    .company-panel { width: 65%; } /* Widen panel on medium screens */
-}
-
-    /* responsive: stack on small screens */
-@media (max-width:900px) {
-        .team-grid { grid-template-columns: repeat(1,1fr); }
-        .team-panel { width:100%; }
-        .team-panel .panel-top-img { height:220px; }
-        .team-panel .panel-body { display:block; padding:20px; }
-        .team-panel .panel-left { flex:1; margin-bottom:20px; text-align:left; }
-        .team-panel .panel-left .social-links { margin-top:12px; }
-        .team-panel .panel-right { margin-top:0; }
-
-
-            /* Companies page */
-        .company-panel { width: 100%; } /* Full width on mobile */
-        .company-panel .panel-body { display:block; padding:20px; }
-        .company-panel .panel-left { flex:1; margin-bottom:20px; text-align:left; }
-        .company-panel .panel-right { margin-top:0; }
-        
-        .company-panel .panel-header {
-            height: 180px; /* Shorter header on mobile */
-        }
-        .company-panel .header-logo-area {
-            flex: 0 0 30%; /* Logo takes half on mobile */
-        }
-        .company-panel .header-hero-img {
-            flex: 1; /* Image takes other half */
-        }
-}
-
-
-
-
-   @media (max-width: 768px) {
-    
-
-    /* Companies Panel page */
-    .company-panel .panel-header {
-        display: block; /* Stack logo area above image */
-        height: auto;
-    }
-    .company-panel .header-logo-area {
-        flex: 1;
-        padding: 15px;
-    }
-
-    /* NEW RULE: Target the logo image inside the header area */
-    .company-panel .header-logo-area img {
-        max-height: 100px; /* Giới hạn chiều cao logo tối đa 100px */
-        width: auto;
-    }
-    /* END NEW RULE */
-    
-    .company-panel .header-hero-img {
-        height: 200px;
-    }
-
-
-    
-    /* Bố cục nội dung chính */
-    .company-panel .panel-body { 
-        padding: 20px; 
-        display: block; /* Stack left and right columns */
-    }
-    .company-panel .panel-left { 
-        margin-bottom: 20px; 
-        min-width: unset; 
-    }
-
-   }
-   
-
    /* --- NEW: INVESTOR PANEL STYLES --- */
 
 /* Base Overlay (Inherits from .team-overlay) */
@@ -288,17 +213,6 @@
 .investor-panel .panel-inner {
     padding: 0; 
     margin: 0;
-}
-
-/* Responsive adjustment for Investor Panel */
-@media (max-width: 900px) {
-    .investor-panel {
-        width: 100%;
-        max-width: 100%;
-    }
-    .investor-panel .investor-form-card {
-        padding: 20px;
-    }
 }
 
 
@@ -364,8 +278,45 @@
     color: var(--accent-color-yelow); /* Thay đổi màu khi hover */
 }
 
-/* Responsive adjustment cho mobile */
-@media (max-width: 900px) {
+
+@media (max-width: 1024px) {
+ /* Companies page */
+    .company-panel { width: 65%; } /* Widen panel on medium screens */
+}
+  
+@media (max-width:900px) {
+        .team-grid { grid-template-columns: repeat(1,1fr); }
+        .team-panel { width:100%; }
+        .team-panel .panel-top-img { height:220px; }
+        .team-panel .panel-body { display:block; padding:20px; }
+        .team-panel .panel-left { flex:1; margin-bottom:20px; text-align:left; }
+        .team-panel .panel-left .social-links { margin-top:12px; }
+        .team-panel .panel-right { margin-top:0; }
+
+
+            /* Companies page */
+        .company-panel { width: 100%; } /* Full width on mobile */
+        .company-panel .panel-body { display:block; padding:20px; }
+        .company-panel .panel-left { flex:1; margin-bottom:20px; text-align:left; }
+        .company-panel .panel-right { margin-top:0; }
+        
+        .company-panel .panel-header {
+            height: 180px; /* Shorter header on mobile */
+        }
+        .company-panel .header-logo-area {
+            flex: 0 0 30%; /* Logo takes half on mobile */
+        }
+        .company-panel .header-hero-img {
+            flex: 1; /* Image takes other half */
+        }
+/* Responsive adjustment for Investor Panel */
+    .investor-panel {
+        width: 100%;
+        max-width: 100%;
+    }
+    .investor-panel .investor-form-card {
+        padding: 20px;
+    }
     .menu-align-bottom {
         padding: 0 20px 40px 20px; /* Giảm padding cho mobile */
     }
@@ -373,3 +324,44 @@
         font-size: 1.5rem; /* Giảm kích thước chữ trên mobile */
     }
 }
+
+/* responsive: stack on small screens */
+@media (max-width: 768px) {
+    
+
+    /* Companies Panel page */
+    .company-panel .panel-header {
+        display: block; /* Stack logo area above image */
+        height: auto;
+    }
+    .company-panel .header-logo-area {
+        flex: 1;
+        padding: 15px;
+    }
+
+    /* NEW RULE: Target the logo image inside the header area */
+    .company-panel .header-logo-area img {
+        max-height: 100px; /* Giới hạn chiều cao logo tối đa 100px */
+        width: auto;
+    }
+    /* END NEW RULE */
+    
+    .company-panel .header-hero-img {
+        height: 200px;
+    }
+
+
+    
+    /* Bố cục nội dung chính */
+    .company-panel .panel-body { 
+        padding: 20px; 
+        display: block; /* Stack left and right columns */
+    }
+    .company-panel .panel-left { 
+        margin-bottom: 20px; 
+        min-width: unset; 
+    }
+
+}
+   
+

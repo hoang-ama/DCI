@@ -1,7 +1,7 @@
 :root {
     --primary-color: #48A300;
     --primary-color-light: #77A300;
-    --primary-color-dark:#00363D;
+    --primary-color-dark: #00363D;
 
     --secondary-color: #F7F7F7;
 
@@ -13,13 +13,14 @@
     --accent-color-cyan: #2CB8AF;
     --accent-color-cyan-dark: #25AABB;
 
-
     --text-color: #333;
     --white-text: #FFF;
     --grey-text: #666;
     --dark-bg: #111;
     --dark-footer: #363a3d;
+
     --hover-color: #5CC700;
+
     --gradient-1: #48A300;
     --gradient-2: #3AB800;
     --gradient-3: #28C700;
@@ -55,9 +56,13 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
-.page-with-footer main, .page-with-footer .blog-page {
-    flex: 1 0 auto; /* allow main content to grow so footer is pushed down */
+
+.page-with-footer main,
+.page-with-footer .blog-page {
+    flex: 1 0 auto;
+    /* allow main content to grow so footer is pushed down */
 }
+
 .page-with-footer .footer-section {
     flex-shrink: 0;
 }
@@ -77,6 +82,7 @@ a {
     color: var(--primary-color);
     border: 1px solid var(--primary-color);
     font-size: 1rem;
+    font-family: inherit;
 }
 
 .btn:hover {
@@ -121,7 +127,7 @@ h2 {
 
 /* Header & Hero Section     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/image/homepage-bg.png');  */
 .hero-section {
-    background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url("./image/DCI-Slider.png") no-repeat center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("./image/DCI-Slider.png") no-repeat center/cover;
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -134,16 +140,17 @@ h2 {
 }
 
 .menu-toggle {
-    display: none; /* Mặc định ẩn trên desktop */
+    display: none;
+    /* Mặc định ẩn trên desktop */
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: var(--primary-color); /* Màu icon */
+    color: var(--primary-color);
+    /* Màu icon */
     cursor: pointer;
     padding: 5px;
 }
-/* Blog-specific header and hero styles moved to blog.css */
-/* See blog.css for .site-header, .site-header--large-logo, .news-hero, .news-hero-inner */
+
 
 .navbar {
     position: absolute;
@@ -242,10 +249,21 @@ h2 {
 }
 
 /* Keep the brand gradient color but overlay an icon SVG centered */
-.icon-1 { background-image: url('./image/mission-1.svg'); }
-.icon-2 { background-image: url('./image/mission-2.svg'); }
-.icon-3 { background-image: url('./image/mission-3.svg'); }
-.icon-4 { background-image: url('./image/mission-4.svg'); }
+.icon-1 {
+    background-image: url('./image/mission-1.svg');
+}
+
+.icon-2 {
+    background-image: url('./image/mission-2.svg');
+}
+
+.icon-3 {
+    background-image: url('./image/mission-3.svg');
+}
+
+.icon-4 {
+    background-image: url('./image/mission-4.svg');
+}
 
 /* Who We Are Section */
 .who-we-are-section {
@@ -254,7 +272,8 @@ h2 {
     gap: 50px;
 }
 
-.content-left, .content-right {
+.content-left,
+.content-right {
     flex: 1;
 }
 
@@ -284,8 +303,9 @@ h2 {
 .portfolio-grid {
     display: grid;
     /* FIX: Sets exactly 5 columns, forcing each cell to take up more space on desktop */
-    /* grid-template-columns: repeat(5, 1fr); */ 
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Grid layout */
+    /* grid-template-columns: repeat(5, 1fr); */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    /* Grid layout */
     gap: 25px;
     align-items: center;
     margin-top: 40px;
@@ -293,7 +313,7 @@ h2 {
 
 /* Make each grid cell an even square. This targets both direct image children
    and any wrapper element with a `.portfolio-item` class. */
-.portfolio-grid > * {
+.portfolio-grid>* {
     background: var(--white-text);
     border-radius: 12px;
     padding: 12px;
@@ -305,7 +325,7 @@ h2 {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.portfolio-grid > *:hover {
+.portfolio-grid>*:hover {
     transform: translateY(-6px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
@@ -317,12 +337,15 @@ h2 {
 /* 1. Bọc ngoài (Wrapper) - Đặt perspective cho hiệu ứng 3D */
 .portfolio-item-wrapper {
     /* Đảm bảo mỗi item chiếm 1 ô trong grid */
-    min-height: 180px; 
-    perspective: 1000px; /* Thêm chiều sâu 3D */
+    min-height: 180px;
+    perspective: 1000px;
+    /* Thêm chiều sâu 3D */
     cursor: pointer;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Shadow cho wrapper thay vì card */
-    position: relative; /* Quan trọng cho việc định vị các thẻ con */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    /* Shadow cho wrapper thay vì card */
+    position: relative;
+    /* Quan trọng cho việc định vị các thẻ con */
 }
 
 /* 2. Thẻ Card - Container chịu trách nhiệm xoay */
@@ -330,8 +353,10 @@ h2 {
     width: 100%;
     height: 100%;
     position: absolute;
-    transform-style: preserve-3d; /* Cho phép các mặt con lật trong không gian 3D */
-    transition: transform 0.6s ease-in-out; /* Tốc độ lật */
+    transform-style: preserve-3d;
+    /* Cho phép các mặt con lật trong không gian 3D */
+    transition: transform 0.6s ease-in-out;
+    /* Tốc độ lật */
     background: var(--white-text);
     border-radius: 12px;
 }
@@ -346,7 +371,8 @@ h2 {
     position: absolute;
     width: 100%;
     height: 100%;
-    backface-visibility: hidden; /* Ẩn mặt sau khi nó quay về phía người xem */
+    backface-visibility: hidden;
+    /* Ẩn mặt sau khi nó quay về phía người xem */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -361,23 +387,30 @@ h2 {
     /* Logo đã được style trong .portfolio-logo */
     background-color: var(--white-text);
 }
+
 /* Đảm bảo logo bên trong card-face-front hiển thị đúng */
 .card-face-front img.portfolio-logo {
-    max-width: 80%; /* Logo nhỏ lại một chút để vừa vặn */
+    max-width: 80%;
+    /* Logo nhỏ lại một chút để vừa vặn */
     height: auto;
     object-fit: contain;
     margin-bottom: 0;
-    transition: none; /* Tắt hiệu ứng hover cũ */
+    transition: none;
+    /* Tắt hiệu ứng hover cũ */
 }
+
 .portfolio-logo:hover {
-    transform: none; /* Vô hiệu hóa hover scale cũ */
+    transform: none;
+    /* Vô hiệu hóa hover scale cũ */
 }
 
 /* Mặt sau (Thông tin) */
 .card-face-back {
-    background-color: var(--primary-color-light); /* Màu nền xanh lá nhạt cho mặt sau */
+    background-color: var(--primary-color-light);
+    /* Màu nền xanh lá nhạt cho mặt sau */
     color: var(--white-text);
-    transform: rotateY(180deg); /* Quay mặt sau 180 độ để nó hiển thị khi mặt trước ẩn */
+    transform: rotateY(180deg);
+    /* Quay mặt sau 180 độ để nó hiển thị khi mặt trước ẩn */
     text-align: center;
 }
 
@@ -403,18 +436,22 @@ h2 {
 }
 
 .card-face-back .card-link {
-    color: var(--accent-color-orange); /* Màu vàng cam làm nổi bật link */
+    color: var(--accent-color-orange);
+    /* Màu vàng cam làm nổi bật link */
     font-weight: 600;
     text-decoration: underline;
 }
 
 
 /* Reset lại box-shadow/hover cho wrapper để nó trông gọn gàng hơn */
-.portfolio-grid > * {
-    padding: 0; /* Xóa padding 12px cũ */
-    box-shadow: none; /* Xóa box-shadow cũ */
+.portfolio-grid>* {
+    padding: 0;
+    /* Xóa padding 12px cũ */
+    box-shadow: none;
+    /* Xóa box-shadow cũ */
 }
-.portfolio-grid > *:hover {
+
+.portfolio-grid>*:hover {
     transform: none;
     box-shadow: none;
 }
@@ -438,10 +475,12 @@ h2 {
 }
 
 .portfolio-section-actions {
-    display:flex;
-    justify-content:center;
-    margin-top: 32px; /* ensure at least 30px spacing from the grid */
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    /* ensure at least 30px spacing from the grid */
 }
+
 .portfolio-section-actions .btn {
     margin-top: 0;
 }
@@ -537,10 +576,25 @@ h2 {
     color: var(--grey-text);
 }
 
-/* Blog Section */
+/* Blog Section - Homepage */
+
 .blog-section {
     text-align: center;
 }
+
+.blog-section h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.blog-section nav a {
+    color: var(--primary-color);
+    /* Gold color for navigation link */
+    text-decoration: none;
+}
+
+
+
 
 .blog-cards-container {
     display: grid;
@@ -550,53 +604,6 @@ h2 {
     margin-top: 40px;
 }
 
-/* Home page: render the three most recent posts in a centered row.
-   Script appends a wrapper <div> inside #home-posts-container, so target
-   that wrapper's direct child to display the cards in a row. */
-#home-posts-container > div {
-    display: flex;
-    justify-content: center; /* center the row */
-    gap: 24px; /* space between cards */
-    flex-wrap: nowrap; /* keep them in a single row on wide screens */
-    margin-top: 40px;
-}
-
-/* Index page: make each generated post a stacked card (image above, content below)
-   without affecting the blog page's row layout. */
-#home-posts-container > div .post-row {
-    /* stack image above summary */
-    flex-direction: column;
-    align-items: stretch;
-    width: 360px;
-    max-width: 100%;
-    background: var(--white-text);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(16,24,40,0.06);
-    padding: 0;
-}
-
-#home-posts-container > div .post-image {
-    width: 100%;
-    height: 220px;
-    border-radius: 0; /* image fills the top edge */
-}
-
-#home-posts-container > div .post-summary {
-    padding: 22px;
-    text-align: left;
-}
-
-#home-posts-container > div .post-summary h3 {
-    font-size: 1.125rem;
-    margin-bottom: 10px;
-    color: var(--primary-color);
-}
-
-#home-posts-container > div .post-summary .post-meta {
-    margin-top: 12px;
-    color: #7a7a7a;
-}
 
 .blog-card {
     width: 350px;
@@ -638,18 +645,6 @@ h2 {
 }
 
 
-/* Blog Section */
-
-blog-section h2 {
-    margin: 0;
-    font-size: 1.5em;
-}
-
-.blog-section nav a {
-    color: var(--primary-color); /* Gold color for navigation link */
-    text-decoration: none;
-}
-
 
 /* Post Cards */
 .post {
@@ -680,172 +675,59 @@ blog-section h2 {
     font-weight: bold;
 }
 
-/* Single Post View */
-.single-post {
-    background: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+/* Home page: render the three most recent posts in a centered row.
+   Script appends a wrapper <div> inside #home-posts-container, so target
+   that wrapper's direct child to display the cards in a row. */
 
-.single-post h1 {
-    font-size: 2.5em;
-    color: #1a1a1a;
-    margin-bottom: 10px;
-}
-
-/* Blog page layout (centered with sidebar) */
-.blog-page {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 5%;
-    align-items: start;
-}
-
-.blog-main {
-    width: 100%;
-}
-
-.blog-sidebar .sidebar-card {
-    background: var(--white-text);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-    margin-bottom: 24px;
-}
-
-.sidebar-card h3 {
-    margin-bottom: 12px;
-    color: var(--primary-color);
-}
-
-.tags .tag {
-    display: inline-block;
-    background: #f2f5ff;
-    color: var(--primary-color);
-    padding: 6px 10px;
-    margin: 6px 6px 0 0;
-    border-radius: 999px;
-    text-decoration: none;
-    font-size: 0.9rem;
-}
-
-/* Post row: image left, summary right */
-.posts-list {
+#home-posts-container>div {
     display: flex;
-    flex-direction: column;
-    gap: 28px;
-}
-
-.post-row {
-    display: flex;
+    justify-content: center;
+    /* center the row */
     gap: 24px;
-    align-items: flex-start;
+    /* space between cards */
+    flex-wrap: nowrap;
+    /* keep them in a single row on wide screens */
+    margin-top: 40px;
+}
+
+/* Index page: make each generated post a stacked card (image above, content below)
+   without affecting the blog page's row layout. */
+#home-posts-container>div .post-row {
+    /* stack image above summary */
+    flex-direction: column;
+    align-items: stretch;
+    width: 360px;
+    max-width: 100%;
     background: var(--white-text);
-    padding: 18px;
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(16, 24, 40, 0.06);
+    padding: 0;
 }
 
-.post-image {
-    width: 320px;
-    height: 180px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 12px;
-    flex-shrink: 0;
-}
-
-.post-summary h3 {
-    margin: 0 0 10px 0;
-    font-size: 1.2rem;
-}
-
-.post-summary .excerpt {
-    color: var(--grey-text);
-    margin-bottom: 12px;
-}
-
-.post-meta {
-    font-size: 0.9rem;
-    color: #777;
-}
-
-
-/* Pagination Controls (NEW) */
-.pagination {
-    text-align: center;
-    padding: 20px 0;
-    margin-bottom: 20px;
-}
-.pagination a {
-    color: #333;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #ddd;
-    margin: 0 4px;
-    border-radius: 4px;
-}
-.pagination a.active {
-    background-color: var(--primary-color);
-    color: white;
-    border: 1px solid var(--primary-color);
-}
-.pagination a:hover:not(.active) {
-    background-color: #eee;
-}
-
-
-
-/* Call to Action Section */
-.cta-section {
-    background: linear-gradient(90deg, var(--gradient-1), var(--gradient-5));
-    color: var(--white-text);
-    text-align: center;
-    /* make the section span the full viewport width */
-    width: 100vw;
-    max-width: 100vw;
-    /* offset the section so it aligns with the viewport edges even when inside a centered container */
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    padding: 50px 0; /* vertical padding only; inner content padding handled below */
-    border: none;
+#home-posts-container>div .post-image {
+    width: 100%;
+    height: 220px;
     border-radius: 0;
+    /* image fills the top edge */
 }
 
-/* keep the CTA's inner content constrained and centered like other sections */
-.cta-section .cta-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 5%;
+#home-posts-container>div .post-summary {
+    padding: 22px;
+    text-align: left;
 }
 
-
-
-.cta-content h2 {
-    color: var(--white-text);
-    margin-bottom: 30px;
-}
-.cta-content p {
-    color: var(--white-text);
-    margin-bottom: 40px;
-    font-size: 1.2rem;
-}
-
-.cta-content .btn {
-    background-color: var(--white-text);
+#home-posts-container>div .post-summary h3 {
+    font-size: 1.125rem;
+    margin-bottom: 10px;
     color: var(--primary-color);
-    font-weight: 600;
-    border: none;
 }
-.cta-content .btn:hover {
-    background: linear-gradient(90deg, var(--gradient-5), var(--gradient-1));
-    color: var(--white-text);
+
+#home-posts-container>div .post-summary .post-meta {
+    margin-top: 12px;
+    color: #7a7a7a;
 }
+
 
 /* Footer Section */
 .footer-section {
@@ -900,157 +782,353 @@ blog-section h2 {
 }
 
 .footer-bottom {
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--white-text);
-  padding-top: 10px;
-  /* border-top: 1px solid #4caf50; /* Màu xanh nhạt hơn */
-  max-width: 1200px;
-  margin: 0 auto;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--white-text);
+    padding-top: 10px;
+    /* border-top: 1px solid #4caf50; /* Màu xanh nhạt hơn */
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Blog-specific styles (loaded only on blog.html and blog-details.html)
-   Purpose: keep blog layout, header and hero overrides isolated from global style.css
-*/
+   Purpose: keep blog layout, header and hero overrides isolated from global style.css */
+/* Blog page layout - Trang Blog.html */
+
+.blog-page {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+    max-width: 1500px;
+    /* increase to match header and hero */
+    margin: 0 auto;
+    padding: 40px 5%;
+    align-items: start;
+}
+
+.blog-main {
+    width: 100%;
+}
+
+.blog-sidebar .sidebar-card {
+    background: var(--white-text);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    margin-bottom: 24px;
+}
+
+.sidebar-card h3 {
+    margin-bottom: 12px;
+    color: var(--primary-color);
+}
+
+.categories .btn { 
+ margin: 6px 0; /* space between buttons vertically */
+}
+
+
+
+
+.tags .tag {
+    display: inline-block;
+    background: #f2f5ff;
+    color: var(--primary-color);
+    padding: 6px 10px;
+    margin: 6px 6px 0 0;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+
+/* Post row: image left, summary right */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.post-row {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    background: var(--white-text);
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.post-image {
+    width: 320px;
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.post-summary h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.2rem;
+}
+
+.post-summary .excerpt {
+    color: var(--grey-text);
+    margin-bottom: 12px;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+
+/* Pagination Controls (NEW) - Đánh trang Blog */
+.pagination {
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.pagination a {
+    color: #333;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    border-radius: 4px;
+}
+
+.pagination a.active {
+    background-color: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-color);
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #eee;
+}
+
+
+
+/* Call to Action Section */
+.cta-section {
+    background: linear-gradient(90deg, var(--gradient-1), var(--gradient-5));
+    color: var(--white-text);
+    text-align: center;
+    /* make the section span the full viewport width */
+    width: 100vw;
+    max-width: 100vw;
+    /* offset the section so it aligns with the viewport edges even when inside a centered container */
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 50px 0;
+    /* vertical padding only; inner content padding handled below */
+    border: none;
+    border-radius: 0;
+}
+
+/* keep the CTA's inner content constrained and centered like other sections */
+.cta-section .cta-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+
+
+.cta-content h2 {
+    color: var(--white-text);
+    margin-bottom: 30px;
+}
+
+.cta-content p {
+    color: var(--white-text);
+    margin-bottom: 40px;
+    font-size: 1.2rem;
+}
+
+.cta-content .btn {
+    background-color: var(--white-text);
+    color: var(--primary-color);
+    font-weight: 600;
+    border: none;
+}
+
+.cta-content .btn:hover {
+    background: linear-gradient(90deg, var(--gradient-5), var(--gradient-1));
+    color: var(--white-text);
+}
 
 /* Sticky header used on blog pages */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: #f3f4f8;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #f3f4f8;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
 }
+
 .site-header .navbar {
-  position: relative;
-  padding: 14px 40px;
-  max-width: 1100px;
-  height: 70px; /* fixed height for consistent header size */
-  margin: 0 auto;
-  align-items: center;
-  display: flex;
-  gap: 20px;
+    position: relative;
+    padding: 14px 40px;
+    max-width: 1100px;
+    height: 70px;
+    /* fixed height for consistent header size */
+    margin: 0 auto;
+    align-items: center;
+    display: flex;
+    gap: 20px;
 }
-.site-header .nav-links a { color: #1f2937; }
+
+.site-header .nav-links a {
+    color: #1f2937;
+}
 
 /* support a modifier for pages that display a visually larger logo while keeping header height */
 .site-header--large-logo .nav-logo {
-  height: 96px; /* visually large but restrained to avoid huge header */
+    height: 96px;
+    /* visually large but restrained to avoid huge header */
 }
 
 /* News hero (full-bleed background, constrained inner column) */
 .news-hero {
-  background: linear-gradient(90deg, var(--gradient-1), var(--gradient-5));
-  color: #fff;
-  width: 100vw;
-  max-width: 100vw;
-  /* height: 70px; /* fixed height for consistent header size */
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  box-sizing: border-box;
-  padding: 30px 5% 30px;
+    background: linear-gradient(90deg, var(--gradient-1), var(--gradient-5));
+    color: #fff;
+    width: 100vw;
+    max-width: 100vw;
+    /* height: 70px; /* fixed height for consistent header size */
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    box-sizing: border-box;
+    padding: 30px 5% 30px;
 }
+
 .news-hero-inner {
-  max-width: 1100px; /* align hero inner width with header/navbar */
-  margin: 0 auto;
+    max-width: 1100px;
+    /* align hero inner width with header/navbar */
+    margin: 0 auto;
 }
 
 /* Blog page layout */
-.blog-page {
-  display: grid;
-  grid-template-columns: 1fr 350px;
-  gap: 40px;
-  max-width: 1500px; /* increase to match header and hero */
-  margin: 0 auto;
-  padding: 40px 5%;
-  align-items: start;
-}
-.blog-main { width: 100%; }
-.blog-sidebar .sidebar-card {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-  margin-bottom: 24px;
-}
-.sidebar-card h3 { margin-bottom: 12px; color: var(--primary-color); }
-.tags .tag {
-  display: inline-block;
-  background: #f2f5ff;
-  color: var(--primary-color);
-  padding: 6px 10px;
-  margin: 6px 6px 0 0;
-  border-radius: 999px;
-  text-decoration: none;
-  font-size: 0.9rem;
-}
 
-/* Post rows (blog list) */
-.posts-list { display: flex; flex-direction: column; gap: 28px; }
-.post-row {
-  display: flex;
-  gap: 28px;
-  align-items: flex-start;
-  background: #fff;
-  padding: 22px; /* slightly more breathing room */
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-}
-.post-image { width: 420px; height: 230px; background-size: cover; background-position: center; border-radius: 12px; flex-shrink: 0; }
-.post-summary h3 { margin: 0 0 12px 0; font-size: 1.4rem; line-height: 1.15; }
-.post-summary .excerpt { color: var(--grey-text); margin-bottom: 14px; font-size: 1rem; }
-.post-meta { font-size: 0.9rem; color: #777; }
+/* Single post (blog-details) và cả trang job deatails layout and alignment */
 
-
- /* Page-scoped styles for About page */
-.about-main {
-    max-width:1500px;
-    margin:40px auto;
-    padding:30px 5%;
-}
-
-.about-main h1, .about-main h2 { text-align: left; }
-.about-main h2 { 
-  font-size: 1.7rem;
-  font-weight: 600;
-  margin: 10px;
-}
-.about-main .btn { display: inline-block; margin-top: 30px; margin-bottom: 50px; }
-
-
-/* Single post (blog-details) layout and alignment */
 .single-post {
-  max-width: 1100px; /* align with .news-hero-inner and navbar */
-  margin: 0px auto 48px; /* center the article inside the page */
-  padding: 70px 5%;
-  text-align: left; /* ensure paragraphs align left */
-  color: #222;
+    max-width: 1200px; 
+    margin: 0px auto;
+    padding: 50px 5%;
+    text-align: left;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Đảm bảo nó lấp đầy job-content-wrapper */
+    box-sizing: border-box;
 }
+
 
 .single-post h1,
 .single-post h2,
 .single-post h3 {
-  text-align: left;
-  margin-top: 20px;
-  margin-bottom: 10px;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
-.single-post p { line-height: 1.7; color: var(--grey-text); }
+.single-post p {
+    line-height: 1.7;
+    color: var(--grey-text);
+}
 
 .single-post ul,
 .single-post ol {
-  margin-left: 1.25rem;
-  padding-left: 1.25rem;
+    margin-left: 1.25rem;
+    padding-left: 1.25rem;
 }
 
 .single-post blockquote {
-  margin: 18px 0;
-  padding: 12px 16px;
-  border-left: 4px solid var(--primary-color);
-  background: rgba(242,245,255,0.25);
+    margin: 18px 0;
+    padding: 12px 16px;
+    border-left: 4px solid var(--primary-color);
+    background: rgba(242, 245, 255, 0.25);
 }
 
+
+
+/* Post rows (blog list) */
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.post-row {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    background: #fff;
+    padding: 22px;
+    /* slightly more breathing room */
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.post-image {
+    width: 420px;
+    height: 230px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.post-summary h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.4rem;
+    line-height: 1.15;
+}
+
+.post-summary .excerpt {
+    color: var(--grey-text);
+    margin-bottom: 14px;
+    font-size: 1rem;
+}
+
+.post-meta {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+
+
 /* PAGE: ABOUT US */
+
+
+/* Page-scoped styles for About page */
+.about-main {
+    max-width: 1500px;
+    margin: 40px auto;
+    padding: 30px 5%;
+}
+
+.about-main h1,
+.about-main h2 {
+    text-align: left;
+}
+
+.about-main h2 {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin: 10px;
+}
+
+.about-main .btn {
+    display: inline-block;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
 /* Infographic Vision & Mission Section */
 .vision-mission-infographic {
     padding: 80px 5%;
@@ -1085,7 +1163,7 @@ blog-section h2 {
     background: #fff;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
 }
 
 .vm-icon {
@@ -1124,8 +1202,10 @@ blog-section h2 {
 }
 
 .funnel-image-container {
-    max-width: 1000px; /* Giới hạn kích thước tối đa của hình ảnh */
-    margin: 0px ; /* Căn giữa container */
+    max-width: 1000px;
+    /* Giới hạn kích thước tối đa của hình ảnh */
+    margin: 0px;
+    /* Căn giữa container */
 }
 
 .funnel-image {
@@ -1139,12 +1219,14 @@ blog-section h2 {
     padding: 80px 5%;
     text-align: center;
 }
+
 .about-verticals p {
     margin-bottom: 30px;
     font-size: 1.1rem;
     color: var(--grey-text);
     text-align: left;
 }
+
 .vertical-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1156,7 +1238,7 @@ blog-section h2 {
     background: #fff;
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
     transition: transform 0.3s ease;
 }
 
@@ -1194,8 +1276,10 @@ blog-section h2 {
 }
 
 .uniqueness-image-container {
-    max-width: 800px; /* Giới hạn kích thước tối đa của hình ảnh */
-    margin: 0px auto; /* Căn giữa container */
+    max-width: 800px;
+    /* Giới hạn kích thước tối đa của hình ảnh */
+    margin: 0px auto;
+    /* Căn giữa container */
 }
 
 .uniqueness-image {
@@ -1222,7 +1306,7 @@ blog-section h2 {
     background: #fff;
     padding: 40px 25px;
     border-radius: 18px;
-    box-shadow: 0 6px 25px rgba(0,0,0,0.07);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07);
     transition: transform 0.3s ease;
 }
 
@@ -1260,10 +1344,12 @@ blog-section h2 {
 /* Đảm bảo container này nằm trong giới hạn max-width của các section */
 .page-footer-actions {
     max-width: 1200px;
-    margin: 30px auto 50px; /* Thêm khoảng cách với footer */
+    margin: 30px auto 50px;
+    /* Thêm khoảng cách với footer */
     padding: 0 5%;
     display: flex;
-    justify-content: space-between; /* Đẩy hai nút ra hai góc */
+    justify-content: space-between;
+    /* Đẩy hai nút ra hai góc */
     align-items: center;
 }
 
@@ -1279,7 +1365,8 @@ blog-section h2 {
 }
 
 .btn.team-btn:hover {
-    background-color: var(--hover-color); /* Sử dụng màu hover đã định nghĩa */
+    background-color: var(--hover-color);
+    /* Sử dụng màu hover đã định nghĩa */
     color: var(--white-text);
 }
 
@@ -1328,6 +1415,7 @@ blog-section h2 {
     color: var(--white-text);
     border: none;
 }
+
 .popup-links .btn:hover {
     background-color: var(--hover-color);
 }
@@ -1335,18 +1423,114 @@ blog-section h2 {
 
 
 /* ----- COMPANIES PAGE ----- */
+
+/* --- NEW: COMPANIES FILTER BAR --- */
+.companies-filter-section {
+    max-width: 1200px; /* Sử dụng max-width tương tự các section khác */
+    margin: 0 auto;
+    padding: 0 5%;
+    padding-top: 40px; /* Khoảng cách từ hero section */
+}
+
+.companies-filter-section h3 {
+    text-align: left;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: var(--grey-text);
+}
+
+/* Hiển thị ngang và cuộn cho các nút lọc */
+.filter-buttons-row {
+    display: flex;
+    flex-wrap: wrap; /* Cho phép các nút xuống dòng */
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+/* Tùy chỉnh nút trong hàng lọc (làm cho chúng nhỏ hơn các nút CTA chính) */
+.filter-buttons-row .btn {
+    padding: 8px 16px; 
+    border-radius: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+
 /* Companies Grid Section */
 .companies-grid-section {
-    background-color: var(--secondary-color); /* Light background */
+    background-color: var(--secondary-color);
+    /* Light background */
     padding: 60px 0;
 }
 
 .companies-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Grid layout */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    /* Grid layout */
     gap: 25px;
-    padding: 0 20px; 
+    padding: 0 20px;
 }
+
+/* --- NEW: Single Grid Item Fix --- */
+
+/* Target the companies-grid container and check when it contains exactly one item.
+   We apply a limited width to the item itself. */
+.companies-grid:has(> .company-item:only-child) {
+    /* Khi chỉ có một phần tử, sử dụng Flexbox để căn giữa phần tử đó */
+    display: flex;
+    justify-content: center;
+}
+
+.companies-grid .company-item:only-child {
+    /* Giới hạn chiều rộng tối đa của phần tử duy nhất
+       (ví dụ: 1/3 chiều rộng tối đa của grid, hoặc một giá trị cố định) */
+    max-width: 300px; 
+    /* Đảm bảo chiều rộng không vượt quá giới hạn tối đa mong muốn */
+    flex-grow: 0; 
+}
+
+
+/* --- MOBILE FILTER DROPDOWN STYLES --- */
+
+/* Mặc định ẩn drop-down trên Desktop */
+.mobile-filter-wrapper {
+    display: none;
+}
+
+/* Style cho select drop-down */
+.mobile-filter-select {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary-color);
+    background-color: var(--white-text);
+    border: 1px solid var(--primary-color);
+    border-radius: 50px; /* Bo tròn giống nút */
+    appearance: none; /* Ẩn mũi tên mặc định của trình duyệt */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Container để định vị icon mũi tên */
+.mobile-filter-wrapper {
+    position: relative;
+    max-width: 100%;
+}
+
+/* Icon mũi tên tùy chỉnh */
+.mobile-filter-wrapper .select-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    pointer-events: none; /* Để click xuyên qua icon vào select */
+    font-size: 0.9rem;
+}
+
 
 
 .company-item {
@@ -1360,7 +1544,7 @@ blog-section h2 {
     padding: 25px;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    min-height: 180px; 
+    min-height: 180px;
     text-align: center;
 }
 
@@ -1370,10 +1554,10 @@ blog-section h2 {
 }
 
 .company-item img {
-    max-width: 120px; 
+    max-width: 120px;
     height: auto;
     margin-bottom: 15px;
-    filter: grayscale(0%); 
+    filter: grayscale(0%);
 }
 
 .company-item h4 {
@@ -1384,323 +1568,100 @@ blog-section h2 {
 
 
 /* Style page job-details.html */
+
 .page-actions-top {
-    max-width: 1200px;
-    margin: 20px auto -10px; /* margin âm để kéo gần nội dung chính */
+    max-width: 1500px;
+    margin: 20px auto;/* Tăng margin dưới để tách khỏi nội dung */
     padding: 0 5%;
+    text-align: left !important; /* Căn chỉnh nội dung trong container sang trái */
 }
 
+
+/* Loại bỏ nút bao quanh, chỉ giữ lại mũi tên và căn chỉnh */
 .back-btn {
-    display: inline-flex; /* Cho phép icon và text nằm cạnh nhau */
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     background: none;
-    border: 1px solid var(--grey-text);
-    color: var(--grey-text);
-    padding: 8px 16px;
-    font-size: 0.95rem;
-    
-    /* Thiết lập lại hover để phù hợp với màu nền nhạt */
-    transition: background-color 0.3s, color 0.3s;
+    border: none; /* <-- LOẠI BỎ VIỀN */
+    color: var(--primary-color); /* Sử dụng màu nổi bật hơn cho mũi tên */
+    padding: 0; /* <-- LOẠI BỎ PADDING NÚT */
+    font-size: 1.1rem; /* Kích thước icon lớn hơn */
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.back-btn i {
+    font-size: 1.4rem;
+    /* Đảm bảo mũi tên to rõ */
 }
 
 .back-btn:hover {
-    background-color: var(--secondary-color); /* Màu nền nhạt */
+    background: none;
     color: var(--primary-color-dark);
-    border-color: var(--primary-color);
+    text-decoration: underline;
+    /* Thêm gạch chân khi hover cho text */
 }
 
-/* ----- RESPONSIVE DESIGN ----- */
-
-@media (max-width: 1024px) {
-    .hero-content h1 {
-        font-size: 3rem;
-    }
-    .who-we-are-section, .team-section {
-        flex-direction: column;
-    }
-    .founder-card {
-        flex-direction: column;
-        text-align: center;
-    }
-    .founder-info {
-        padding-left: 0;
-    }
-    .founder-info .quote-icon {
-        display: none;
-    }
+/* Tùy chỉnh style cho trang chi tiết công việc */
+.job-detail-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 5%;
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Nội dung 2/3, Form 1/3 */
+    gap: 40px;
+    align-items: start;
 }
 
+/* BỎ ĐOẠN NÀY ĐI HOẶC SỬA ĐỂ KHÔNG GÂY MARGIN THỪA */
+/* Đảm bảo nội dung bên trong Markdown (H1, H2,...) được căn chỉnh tốt */
+/* .job-content-wrapper h1, .job-content-wrapper h2, .job-content-wrapper h3 {color: var(--primary-color-dark);} /* Màu tối cho tiêu đề  */
 
-/* Responsive: stack main + sidebar, and stack image above summary */
-@media (max-width: 900px) {
-    .blog-page {
-        grid-template-columns: 1fr;
-        padding: 20px 5%;
-    }
-    .blog-sidebar {
-        order: 2;
-    }
-    .blog-main {
-        order: 1;
-    }
-    .post-row {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .post-image {
-        width: 100%;
-        height: 220px;
-    }
-    .post-summary {
-        width: 100%;
-    }
-/* Blog page: Adjust site header and news hero padding */
-    .site-header .navbar { max-width: 100%; padding: 12px 16px; }
-    .news-hero-inner { padding-inline: 16px; }
-    .blog-page { grid-template-columns: 1fr; padding: 20px 5%; }
-    .post-row { flex-direction: column; align-items: center; text-align: center; }
-    .post-image { width: 100%; height: 220px; }
-    .single-post { padding: 0 16px; }
+.job-content-wrapper {
+    margin-top: 0; /* Loại bỏ margin trên thừa */
+    padding-top: 0;
+}
 
-/* Style page job-details.html */
-    .page-actions-top {
-        padding: 0 4%; /* Giảm padding ngang cho mobile */
-        margin-top: 15px;
-        margin-bottom: 5px;
-    }
+.job-form-sidebar {
+    background: var(--secondary-color);
+    padding: 20px;
+    border-radius: 8px;
+    position: sticky;
+    top: 100px; /* Dính khi cuộn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
+.job-form-sidebar h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+.job-form-sidebar input,
+.job-form-sidebar select,
+.job-form-sidebar textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
 }
 
 
-@media (max-width: 768px) {
-
-
-    /* Đảm bảo thanh nav luôn nằm ngang và trải đều */
-    .navbar {
-        flex-direction: row; /* LUÔN là một thanh ngang */
-        justify-content: space-between;
-        align-items: center;
-        gap: 0;
-        padding: 15px 5%;
-    }
-
-    /* Center the logo in the hero header on small screens (homepage) */
-    .hero-section .navbar {
-        justify-content: center; /* logo centered horizontally */
-    }
-
-    .btn.nav-btn {
-    display: none; /* Ẩn nút CTA trên thanh nav trên mobile */
-    }
-
-
-/* Logo: Đảm bảo logo có kích thước phù hợp và nằm ở góc trái */
-    .nav-logo {
-        height: 100px; /* Kích thước nhỏ hơn trên mobile */
-        width: auto;
-        align-items: center; /* Giữ logo căn giữa theo chiều dọc trong header */
-    }
-
-    /* Nav Links: Ẩn menu chính trên mobile */
-    .nav-links {
-        display: none; /* Hide for mobile for now, can be toggled with JS */
-        /* Nếu muốn menu dropdown, chúng ta sẽ dùng JS để thêm class 'active' */
-        position: absolute;
-        top: 70px; /* Xuống dưới header */
-        left: 0;
-        width: 100%;
-        background-color: var(--white-text);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        flex-direction: column;
-        gap: 0;
-        padding: 10px 0;
-    }
-
-    .nav-links.active {
-        display: flex; /* Hiện menu khi active */
-    }
-
-    .nav-links li a {
-        color: var(--text-color);
-        padding: 10px 20px;
-        display: block;
-        border-bottom: 1px solid #eee;
-    }
-
-    /* Nút Toggle: Hiện nút menu trên mobile */
-    .menu-toggle {
-        display: block; 
-        color: var(--primary-color);
-    }
-
-        /* Header & Hero Section     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/image/homepage-bg.png');  */
-    .hero-section {
-        background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.5)), url("./image/DCI-Slider_Mobile.png") no-repeat center/cover;
-    }
-    .hero-content {
-        padding: 0 30px;
-    }
-
-    /* Đảm bảo các phần tử khác trong header bị ảnh hưởng bởi mobile layout được điều chỉnh */
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
-    h2 {
-        font-size: 2rem;
-    }
-    
-    .hero-content p {
-        font-size: 1rem;
-    }
-
-    /* Mission Cards: Bật Vuốt Ngang */
-    .mission-cards-container {
-        /* Chuyển từ Grid sang Flexbox cho mobile */
-        display: flex;
-        overflow-x: auto; /* Cho phép cuộn ngang */
-        scroll-snap-type: x mandatory; /* (Tùy chọn) Giúp các thẻ căn vào vị trí khi vuốt */
-        -webkit-overflow-scrolling: touch; /* Tăng trải nghiệm cuộn trên iOS */
-        /* Đảm bảo container này có thể trải rộng hết chiều ngang viewport */
-        width: 100vw;
-        max-width: 100vw;
-        margin-left: calc(50% - 50vw);
-        padding: 0 20px; /* Thêm padding ngang để thẻ không dính mép */
-        padding-bottom: 20px; /* Thêm padding dưới để có không gian cho thanh cuộn */
-        gap: 20px;
-    }
-
-    .mission-card {
-        /* Đặt kích thước cố định để buộc cuộn ngang */
-        flex: 0 0 75%; /* Chiếm 75% chiều rộng màn hình để người dùng biết còn thẻ khác */
-        width: 75%;
-        max-width: 300px; /* Giới hạn tối đa 300px nếu màn hình quá rộng */
-        scroll-snap-align: start; /* Căn thẻ khi cuộn */
-    }
-
-    /* Đảm bảo tiêu đề section nằm đúng chỗ, không bị ảnh hưởng bởi việc container tràn ra */
-    .mission-section {
-        padding: 80px 0; /* Bỏ padding ngang để container có thể tràn ra */
-    }
-    .mission-section h2, .mission-section p {
-        padding: 0 5%; /* Thêm padding ngang trở lại cho text */
-    }
-
-    /* Blog on the home page - posts vertically and center them */
-    #home-posts-container > div {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    /* Allow blog cards to expand a bit on small screens while keeping padding */
-    .blog-card {
-        width: 100%;
-        max-width: 420px;
-    }
-
-
-    /* Footer */
-  .footer-content {
-    flex-direction: column;
-    gap: 20px;
-    align-items: left;
-    padding: 0px 30px;
-  }
-
-  .footer-bottom {
-    padding-top: 20px;
-    font-size: 0.8rem;
-  }
-
-
-/* PAGE: ABOUT US */
-     .vm-container {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .vm-item {
-        text-align: left;
-    }
-
-    .vertical-grid .activity-grid {
-        gap: 20px;
-    }
-
-    /* Uniqueness Image: Tăng kích thước trên Mobile */
-    .uniqueness-image-container {
-        /* Ghi đè giới hạn max-width 800px của desktop */
-        max-width: 100%;
-        /* Tùy chọn: Đẩy hình ảnh ra sát mép hơn nếu cần, bằng cách giảm padding của section cha */
-        padding: 0 10px; /* Thêm padding nhẹ nếu cần */
-    }
-
-     .uniqueness-image {
-        width: 130%;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-        align-items: center;
-     }
-
-    /* Đảm bảo section cha không bị padding ngang quá lớn, giúp container image lớn hơn */
-    .uniqueness-section {
-        padding: 60px 0; /* Giảm padding ngang của section */
-    }
-
-    /* Đảm bảo các nội dung khác trong section vẫn có padding */
-    .uniqueness-section h2, .uniqueness-section p {
-        padding: 0 5%;
-    }
-
-
-    /* CTA Buttons at the end of About page  */
-    .page-footer-actions {
-        flex-direction: column; /* Xếp chồng trên màn hình nhỏ */
-        gap: 15px; /* Thêm khoảng cách giữa các nút */
-        align-items: center;
-    }
-
-    /* Ensure left-aligned variant centers on mobile so single buttons appear centered */
-    .page-footer-actions.page-footer-actions--left {
-        justify-content: center;
-        width: 100%;
-    }
-
-    /* Responsive for Companies Page */
-    .hero-content-subpage h1 {
-        font-size: 2.2rem;
-    }
-    .hero-content-subpage p {
-        font-size: 1rem;
-    }
-    .companies-grid, .portfolio-grid {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); 
-        gap: 15px;
-    }
-    .company-item {
-        padding: 15px;
-        min-height: 150px;
-    }
-    .company-item img {
-        max-width: 90px;
-    }
-    .company-item h4 {
-        font-size: 1rem;
-    }
-
+.job-form-sidebar .btn {
+    width: 100%;
 }
-
 
 /* --- PAGE: INVESTOR/ FOUNDER --- */
 
-.investor-main, .founder-main {
-    max-width:1500px;
-    margin:40px auto;
-    padding:30px 5%;
+.investor-main,
+.founder-main {
+    max-width: 1500px;
+    margin: 40px auto;
+    padding: 30px 5%;
 }
 
 /* Investor-philosophy Section */
@@ -1708,12 +1669,14 @@ blog-section h2 {
     padding: 80px 5%;
     text-align: center;
 }
+
 .investor-philosophy p {
     margin-bottom: 30px;
     font-size: 1.1rem;
     color: var(--grey-text);
     text-align: left;
 }
+
 .philosophy-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1725,7 +1688,7 @@ blog-section h2 {
     background: #fff;
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
     transition: transform 0.3s ease;
 }
 
@@ -1733,13 +1696,15 @@ blog-section h2 {
     transform: translateY(-8px);
 }
 
-.icon-growth, .icon-longterm , .icon-impact {
+.icon-growth,
+.icon-longterm,
+.icon-impact {
     font-size: 42px;
     color: var(--primary-color);
     margin-bottom: 15px;
 }
 
-.philosophy-item  h3 {
+.philosophy-item h3 {
     margin-bottom: 10px;
     color: var(--primary-color);
 }
@@ -1749,12 +1714,14 @@ blog-section h2 {
     padding: 80px 5%;
     text-align: center;
 }
+
 .investor-taste p {
     margin-bottom: 30px;
     font-size: 1.1rem;
     color: var(--grey-text);
     text-align: left;
 }
+
 .taste-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1766,7 +1733,7 @@ blog-section h2 {
     background: #fff;
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
     transition: transform 0.3s ease;
 }
 
@@ -1774,13 +1741,15 @@ blog-section h2 {
     transform: translateY(-8px);
 }
 
-.icon-early, .icon-strategic , .icon-synergy{
+.icon-early,
+.icon-strategic,
+.icon-synergy {
     font-size: 42px;
     color: var(--primary-color);
     margin-bottom: 15px;
 }
 
-.taste-item  h3 {
+.taste-item h3 {
     margin-bottom: 10px;
     color: var(--primary-color);
 }
@@ -1790,15 +1759,17 @@ blog-section h2 {
     padding: 80px 5%;
     text-align: left;
 }
+
 .investor-approach p {
     margin-bottom: 30px;
     font-size: 1.1rem;
     color: var(--grey-text);
     text-align: left;
 }
+
 .investor-approach h3 {
-  margin-bottom: 10px;
-  color: var(--primary-color);
+    margin-bottom: 10px;
+    color: var(--primary-color);
 }
 
 /* investor-persona Section */
@@ -1806,12 +1777,14 @@ blog-section h2 {
     padding: 80px 5%;
     text-align: center;
 }
+
 .investor-persona p {
     margin-bottom: 30px;
     font-size: 1.1rem;
     color: var(--grey-text);
     text-align: left;
 }
+
 .investor-persona-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -1824,19 +1797,20 @@ blog-section h2 {
     background: #fff;
     padding: 40px;
     border-radius: 16px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
     transition: transform 0.3s ease;
 }
 
 .investor-persona-item-needs {
-    background: var(--primary-color); 
+    background: var(--primary-color);
 }
 
 .investor-persona-item:hover {
     transform: translateY(-8px);
 }
 
-.icon-investor , .icon-value {
+.icon-investor,
+.icon-value {
     font-size: 42px;
     color: var(--primary-color);
     margin-bottom: 15px;
@@ -1848,17 +1822,18 @@ blog-section h2 {
     margin-bottom: 15px;
 }
 
-.investor-persona-item  h3 {
+.investor-persona-item h3 {
     margin-bottom: 10px;
     color: var(--primary-color);
 }
 
 
-.investor-persona-item  li {
- text-align: left;
+.investor-persona-item li {
+    text-align: left;
 }
 
-.investor-persona-item-needs  h3, .investor-persona-item-needs li {
+.investor-persona-item-needs h3,
+.investor-persona-item-needs li {
     color: var(--secondary-color);
 }
 
@@ -1866,6 +1841,7 @@ blog-section h2 {
 .form-section {
     margin-bottom: 20px;
 }
+
 #investorForm h3 {
     color: var(--primary-color);
     font-size: 1.2rem;
@@ -1888,7 +1864,8 @@ blog-section h2 {
     gap: 15px;
 }
 
-.form-row input, .form-row select {
+.form-row input,
+.form-row select {
     flex: 1;
 }
 
@@ -1906,8 +1883,9 @@ blog-section h2 {
     font-size: 0.95rem;
     color: var(--text-color);
 }
+
 .investor-form-card select {
-    appearance: none; 
+    appearance: none;
     background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666666%22%20d%3D%22M287%2069.4L146.2%20207.9%205.4%2069.4c-6.2-6.2-16.4-6.2-22.6%200s-6.2%2016.4%200%2022.6l152%20146.4c3.1%203.1%207.2%204.7%2011.3%204.7s8.2-1.6%2011.3-4.7l152-146.4c6.2-6.2%206.2-16.4%200-22.6s-16.4-6.2-22.6%200z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 10px center;
     background-size: 10px;
     padding-right: 30px;
@@ -1918,22 +1896,446 @@ blog-section h2 {
     margin-top: 20px;
 }
 
-/* Responsive adjustment */
+
+/* --- NEW: Active State for Filters (Categories/Departments & Tags) --- */
+
+/* 1. Categories/Departments (Buttons on Blog/Careers) */
+/* Apply the 'hero-btn' look (green background, white text) to the active button */
+.categories .btn.active,
+.categories .btn.nav-btn.active {
+    background-color: var(--primary-color);
+    color: var(--white-text);
+    border: 1px solid var(--primary-color); 
+}
+.categories .btn.active:hover {
+    background-color: var(--hover-color);
+    color: var(--white-text);
+}
+
+
+/* 2. Tags (Tags on Blog/Careers) */
+.tags .tag.active {
+    background-color: var(--primary-color); /* Green background */
+    color: var(--white-text); /* White text */
+    /* Remove default light background for active state */
+    background: var(--primary-color);
+}
+.tags .tag.active:hover {
+    background-color: var(--hover-color); /* Slightly lighter green on hover */
+    color: var(--white-text);
+}
+
+
+
+/* ----- RESPONSIVE DESIGN ----- */
+
+@media (max-width: 1024px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .who-we-are-section,
+    .team-section {
+        flex-direction: column;
+    }
+
+    .founder-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .founder-info {
+        padding-left: 0;
+    }
+
+    .founder-info .quote-icon {
+        display: none;
+    }
+}
+
+
+/* Responsive: stack main + sidebar, and stack image above summary */
 @media (max-width: 900px) {
 
-    .philosophy-grid, .taste-grid, .investor-persona-grid {
+    .philosophy-grid,
+    .taste-grid,
+    .investor-persona-grid {
         gap: 20px;
     }
+
     .form-row {
-        flex-direction: column; 
+        flex-direction: column;
         gap: 0;
     }
-    .form-row input, .form-row select {
+
+    .form-row input,
+    .form-row select {
         margin-bottom: 15px;
     }
 
     .investor-form-card {
-        order: 1; 
+        order: 1;
+    }
+
+    /* Blog page: Adjust site header and news hero padding */
+
+    .blog-page {
+        grid-template-columns: 1fr;
+        padding: 20px 5%;
+    }
+
+    .blog-sidebar {
+        order: 2;
+    }
+
+    .blog-main {
+        order: 1;
+    }
+
+    .post-row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .post-image {
+        width: 100%;
+        height: 220px;
+    }
+
+    .post-summary {
+        width: 100%;
+    }
+
+    .site-header .navbar {
+        max-width: 100%;
+        padding: 12px 16px;
+    }
+
+    .news-hero-inner {
+        padding-inline: 16px;
+    }
+
+    .single-post {
+        padding: 0 16px;
+    }
+
+    /* Style page job-details.html */
+    .page-actions-top {
+        padding: 0 4%;
+        /* Giảm padding ngang cho mobile */
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .job-detail-container {
+        grid-template-columns: 1fr;
+    }
+
+    .job-form-sidebar {
+        position: relative;
+        top: 0;
+    }
+
+    /* Đảm bảo thanh lọc hiển thị và có padding phù hợp */
+
+
+    .companies-filter-section {
+    /* Đảm bảo padding ngang nhất quán với các phần khác */
+    padding: 20px 5%; /* Dùng 5% để khớp với padding chung */
+    margin-top: 0; 
+    }
+
+    /* Áp dụng cuộn ngang cho các nút lọc trên mobile */
+    .filter-buttons-row {
+        /* Bật chế độ flex và overflow cho cuộn ngang */
+        display: flex; 
+        flex-wrap: nowrap; /* Bắt buộc các nút nằm trên một hàng */
+        overflow-x: auto; /* Cho phép cuộn ngang */
+        -webkit-overflow-scrolling: touch; /* Tăng trải nghiệm cuộn trên iOS */
+        padding-bottom: 10px; /* Thêm padding dưới để thấy thanh cuộn */
+        gap: 8px; /* Giảm khoảng cách giữa các nút */
+    }
+    
+    /* Đảm bảo các nút không chiếm toàn bộ chiều rộng và có thể cuộn */
+    .filter-buttons-row .btn {
+        flex-shrink: 0; /* Ngăn nút bị co lại */
+    }
+    
+    /* Đảm bảo các section trên mobile không có margin-top quá lớn */
+    .companies-grid-section {
+    padding-top: 0;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+
+    /* Đảm bảo thanh nav luôn nằm ngang và trải đều */
+    .navbar {
+        flex-direction: row;
+        /* LUÔN là một thanh ngang */
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+        padding: 15px 5%;
+    }
+
+    /* Center the logo in the hero header on small screens (homepage) */
+    .hero-section .navbar {
+        justify-content: center;
+        /* logo centered horizontally */
+    }
+
+    .btn.nav-btn {
+        display: none;
+        /* Ẩn nút CTA trên thanh nav trên mobile */
+    }
+
+
+    /* Logo: Đảm bảo logo có kích thước phù hợp và nằm ở góc trái */
+    .nav-logo {
+        height: 100px;
+        /* Kích thước nhỏ hơn trên mobile */
+        width: auto;
+        align-items: center;
+        /* Giữ logo căn giữa theo chiều dọc trong header */
+    }
+
+    /* Nav Links: Ẩn menu chính trên mobile */
+    .nav-links {
+        display: none;
+        /* Hide for mobile for now, can be toggled with JS */
+        /* Nếu muốn menu dropdown, chúng ta sẽ dùng JS để thêm class 'active' */
+        position: absolute;
+        top: 70px;
+        /* Xuống dưới header */
+        left: 0;
+        width: 100%;
+        background-color: var(--white-text);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        gap: 0;
+        padding: 10px 0;
+    }
+
+    .nav-links.active {
+        display: flex;
+        /* Hiện menu khi active */
+    }
+
+    .nav-links li a {
+        color: var(--text-color);
+        padding: 10px 20px;
+        display: block;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Nút Toggle: Hiện nút menu trên mobile */
+    .menu-toggle {
+        display: block;
+        color: var(--primary-color);
+    }
+
+    /* Header & Hero Section     background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/image/homepage-bg.png');  */
+    .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)), url("./image/DCI-Slider_Mobile.png") no-repeat center/cover;
+    }
+
+    .hero-content {
+        padding: 0 30px;
+    }
+
+    /* Đảm bảo các phần tử khác trong header bị ảnh hưởng bởi mobile layout được điều chỉnh */
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    /* Mission Cards: Bật Vuốt Ngang */
+    .mission-cards-container {
+        /* Chuyển từ Grid sang Flexbox cho mobile */
+        display: flex;
+        overflow-x: auto;
+        /* Cho phép cuộn ngang */
+        scroll-snap-type: x mandatory;
+        /* (Tùy chọn) Giúp các thẻ căn vào vị trí khi vuốt */
+        -webkit-overflow-scrolling: touch;
+        /* Tăng trải nghiệm cuộn trên iOS */
+        /* Đảm bảo container này có thể trải rộng hết chiều ngang viewport */
+        width: 100vw;
+        max-width: 100vw;
+        margin-left: calc(50% - 50vw);
+        padding: 0 20px;
+        /* Thêm padding ngang để thẻ không dính mép */
+        padding-bottom: 20px;
+        /* Thêm padding dưới để có không gian cho thanh cuộn */
+        gap: 20px;
+    }
+
+    .mission-card {
+        /* Đặt kích thước cố định để buộc cuộn ngang */
+        flex: 0 0 75%;
+        /* Chiếm 75% chiều rộng màn hình để người dùng biết còn thẻ khác */
+        width: 75%;
+        max-width: 300px;
+        /* Giới hạn tối đa 300px nếu màn hình quá rộng */
+        scroll-snap-align: start;
+        /* Căn thẻ khi cuộn */
+    }
+
+    /* Đảm bảo tiêu đề section nằm đúng chỗ, không bị ảnh hưởng bởi việc container tràn ra */
+    .mission-section {
+        padding: 80px 0;
+        /* Bỏ padding ngang để container có thể tràn ra */
+    }
+
+    .mission-section h2,
+    .mission-section p {
+        padding: 0 5%;
+        /* Thêm padding ngang trở lại cho text */
+    }
+
+    /* Blog on the home page - posts vertically and center them */
+    #home-posts-container>div {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* Allow blog cards to expand a bit on small screens while keeping padding */
+    .blog-card {
+        width: 100%;
+        max-width: 420px;
+    }
+
+
+    /* Footer */
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        align-items: left;
+        padding: 0px 30px;
+    }
+
+    .footer-bottom {
+        padding-top: 20px;
+        font-size: 0.8rem;
+    }
+
+
+    /* PAGE: ABOUT US */
+    .vm-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .vm-item {
+        text-align: left;
+    }
+
+    .vertical-grid .activity-grid {
+        gap: 20px;
+    }
+
+    /* Uniqueness Image: Tăng kích thước trên Mobile */
+    .uniqueness-image-container {
+        /* Ghi đè giới hạn max-width 800px của desktop */
+        max-width: 100%;
+        /* Tùy chọn: Đẩy hình ảnh ra sát mép hơn nếu cần, bằng cách giảm padding của section cha */
+        padding: 0 10px;
+        /* Thêm padding nhẹ nếu cần */
+    }
+
+    .uniqueness-image {
+        width: 130%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        align-items: center;
+    }
+
+    /* Đảm bảo section cha không bị padding ngang quá lớn, giúp container image lớn hơn */
+    .uniqueness-section {
+        padding: 60px 0;
+        /* Giảm padding ngang của section */
+    }
+
+    /* Đảm bảo các nội dung khác trong section vẫn có padding */
+    .uniqueness-section h2,
+    .uniqueness-section p {
+        padding: 0 5%;
+    }
+
+
+    /* CTA Buttons at the end of About page  */
+    .page-footer-actions {
+        flex-direction: column;
+        /* Xếp chồng trên màn hình nhỏ */
+        gap: 15px;
+        /* Thêm khoảng cách giữa các nút */
+        align-items: center;
+    }
+
+    /* Ensure left-aligned variant centers on mobile so single buttons appear centered */
+    .page-footer-actions.page-footer-actions--left {
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* Responsive for Companies Page */
+    .hero-content-subpage h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero-content-subpage p {
+        font-size: 1rem;
+    }
+
+    .companies-grid,
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+    }
+
+    .companies-grid .company-item:only-child {
+        max-width: 80%; /* Cho phép nó mở rộng gần như toàn bộ trên mobile */
+    }
+
+    .company-item {
+        padding: 15px;
+        min-height: 150px;
+    }
+
+    .company-item img {
+        max-width: 90px;
+    }
+
+    .company-item h4 {
+        font-size: 1rem;
+    }
+
+    /* Ẩn danh sách nút trên mobile */
+    .filter-buttons-row {
+        display: none !important;
+    }
+
+    /* Hiển thị drop-down trên mobile */
+    .mobile-filter-wrapper {
+        display: block;
+    }
+    
+    .companies-filter-section h3 {
+        text-align: center; /* Căn giữa tiêu đề trên mobile cho đẹp */
     }
 
 }

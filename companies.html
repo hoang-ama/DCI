@@ -36,15 +36,29 @@
             <button class="menu-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
         </nav>
     </header>
+    <section class="news-hero">
+        <div class="news-hero-inner">
+            <h1>Our Startups</h1>
+            <p>Discover the innovative ventures we're building and investing in, driving sustainable development.</p>
+        </div>
+    </section>
 
-    <main>
-        <section class="news-hero">
-            <div class="news-hero-inner">
-                <h1>Our Startups</h1>
-                <p>Discover the innovative ventures we're building and investing in, driving sustainable development.</p>
+    <!-- Companies filter -->
+    <section class="companies-filter-section">
+        <div class="companies-filter-inner">
+            <h3>Filter by Vertical</h3>
+            <div class="categories filter-buttons-row" id="vertical-filters">
             </div>
-        </section>
-        
+<!-- For mobile -->
+            <div class="mobile-filter-wrapper">
+                <select id="mobile-vertical-filter" class="mobile-filter-select" aria-label="Filter by Vertical">
+                    </select>
+                <i class="fas fa-chevron-down select-icon"></i>
+            </div>
+
+        </div>
+    </section>
+    <main>
         <!--Companiese Grid-->
         <section class="companies-grid-section">
             <div class="container">

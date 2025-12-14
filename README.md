@@ -7,7 +7,29 @@ This repository contains the front-end code for the DCI (Impact Startup Studio) 
 The project follows a standard structure for a static/semi-dynamic website, separating content pages, stylesheets, scripts, and assets.
 
 
-. ├── .github/ │ └── workflows/ │ └── deploy.yml # CI/CD deployment configuration for Google Cloud Storage ├── companies/ │ └── *.md # Markdown source files containing detailed content for each Portfolio Company ├── image/ │ ├── logos/ │ ├── ... # All website image assets (logos, hero images, banners, etc.) ├── team-profiles/ │ └── *.md # Markdown source files containing detailed bios for each Team Member ├── index.html # Homepage (Trang chủ) ├── about.html # About Us page (Về chúng tôi) ├── companies.html # Portfolio / Companies listing page (Danh mục đầu tư) ├── team.html # Team listing page (Đội ngũ) ├── blog.html # Blog listing page (Danh sách bài viết) ├── blog-details.html # Single Blog Post detail page (Chi tiết bài viết) ├── contact.html # Contact page (Liên hệ) ├── founder.html # Founder application page (Cổng thông tin Founder) ├── investor.html # Investor portal page (Cổng thông tin Nhà đầu tư) ├── privacy.html # Privacy Policy page (Chính sách bảo mật) ├── style.css # Main site global CSS (CSS toàn cục) ├── panel_style.css # CSS for modal panels (Team member/Company details, Investor form) ├── script.js # Core site functionality and Blog logic └── panel_script.js # Interactive panel logic (Team/Company/Investor forms, Portfolio flip cards)
+.├── .github/ 
+│└── workflows/ 
+│   └── deploy.yml # CI/CD deployment configuration for Google Cloud Storage 
+├── companies/ 
+│   └── *.md # Markdown source files containing detailed content for each Portfolio Company 
+├── image/ │ 
+    ├── logos/ │ ├── ... # All website image assets (logos, hero images, banners, etc.) 
+├── team-profiles/ 
+│   └── *.md # Markdown source files containing detailed bios for each Team Member 
+├── index.html # Homepage (Trang chủ) 
+├── about.html # About Us page (Về chúng tôi) 
+├── companies.html # Portfolio / Companies listing page (Danh mục đầu tư) 
+├── team.html # Team listing page (Đội ngũ) 
+├── blog.html # Blog listing page (Danh sách bài viết) 
+├── blog-details.html # Single Blog Post detail page (Chi tiết bài viết) 
+├── contact.html # Contact page (Liên hệ) 
+├── founder.html # Founder application page (Cổng thông tin Founder) 
+├── investor.html # Investor portal page (Cổng thông tin Nhà đầu tư) 
+├── privacy.html # Privacy Policy page (Chính sách bảo mật) 
+├── style.css # Main site global CSS (CSS toàn cục) 
+├── panel_style.css # CSS for modal panels (Team member/Company details, Investor form) 
+├── script.js # Core site functionality and Blog logic 
+└── panel_script.js # Interactive panel logic (Team/Company/Investor forms, Portfolio flip cards)
 
 
 ***

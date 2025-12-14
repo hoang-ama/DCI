@@ -1,5 +1,5 @@
 // panel_script.js Sample team members - adjust images/titles/bios/linkedin as needed
-// --- TEAM DATA ---
+// --- 1. TEAM DATA ---
 const teamMembers = [
     { id: 'NamNT', name: 'Nam Nguyen', title: 'DCI Founding Partner & Chairman', image: './image/NamNT.jpg', bgImage: './image/bg.NamNT.png', linkedin: 'https://www.linkedin.com/in/nam-nguyen-2b48aa77/', facebook: 'https://www.facebook.com/paradon', email: 'namnt@dichung.vn' },
     { id: 'MinhHH', name: 'Minh Hoang', title: 'DCI Founding Partner & CEO', image: './image/MinhHH.png', bgImage: './image/bg.MinhHH.png', linkedin: 'https://www.linkedin.com/in/hoanghongminh/', facebook: 'https://www.facebook.com/Minh.Hoang.H', email: 'minhhh@dcinvest.vn' },
@@ -174,6 +174,11 @@ if (closeBtn) closeBtn.addEventListener('click', closePanel);
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
 
 
+
+
+
+// --- 2. COMPANY PANEL LOGIC ---
+
 // --- COMPANY DATA ---
 const companiesData = [
     {
@@ -252,10 +257,6 @@ const companiesData = [
         description: 'Financial Education for Kids.'
     },
 ];
-
-
-// --- COMPANY PANEL LOGIC ---
-
 // Try to fetch markdown profile by company id or slug
 async function fetchCompanyMarkdown(company) {
     const candidates = [
@@ -359,48 +360,6 @@ function closeCompanyPanel() {
         document.body.style.overflow = '';
     }
 }
-
-// --- RENDER COMPANIES GRID (Update to use new panel logic) ---
-function renderCompaniesPage() {
-    const companiesGridContainer = document.querySelector('.companies-grid');
-    if (!companiesGridContainer) return; 
-
-    companiesGridContainer.innerHTML = ''; 
-
-    companiesData.forEach(company => {
-        const companyItem = document.createElement('div');
-        companyItem.classList.add('company-item');
-        // No longer storing ID, but attaching event listener directly
-        companyItem.innerHTML = `
-            <img src="${company.logo}" alt="${company.name} Logo">
-        `;
-        // Attach the new panel opening function
-        companyItem.addEventListener('click', () => openCompanyPanel(company));
-        companiesGridContainer.appendChild(companyItem);
-    });
-
-    // Add event listeners for closing the panel
-    const closeBtn = document.getElementById('companyClose');
-    const backdrop = document.getElementById('companyBackdrop');
-    const overlay = document.getElementById('company-overlay');
-
-    if (closeBtn) closeBtn.addEventListener('click', closeCompanyPanel);
-    if (backdrop) backdrop.addEventListener('click', closeCompanyPanel);
-    if (overlay) {
-         overlay.addEventListener('click', (event) => {
-            if (event.target === overlay) {
-                closeCompanyPanel();
-            }
-        });
-    }
-    
-    document.addEventListener('keydown', (e) => { 
-        if (e.key === 'Escape' && overlay.classList.contains('show')) {
-            closeCompanyPanel();
-        } 
-    });
-}
-
 // --- NEW: RENDER PORTFOLIO GRID ON INDEX PAGE WITH FLIP EFFECT ---
 
 function createPortfolioCardHTML(company) {
@@ -465,7 +424,7 @@ function renderIndexPortfolioGrid() {
     setTimeout(addFlipListeners, 100); 
 }
 
-// --- NEW INVESTOR PANEL LOGIC ---
+// --- 3. NEW INVESTOR PANEL LOGIC ---
 
 // Function to open the Investor Form Panel
 function openInvestorFormPanel() {
@@ -508,7 +467,7 @@ function closeInvestorFormPanel() {
         }
     }
 
-// --- GLOBAL INITIALIZATION UPDATE ---
+// --- 4. GLOBAL INITIALIZATION UPDATE ---
 document.addEventListener('DOMContentLoaded', () => {
     // NEW: Check for the index page portfolio grid
     if (document.getElementById('portfolioGrid')) {
@@ -522,30 +481,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.getElementById('investorOverlay');
 
     // --- NEW: BUILD WITH US PANEL INITIALIZATION ---
-        const buildBtn = document.querySelector('.hero-content .btn.hero-btn');
-        const buildCloseBtn = document.getElementById('buildClose');
-        const buildBackdrop = document.getElementById('buildBackdrop');
-        const buildOverlay = document.getElementById('buildOverlay');
+    const buildBtn = document.querySelector('.hero-content .btn.hero-btn');
+    const buildCloseBtn = document.getElementById('buildClose');
+    const buildBackdrop = document.getElementById('buildBackdrop');
+    const buildOverlay = document.getElementById('buildOverlay');
 
-        if (buildBtn) {
-            // Thay đổi hành vi mặc định của nút 'Build with us' thành mở panel
-            buildBtn.addEventListener('click', (e) => {
-                e.preventDefault(); // Ngăn chặn chuyển hướng đến contact.html
-                openBuildPanel();
-            });
-        }
-        
-        // Gắn sự kiện đóng cho Panel mới
-        if (buildCloseBtn) buildCloseBtn.addEventListener('click', closeBuildPanel);
-        if (buildBackdrop) buildBackdrop.addEventListener('click', closeBuildPanel);
-
-        // Gán sự kiện đóng panel (phím Escape) cho panel mới
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && buildOverlay && buildOverlay.classList.contains('show')) {
-                closeBuildPanel();
-            }
+    if (buildBtn) {
+        // Thay đổi hành vi mặc định của nút 'Build with us' thành mở panel
+        buildBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Ngăn chặn chuyển hướng đến contact.html
+            openBuildPanel();
         });
-        // --- END: BUILD WITH US PANEL INITIALIZATION ---
+    }
+    
+    // Gắn sự kiện đóng cho Panel mới
+    if (buildCloseBtn) buildCloseBtn.addEventListener('click', closeBuildPanel);
+    if (buildBackdrop) buildBackdrop.addEventListener('click', closeBuildPanel);
+
+    // Gán sự kiện đóng panel (phím Escape) cho panel mới
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && buildOverlay && buildOverlay.classList.contains('show')) {
+            closeBuildPanel();
+        }
+    });
+    // --- END: BUILD WITH US PANEL INITIALIZATION ---
 
     if (openBtn) {
         // Gắn sự kiện mở panel

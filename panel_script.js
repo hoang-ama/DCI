@@ -197,29 +197,29 @@ const companiesData = [
         description: 'Online Parking marketplace.'
     },
     {
-        id: 'totmart', name: 'TotMart', logo: './image/logos/TotMart_logo.png', heroImage: './image/logos/TotMart_hero.png', vertical: 'eCommerce', stage: 'Seed', year: 2020,
-        website: 'https://totmart.com.vn/', email: 'contact@totmart.com.vn',
-        description: 'eCommerce for Green products.'
-    },
-    {
-        id: 'oncar', name: 'onCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/onCar_hero.png', vertical: 'Transport Tech', stage: 'Proof-of-Concept', year: 2025,
+        id: 'oncar', name: 'onCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/onCar_hero.png', vertical: 'Transport', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://oncar.vn', email: 'partner@oncar.vn',
         description: 'Bus charter rental.'
     },
     {
-        id: 'vshare', name: 'Vshare', logo: './image/logos/Vshare_logo.png', heroImage: './image/logos/Vshare_hero.png', vertical: 'Transport Tech', stage: 'Seed', year: 2022,
+        id: 'vshare', name: 'Vshare', logo: './image/logos/Vshare_logo.png', heroImage: './image/logos/Vshare_hero.png', vertical: 'Transport', stage: 'Seed', year: 2022,
         website: 'https://vshare.asia', email: 'contact@vshare.asia',
         description: 'Residential Carsharing service.'
     },
     {
-        id: 'carx', name: 'CarX', logo: './image/logos/CarX_logo.png', heroImage: './image/logos/CarX_hero.png', vertical: 'Automotive Tech', stage: 'Proof-of-Concept', year: 2020,
-        website: 'https://carx.vn', email: 'contact@carx.vn',
-        description: 'Online Auto mall.'
+        id: 'dctransport', name: 'DC Transport', logo: './image/logos/DCTransport_trans.png', heroImage: './image/logos/DCTransport_hero.png', vertical: 'Transport', stage: 'Transition', year: 2019,
+        website: 'https://dichungtransport.com', email: 'contact@dichungtransport.com',
+        description: 'Mobility Operator'
     },
     {
-        id: 'agrix', name: 'AgriX', logo: './image/logos/AgriX_logo.png', heroImage: './image/logos/AgriX_hero.png', vertical: 'Agri Tech', stage: 'Proof-of-Concept', year: 2025,
-        website: 'https://agrix.vn', email: 'contact@agrix.vn',
-        description: 'AgiDrone for smart Agriculture.'
+        id: 'dichungtravel', name: 'DC Travel', logo: './image/logos/DCTravel_trans.png', heroImage: './image/logos/DCTravel_hero.jpg', vertical: 'Travel', stage: 'Seed', year: 2021,
+        website: 'https://dichungtravel.com', email: 'info@dichungtravel.com',
+        description: 'Personalized Travel services.'
+    },
+    {
+        id: 'nextu', name: 'NextU', logo: './image/logos/NextU_logo.png', heroImage: './image/logos/NextU_hero.png', vertical: 'Travel', stage: 'Proof-of-Concept', year: 2025,
+        website: 'https://nextu.vn', email: 'hello@nextliving.com',
+        description: 'Co-Living platform.'
     },
     {
         id: 'dcexpress', name: 'DC Express', logo: './image/logos/DCExpress_trans.png', heroImage: './image/logos/DCExpress_hero.png', vertical: 'Logistics', stage: 'Growth', year: 2020,
@@ -227,24 +227,24 @@ const companiesData = [
         description: 'Ultrafast Interprovince Delivery.'
     },
     {
-        id: 'dctransport', name: 'DC Transport', logo: './image/logos/DCTransport_trans.png', heroImage: './image/logos/DCTransport_hero.png', vertical: 'Transport Tech', stage: 'Transition', year: 2019,
-        website: 'https://dichungtransport.com', email: 'contact@dichungtransport.com',
-        description: 'Mobility Operator'
-    },
-    {
-        id: 'dctech', name: 'DC Tech', logo: './image/logos/DCTech_trans.png', heroImage: './image/logos/DCTech_hero.png', vertical: 'SaaS', stage: 'Growth', year: 2020,
+        id: 'dctech', name: 'DC Tech', logo: './image/logos/DCTech_trans.png', heroImage: './image/logos/DCTech_hero.png', vertical: 'Software', stage: 'Growth', year: 2020,
         website: 'https://dctech.vn', email: 'contact@dctech.vn',
         description: 'SaaS platform for Mobility.'
     },
     {
-        id: 'dichungtravel', name: 'DC Travel', logo: './image/logos/DCTravel_trans.png', heroImage: './image/logos/DCTravel_hero.jpg', vertical: 'Travel Tech', stage: 'Seed', year: 2021,
-        website: 'https://dichungtravel.com', email: 'info@dichungtravel.com',
-        description: 'Personalized Travel services.'
+        id: 'carx', name: 'CarX', logo: './image/logos/CarX_logo.png', heroImage: './image/logos/CarX_hero.png', vertical: 'Automotive', stage: 'Proof-of-Concept', year: 2020,
+        website: 'https://carx.vn', email: 'contact@carx.vn',
+        description: 'Online Auto mall.'
     },
     {
-        id: 'nextu', name: 'NextU', logo: './image/logos/NextU_logo.png', heroImage: './image/logos/NextU_hero.png', vertical: 'Sustainable Living', stage: 'Proof-of-Concept', year: 2025,
-        website: 'https://nextu.vn', email: 'hello@nextliving.com',
-        description: 'Co-Living platform.'
+        id: 'totmart', name: 'TotMart', logo: './image/logos/TotMart_logo.png', heroImage: './image/logos/TotMart_hero.png', vertical: 'eCommerce', stage: 'Seed', year: 2020,
+        website: 'https://totmart.com.vn/', email: 'contact@totmart.com.vn',
+        description: 'eCommerce for Green products.'
+    },
+    {
+        id: 'agrix', name: 'AgriX', logo: './image/logos/AgriX_logo.png', heroImage: './image/logos/AgriX_hero.png', vertical: 'Agriculture', stage: 'Proof-of-Concept', year: 2025,
+        website: 'https://agrix.vn', email: 'contact@agrix.vn',
+        description: 'AgiDrone for smart Agriculture.'
     },
     {
         id: 'youthplus', name: 'Youth+', logo: './image/logos/Youthplus_logo.png', heroImage: './image/logos/Youthplus_hero.png', vertical: 'Community', stage: 'Seed', year: 2018,
@@ -252,7 +252,7 @@ const companiesData = [
         description: 'Young Community platform.'
     },
     {
-        id: 'fafifun', name: 'FaFiFun', logo: './image/logos/FFF_logo.webp', heroImage: './image/logos/FFF_hero.png', vertical: 'Edu Tech', stage: 'Growth', year: 2021,
+        id: 'fafifun', name: 'FaFiFun', logo: './image/logos/FFF_logo.webp', heroImage: './image/logos/FFF_hero.png', vertical: 'Education', stage: 'Growth', year: 2021,
         website: 'https://fafifun.edu.vn', email: 'chamsockhachhang@mdj.vn',
         description: 'Financial Education for Kids.'
     },

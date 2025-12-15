@@ -4,6 +4,15 @@
 // NOTE: Added 'category' (for buttons) and 'tags' (array for tags) fields.
 const postsData = [
     {
+        id: 14,
+        title: "How Startup Studio build successful startups?",
+        date: "2025-12-15",
+        imageUrl: "./image/DCI_SSfunnel.png",
+        content: "How Startup Studios systematically create and scale successful startups...",
+        category: "Studio", 
+        tags: ["model"], 
+    },
+    {
         id: 13,
         title: "What is the Startup Studio?",
         date: "2025-12-08",

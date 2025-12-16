@@ -779,26 +779,102 @@ async function renderJobDetails() {
     heroDesc.textContent = `${job.department} position in ${job.location}.`;
     jobTitleField.value = pageTitle; // Đặt tên công việc vào trường ẩn của form
 
-    // 6. Setup Form Submission (Simulated)
-    form.addEventListener('submit', (e) => {
+    // 6. Setup Form Submission
+
+    // Thay thế đoạn xử lý form trong hàm renderJobDetails() tại script.js
+
+// 6. Setup Form Submission
+ form.addEventListener('submit', (e) => {
         e.preventDefault();
+        
+        const submitBtn = form.querySelector('.btn');
         const status = document.getElementById('applyFormStatus');
+
+        // 1. Kiểm tra nhập liệu
         if (!form.checkValidity()) {
             status.textContent = 'Please fill all required fields.';
+            status.style.color = 'red';
             return;
         }
-        
-        status.textContent = 'Submitting application...';
-        
-        // GIẢ LẬP GỬI DỮ LIỆU ĐẾN GOOGLE SHEET / BACKEND
-        // LƯU Ý: Nếu bạn dùng Apps Script, bạn cần cấu hình lại hàm này để gửi dữ liệu form
-        // Bao gồm cả file CV (rất phức tạp với Apps Script, nên dùng Google Form hoặc dịch vụ backend thực)
-        
-        setTimeout(() => {
-            status.textContent = `Application for "${jobTitleField.value}" received successfully! We will contact you soon.`;
-            form.reset();
-        }, 1200);
+
+        // 2. Chuẩn bị gửi
+        status.textContent = 'Sending application & uploading CV...';
+        status.style.color = 'var(--primary-color)';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+
+        // 3. Lấy dữ liệu
+        const formDataObj = {
+            jobTitle: document.getElementById('jobTitleField').value,
+            applicantName: form.querySelector('input[name="applicantName"]').value,
+            applicantEmail: form.querySelector('input[name="applicantEmail"]').value,
+            applicantPhone: form.querySelector('input[name="applicantPhone"]').value,
+            applicantMessage: form.querySelector('textarea[name="applicantMessage"]').value
+        };
+
+        const fileInput = form.querySelector('input[name="applicantCV"]');
+        const file = fileInput.files[0];
+
+        // Hàm gửi dữ liệu sang Google Script
+        const sendData = (dataPayload) => {
+            // *** Dán URL Web App của bạn vào đây ***
+             const scriptURL = 'https://script.google.com/macros/s/AKfycbz187iS-sxcj1tMO_Y1u29X-ZxCC0RpJTqPBqhOmSdlPjY1uuVtdk2fzvYtl4HNwxHgSA/exec'; // - File chung - work nhưng không có title // 
+             
+             
+            // const scriptURL = 'https://script.google.com/macros/s/AKfycbyPQAtN15m-kGsvW5G2tqfQBdEAKFsQ7lcg_NfdLEBgOUwgB76ti6cv894VSrZ-88hRwQ/exec';  // - File chung mới - no work //
+            // const scriptURL = 'https://script.google.com/macros/s/AKfycbzMkJ4NATeoPrNJWxxSUxPkIrWGRuQuvmxCtOKI8OSVhICYZe-RnhsUjUoVvW0j8JI06A/exec';  //- File riêng - work, nhưng không đổi đc thông tin tiếng anh //
+            // const scriptURL = 'https://script.google.com/macros/s/AKfycbyD4KBvYHfc6kZgBpFdqnWYkLMi_xJbd9vOATEGslqtUeBX1wTKvqgEUzuRLu0QUsE/exec';  //- File mới  -chưa chạy //
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(dataPayload)
+            })
+            .then(res => res.json())
+            .then(response => {
+                if (response.result === 'success') {
+                    status.textContent = 'Application submitted successfully! We will contact you soon.';
+                    status.style.color = 'green';
+                    form.reset();
+                } else {
+                    throw new Error(response.error);
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                status.textContent = 'Error submitting application. Please try again later.';
+                status.style.color = 'red';
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Application';
+            });
+        };
+
+        // 4. Đọc file (nếu có) và gửi
+        if (file) {
+            if (file.size > 5 * 1024 * 1024) { // Giới hạn 5MB
+                status.textContent = 'File is too large. Max size is 5MB.';
+                status.style.color = 'red';
+                submitBtn.disabled = false;
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Lấy chuỗi mã hóa file để gửi đi
+                formDataObj.fileData = e.target.result.split(',')[1];
+                formDataObj.fileName = file.name;
+                formDataObj.fileMimeType = file.type;
+                sendData(formDataObj); // Gửi
+            };
+            reader.readAsDataURL(file);
+        } else {
+            sendData(formDataObj); // Gửi không kèm file
+        }
     });
+
+
+
 }
 
 // --- 6. MOBILE MENU TOGGLE ---

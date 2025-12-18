@@ -31,6 +31,28 @@ The project follows a standard structure for a static/semi-dynamic website, sepa
 ├── script.js # Core site functionality and Blog logic 
 └── panel_script.js # Interactive panel logic (Team/Company/Investor forms, Portfolio flip cards)
 
+### WEB STRUCTURE 
+HOME (index.html) -> Build Popup Panel
+   |___About us (about.html)
+   |	|__Investor (investor.html) -> Investor Inquiry Form
+   |	|__Founder (founder.html) -> Founder Inquiry Form
+   |__Portfolio (companies.html) -> Company Popup Panel 
+   |__Team  (team.html) -> Team Popup Panel
+   |__Blog (blog.html) 
+   |	|__Blog details (blog-details.html)
+   |__Contact (contact.html) ->  -> Contact Form
+   |	|__Privacy (privacy.html)
+   |__>Careers (careers.html)
+        |__ Job details (job-details.html)	 -> Job Apply Form
+
+
+ * Note:   
+- About us: có để ở Menu đầu trang (Header) 
+- Careers: dùng qua CTA từ Popup Panel
+- Riêng trang Home thì có thêm menu để đến section Mission trên trang chính (index.html/mission) 
+- Build Popup Panel: Popup hiện lên trên trang web
+- Contact Form: Form để hứng dữ liệu
+
 
 ***
 

@@ -3,30 +3,48 @@
 const teamMembers = [
     { id: 'NamNT', name: 'Nam Nguyen', title: 'DCI Founding Partner & Chairman', image: './image/NamNT.jpg', bgImage: './image/bg.NamNT.png', linkedin: 'https://www.linkedin.com/in/nam-nguyen-2b48aa77/', facebook: 'https://www.facebook.com/paradon', email: 'namnt@dichung.vn' },
     { id: 'MinhHH', name: 'Minh Hoang', title: 'DCI Founding Partner & CEO', image: './image/MinhHH.png', bgImage: './image/bg.MinhHH.png', linkedin: 'https://www.linkedin.com/in/hoanghongminh/', facebook: 'https://www.facebook.com/Minh.Hoang.H', email: 'minhhh@dcinvest.vn' },
-    { id: 'JenVH', name: 'Jen Vu Huong', title: 'DCI Founding Partner & CSO', image: './image/JenVH.webp', bgImage: './image/bg.JenVH.png', linkedin: 'https://www.linkedin.com/in/jenvuhuong/', facebook: 'https://www.facebook.com/JenEmpowerLeaders', email: 'jenvuhuong@gmail.com' },
+    { id: 'JenVH', name: 'Jen Vu Huong', title: 'DCI Founding Partner & CSE', image: './image/JenVH.webp', bgImage: './image/bg.JenVH.png', linkedin: 'https://www.linkedin.com/in/jenvuhuong/', facebook: 'https://www.facebook.com/JenEmpowerLeaders', email: 'jenvuhuong@gmail.com' },
     { id: 'Taka', name: 'Takahiro Hosokawa', title: 'Parkchung Co-Founder & CEO', image: './image/Takahiro.png', bgImage: './image/bg.Taka.png', linkedin: 'https://www.linkedin.com/in/takahiro-hosokawa-853931176/', facebook: 'https://www.facebook.com/profile.php?id=100004193649646', email: 'taka@dichung.vn' },
     { id: 'LinhNV', name: 'Linh Nguyen', title: 'YouthPlus Founder & CEO', image: './image/LinhNV.jpeg', bgImage: './image/bg.LinhNV.png', linkedin: 'https://www.linkedin.com/in/peterhoangminh/', facebook: 'https://www.facebook.com/nguyenvanlinh.dav/', email: 'linhnv@youth.com.vn' },
     { id: 'GiangNH', name: 'Giang Ngo', title: 'FaFiFun Founder & CEO', image: './image/GiangNH.jpg', bgImage: './image/bg.GiangNH.png', linkedin: 'https://www.linkedin.com/in/ngohuonggiangrichmom/', facebook: 'https://www.facebook.com/giangnh511', email: 'ceo@mdj.vn' },
 ];
 
-const grid = document.getElementById('teamGrid');
-// Only populate the team grid on pages that include #teamGrid
-if (grid) {
+// --- LOGIC HIỂN THỊ TEAM ĐÃ CẬP NHẬT (Chia 2 nhóm) ---
+const coreGrid = document.getElementById('coreTeamGrid');
+const founderGrid = document.getElementById('founderTeamGrid');
+
+// Hàm tạo thẻ HTML cho từng thành viên (Code cũ dùng lại)
+function createMemberCard(member) {
+    const card = document.createElement('div');
+    card.className = 'team-card';
+    card.setAttribute('data-id', member.id);
+    card.innerHTML = `
+        <img src="${member.image}" alt="${member.name}">
+        <div class="card-body">
+            <h3>${member.name}</h3>
+            <p>${member.title}</p>
+        </div>
+    `;
+    card.addEventListener('click', () => openPanel(member));
+    return card;
+}
+
+// Chỉ chạy nếu tìm thấy các grid (tức là đang ở trang team.html)
+if (coreGrid || founderGrid) {
     teamMembers.forEach(member => {
-        const card = document.createElement('div');
-        card.className = 'team-card';
-        card.setAttribute('data-id', member.id);
-        card.innerHTML = `
-            <img src="${member.image}" alt="${member.name}">
-            <div class="card-body">
-                <h3>${member.name}</h3>
-                <p>${member.title}</p>
-            </div>
-        `;
-        card.addEventListener('click', () => openPanel(member));
-        grid.appendChild(card);
+        const card = createMemberCard(member);
+        
+        // Logic phân loại: Nếu chức danh có chứa "DCI", đưa vào Core Team
+        // Các trường hợp còn lại đưa vào Founder Team
+        if (member.title.includes('DCI') && coreGrid) {
+            coreGrid.appendChild(card);
+        } else if (founderGrid) {
+            founderGrid.appendChild(card);
+        }
     });
 }
+
+// --- PANEL ELEMENTS ---
 
 const overlay = document.getElementById('teamOverlay');
 const backdrop = document.getElementById('teamBackdrop');

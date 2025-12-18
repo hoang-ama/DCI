@@ -1,25 +1,29 @@
 ---
-title: Founding Partner & Chief Staff Officer (CSO)
+title: Founding Partner & Chief Soul Evolution (CSE)
 linkedin: https://www.linkedin.com/in/jenvuhuong/
 ---
 
-Jen takes oversight responsibilities for leading the association’s administration, accomplishing the goals of the members and the board, and managing the philosophy of the organization.
+Jen VuHuong serves as Chief Soul Evolution (CSE) at DCI, stewarding the inner foundation of founders, leaders, and ventures as they grow.
+While capital builds companies, soul evolution builds leaders who can carry companies through time. Jen’s role is to ensure that growth at DCI is not only fast or scalable — but aligned, conscious, and sustainable.
 
 ### Overview
-From a near-kidnapped silent countryside kid to a Chevening & Erasmus scholar, a global engineer, Jen has walked the path from impossible to inspired - and now, she dedicates her life to helping others unleash their full potential, lead with soul, speak their truth, and live their mission.
-<br>
-Over the past 15+ years, she has coached leaders, trained founders, published authors, and empowered changemakers from 50+ countries - guiding them through clarity, transformation, and authentic impact.
-<br>
-🌱Let’s Rebirth Together
-Jen is looking forward to working with leaders, educators, founders, coaches, and innovators who are in the transition to:
-<br>
-🔹 Reclaim their voice
-<br>
-🔹 Realign their purpose
-<br>
-🔹 And rebirth their leadership
-<br>
-Let’s co-create your next chapter - with clarity, compassion, and soul ❤
+With over 15 years of experience working with founders, investors, and leadership communities across 50+ countries, Jen specializes in guiding early-stage and scaling leaders through the identity shifts required for real venture-building — from idea-holder to founder, from operator to leader, from ambition to responsibility.
+
+At DCI, Jen leads:
+- Founder inner alignment & leadership evolution
+- Purpose–strategy coherence during venture formation
+- Decision clarity under pressure and growth
+- Long-term resilience at both personal and organizational levels
+
+Jen works closely with founders during the most fragile phases of venture building, helping them integrate:
+- Vision with execution
+- Values with performance
+- Ambition with responsibility
+
+Her approach blends coaching, systems thinking, behavioral insight, and deep human presence, ensuring founders grow without losing themselves — and companies scale without breaking their core.
+
+As CSE, Jen is not a controller of direction, but a guardian of alignment — holding the question:
+“Who must the founder become for this company to truly succeed?”
 
 ### Experience
 - Incubation Program Director at BK Holdings logo
@@ -27,7 +31,6 @@ Let’s co-create your next chapter - with clarity, compassion, and soul ❤
 - Founder, Chairperson, Mentor and Coach at Hanoi Entrepreneur Community (HEC)
 - Founder, Trainer, Writer and Coach at J.E.N International People and Leadership Development Ltd.
 - Telecommunications Engineer and Staff Trainer at Samsung Electronics
-
 
 ### Selected Achievements
 - Built startup communities

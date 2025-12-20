@@ -1,139 +1,180 @@
 // script.js
 
-// --- 1. POST & JOBS DATA ---
-// NOTE: Added 'category' (for buttons) and 'tags' (array for tags) fields.
+// ==========================================
+// 1. CẤU HÌNH FIREBASE 
+// ==========================================
+   const firebaseConfig = {
+        apiKey: "AIzaSyAeaWwx00U2fLJDCneUWB6OnIe-IotGX8Q",
+        authDomain: "dci-website-181225.firebaseapp.com",
+        projectId: "dci-website-181225",
+        storageBucket: "dci-website-181225.firebasestorage.app",
+        messagingSenderId: "925113398750",
+        appId: "1:925113398750:web:c6ab114f37db529a0ed94f",
+        measurementId: "G-6EXZF52E4T"
+    };
+
+// Khởi tạo Firebase nếu chưa có
+if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+// Khởi tạo Firestore database
+const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
+
+
+// ==========================================
+// 2. DỮ LIỆU TĨNH (STATIC DATA - DỮ LIỆU CŨ)
+// ==========================================
+// Giữ nguyên mảng postsData cũ của bạn để không bị mất bài cũ
+
+
+// --- 1.1 POST DATA ---
+// NOTE: Added 'category' (for buttons), 'tags' (array for tags), and 'featured' (boolean for homepage display) fields.
 const postsData = [
     {
-        id: 14,
+        id: "14",
         title: "How Startup Studio build successful startups?",
         date: "2025-12-15",
         imageUrl: "./image/DCI_SSfunnel.png",
         content: "How Startup Studios systematically create and scale successful startups...",
         category: "Studio", 
-        tags: ["model"], 
+        tags: ["model"],
+        featured: true,
     },
     {
-        id: 13,
+        id: "13",
         title: "What is the Startup Studio?",
         date: "2025-12-08",
         imageUrl: "./image/What-is-Startup-Studio.png",
         content: "Understanding the startup studio model, its key characteristics, and how it differs ...",
         category: "Studio", 
-        tags: ["model"], 
+        tags: ["model"],
+        featured: true,
     },
      {
-        id: 12,
+        id: "12",
         title: "Startup Studio vs. Other models",
         date: "2025-12-08",
         imageUrl: "./image/Startup-Studio-vs-Incubators-Accelerators-VCs.png",
         content: "What is make a Startup Studio different from Incubator, Accelerator and VC...",
         category: "Studio",
         tags: ["model"],
+        featured: true,
     },
     {
-        id: 11,
+        id: "11",
         title: "The Evolution of Startup Studios",
         date: "2025-12-08",
         imageUrl: "./image/The-Evolution-of-Startup-Studios.jpg",
         content: "The Startup Studio model has evolved through several waves since its inception in the 1990s...",
         category: "Studio", 
-        tags: ["model"], 
+        tags: ["model"],
+        featured: false,
      },
     {
-        id: 10,
+        id: "10",
         title: "5 Keys to Success for Tech Startups",
         date: "2025-10-25",
         imageUrl: "./image/The-Startups-Keys-to-Success.png",
         content: "Discover the breakthrough strategies to take your startup to the next level...",
         category: "Startup",
-        tags: ["model", "management"], 
+        tags: ["model", "management"],
+        featured: false,
     },
     {
-        id: 9,
+        id: "9",
         title: "Investing in AI: Opportunity or Challenge?",
         date: "2025-10-20",
         imageUrl: "https://thecriticalscript.com/public/uploads/blog/6447c929746bc_tmpphpwtkyrf.jpg",
         content: "An in-depth analysis of the potential and risks of investing in AI...",
         category: "Investor", 
-        tags: ["ai"], 
+        tags: ["ai"],
+        featured: false,
       },
     {
-        id: 8,
+        id: "8",
         title: "Sustainable Growth: A New Direction for Startups",
         date: "2025-10-15",
         imageUrl: "https://www.toolagen.com/wp-content/uploads/2024/05/Strategies-to-Build-a-Sustainable-Startup-1024x559.png",
         content: "How startups can integrate sustainability into their business model...",
         category: "Startup",
-        tags: ["model", "management"], 
+        tags: ["model", "management"],
+        featured: false,
     },
     {
-        id: 7,
+        id: "7",
         title: "The Rise of No-Code Platforms",
         date: "2025-10-10",
         imageUrl: "https://media.licdn.com/dms/image/v2/D5612AQHYWh46tdk16g/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1714564591065?e=2147483647&v=beta&t=5ohMG7jQuBHwbTLnE77M7mXlIzr5nAxWFLeeKpIVoz8",
         content: "Empowering non-developers to build powerful applications quickly.",
         category: "Startup", 
-        tags: ["product"], 
+        tags: ["product"],
+        featured: false,
     },
     {
-        id: 6,
+        id: "6",
         title: "Deep Dive into Blockchain Technology",
         date: "2025-09-30",
         imageUrl: "https://media.licdn.com/dms/image/v2/D4D12AQHhWfQkzG9xiA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1679411636821?e=2147483647&v=beta&t=MFCaCi-sXWPrfmlEQ1m9ZmAxXJRa44D9BLTi-EENngs",
         content: "Understanding the decentralized ledger and its impact across industries.",
         category: "Startup", 
-        tags: ["blockchain"], 
+        tags: ["blockchain"],
+        featured: false,
     },
     {
-        id: 5,
+        id: "5",
         title: "Cybersecurity Essentials for Small Businesses",
         date: "2025-09-25",
         imageUrl: "https://www.clearnetwork.com/wp-content/uploads/2018/05/cybersecurity-for-small-business.jpg",
         content: "Protecting your data from common digital threats.",
         category: "Founder", 
-        tags: ["cybersecurity"], 
+        tags: ["cybersecurity"],
+        featured: false,
     },
     {
-        id: 4,
+        id: "4",
         title: "Mastering Remote Team Management",
         date: "2025-09-20",
         imageUrl: "https://www.proofhub.com/articles/wp-content/uploads/2023/11/A-Manager-Guide-to-Manage-Remote-Team.jpg",
         content: "Strategies for leading high-performing teams from anywhere.",
         category: "Founder", 
-        tags: ["management"], 
+        tags: ["management"],
+        featured: false,
     },
     {
-        id: 3,
+        id: "3",
         title: "The Power of Data Visualization",
         date: "2025-09-15",
         imageUrl: "https://assets.justinmind.com/wp-content/uploads/2024/06/data-visualization-header-768x512.png",
         content: "Turning complex data into actionable insights with compelling visuals.",
         category: "Startup", 
-        tags: ["data", "product"], 
+        tags: ["data", "product"],
+        featured: false,
     },
     {
-        id: 2,
+        id: "2",
         title: "Introduction to Cloud Computing",
         date: "2025-09-01",
         imageUrl: "https://homenest.com.vn/wp-content/uploads/2025/11/Cloud-Computing-Tat-ca-ve-dien-toan-dam-may-va-cac-buoc-trien-khai-scaled.jpg",
         content: "A fundamental guide to Infrastructure as a Service (IaaS) and more.",
         category: "Startup", 
-        tags: ["clound"], 
+        tags: ["clound"],
+        featured: false,
     },
     {
-        id: 1,
+        id: "1",
         title: "Future of Quantum Computing",
         date: "2025-08-01",
         imageUrl: "https://gmo-research.ai/en/application/files/5716/6080/5815/Quantum_Computing_Image.png",
         content: "Exploring the next generation of computing power and its implications...   ",
         category: "Startup", 
-        tags: ["quantum"], 
+        tags: ["quantum"],
+        featured: false,
   }
 ];
 // Sort posts in reverse chronological order (Newest to Oldest)
 const sortedPosts = postsData.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-// --- NEW: JOBS DATA ---
+// --- 1.2 JOBS DATA ---
 const jobsData = [
     {
         id: 1,
@@ -271,31 +312,144 @@ function parseFrontmatterFromMarkdown(md) {
     return { frontmatter: fm, body };
 }
 
+// Hàm chuyển đổi Markdown sang HTML đơn giản
 function markdownToHTML(md) {
-    const lines = md.split(/\r?\n/);
-    let html = '';
-    let inList = false;
-    for (let raw of lines) {
-        const line = raw.trim();
-        if (!line) {
-            if (inList) { html += '</ul>'; inList = false; }
-            continue;
-        }
-        if (line.startsWith('### ')) { html += `<h3>${line.slice(4)}</h3>`; continue; }
-        if (line.startsWith('## ')) { html += `<h2>${line.slice(3)}</h2>`; continue; }
-        if (line.startsWith('# ')) { html += `<h1>${line.slice(2)}</h1>`; continue; }
-        if (line.startsWith('> ')) { html += `<blockquote>${line.slice(2)}</blockquote>`; continue; }
-        if (line.startsWith('- ')) {
-            if (!inList) { html += '<ul>'; inList = true; }
-            html += `<li>${line.slice(2)}</li>`;
-            continue;
-        }
-        // default paragraph
-        html += `<p>${line}</p>`;
-    }
-    if (inList) html += '</ul>';
-    return html;
+   const lines = md.split(/\r?\n/);
+   let html = '';
+   let inList = false;
+   
+   // Helper function to process inline formatting (bold, italic, links)
+   function processInlineFormatting(text) {
+       // Handle markdown links [text](url)
+       text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+       
+       // Handle plain URLs (https://... or http://...)
+       text = text.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+       
+       // Handle bold **text** (including inline)
+       text = text.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
+       
+       // Handle italic *text* (including inline)
+       text = text.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
+       
+       return text;
+   }
+   
+   for (let raw of lines) {
+       const line = raw.trim();
+       if (!line) {
+           if (inList) { html += '</ul>'; inList = false; }
+           continue;
+       }
+       
+       // Headings
+       if (line.startsWith('### ')) { 
+           html += `<h3>${processInlineFormatting(line.slice(4))}</h3>`; 
+           continue; 
+       }
+       if (line.startsWith('## ')) { 
+           html += `<h2>${processInlineFormatting(line.slice(3))}</h2>`; 
+           continue; 
+       }
+       if (line.startsWith('# ')) { 
+           html += `<h1>${processInlineFormatting(line.slice(2))}</h1>`; 
+           continue; 
+       }
+       
+       // Blockquote
+       if (line.startsWith('> ')) { 
+           html += `<blockquote>${processInlineFormatting(line.slice(2))}</blockquote>`; 
+           continue; 
+       }
+       
+       // Horizontal rule
+       if (line.startsWith('---')) { 
+           html += `<hr>`; 
+           continue; 
+       }
+       
+       // List items
+       if (line.startsWith('- ')) {
+           if (!inList) { html += '<ul>'; inList = true; }
+           html += `<li>${processInlineFormatting(line.slice(2))}</li>`;
+           continue;
+       }
+       
+       // Default paragraph - process inline formatting
+       html += `<p>${processInlineFormatting(line)}</p>`;
+   }
+   
+   if (inList) html += '</ul>';
+   return html;
 }
+
+
+// Hàm lấy nội dung bài viết tĩnh (Markdown file)
+async function fetchStaticPostContent(filename) {
+    try {
+        // Giả sử file md nằm trong thư mục posts/
+        const res = await fetch(`./posts/${filename}`);
+        if (!res.ok) throw new Error('File not found');
+        return await res.text();
+    } catch (err) {
+        console.warn('Không tải được nội dung bài viết tĩnh:', filename);
+        return '';
+    }
+}
+
+// === LOGIC CHÍNH: LẤY CẢ 2 NGUỒN DỮ LIỆU ===
+async function fetchAllPosts() {
+    let firebasePosts = [];
+    
+    // 1. Lấy từ Firebase
+    if (db) {
+        try {
+            const snapshot = await db.collection('posts').get();
+            firebasePosts = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+                isStatic: false // Đánh dấu là bài từ DB
+            }));
+        } catch (error) {
+            console.error("Lỗi lấy dữ liệu Firebase:", error);
+        }
+    }
+
+    // 2. Gộp với dữ liệu tĩnh (Static Data)
+    const allPosts = [...firebasePosts, ...postsData];
+
+    // 3. Sắp xếp theo ngày giảm dần (Mới nhất lên đầu)
+    allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    return allPosts;
+}
+
+// Hàm lấy chi tiết 1 bài viết theo ID (Tìm cả 2 nơi)
+async function fetchPostById(id) {
+    // 1. Tìm trong Static Data trước
+    // Chuyển id thành string để so sánh
+    const staticPost = postsData.find(p => String(p.id) === String(id));
+    
+    if (staticPost) {
+        // Mark as static so renderDetailPost knows to fetch markdown file
+        return { ...staticPost, isStatic: true };
+    }
+
+    // 2. Tìm trong Firebase
+    if (db) {
+        try {
+            const doc = await db.collection('posts').doc(id).get();
+            if (doc.exists) {
+                return { id: doc.id, ...doc.data(), isStatic: false };
+            }
+        } catch (error) {
+            console.error("Lỗi lấy chi tiết bài viết Firebase:", error);
+        }
+    }
+    return null;
+}
+
+// End --- 
 
 function isProbablyMarkdown(text) {
     if (!text || typeof text !== 'string') return false;
@@ -307,32 +461,6 @@ function isProbablyMarkdown(text) {
 
 // --- 3. PAGE-SPECIFIC RENDERING FUNCTIONS ---
 
-// Renders the 3 most recent posts on the Home Page (index.html)
-function renderHomePosts() {
-    // ... (logic remains the same) ...
-    const container = document.getElementById('home-posts-container');
-    if (!container) return; 
-    
-    // 1. Get the 3 newest posts
-    const recentPosts = sortedPosts.slice(0, 3);
-    
-    // 2. Separate the static title from the dynamic content
-    let postsHTML = '';
-    recentPosts.forEach(post => {
-        postsHTML += createPostHTML(post);
-    });
-    
-    // 3. Insert the cards after the static h2 title
-    // The container already has the <h2 class="section-title">From the Blog</h2>
-    // We select the container and append the new div to maintain the structure.
-    
-    // Create a temporary div to hold the posts, so we don't overwrite the H2
-    const postsWrapper = document.createElement('div');
-    postsWrapper.innerHTML = postsHTML;
-    
-    // Append the posts to the container
-    container.appendChild(postsWrapper);
-}
 
 
 // Renders all posts with pagination on the Blog Page (blog.html)
@@ -344,173 +472,344 @@ let currentTagFilter = 'All';
 let currentBlogPage = 1;
 
 
-function renderBlogPage() {
+
+// ==========================================
+// I. RENDER TRANG BLOG
+// ==========================================
+
+// --- 4.1 Trang Blog (Danh sách) với Pagination và Filtering ---
+async function renderBlogPage() {
     const container = document.getElementById('blog-posts-container');
     const paginationContainer = document.getElementById('pagination-controls');
-    const categoryFilters = document.getElementById('category-filters'); // NEW ID
-    const tagFilters = document.getElementById('tag-filters');         // NEW ID
-
-    if (!container || !paginationContainer) return;
-
-    // 1. Get the current page from URL (defaults to page 1)
-    const urlParams = new URLSearchParams(window.location.search);
-    currentBlogPage = parseInt(urlParams.get('page')) || 1;
     
-    // --- Core Rendering & Filtering Logic ---
-    function updateBlogList() {
-        
-        const postsToDisplay = sortedPosts; 
-        
-        // --- START FILTERING LOGIC ---
-        const filteredPosts = postsToDisplay.filter(post => {
-            const categoryMatch = currentCategoryFilter === 'All' || post.category === currentCategoryFilter;
-            // Check if the post's tags array includes the currently selected tag
-            const tagMatch = currentTagFilter === 'All' || (post.tags && post.tags.includes(currentTagFilter));
-            return categoryMatch && tagMatch;
-        });
-        // --- END FILTERING LOGIC ---
+    if (!container) return;
 
-        const totalPosts = filteredPosts.length;
-        const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE);
-        
-        const startIndex = (currentBlogPage - 1) * POSTS_PER_PAGE;
-        const endIndex = startIndex + POSTS_PER_PAGE;
-
-        // Slice the array to get posts for the current page
-        const postsOnPage = filteredPosts.slice(startIndex, endIndex);
-
-        // Display posts
-        let postsHTML = '';
-        if (postsOnPage.length === 0) {
-             postsHTML = `<p style="text-align: center; color: var(--grey-text); padding: 30px;">No articles found matching the selected filters.</p>`;
-        } else {
-             postsOnPage.forEach(post => {
-                postsHTML += createPostHTML(post);
-            });
-        }
-        
-        container.innerHTML = `<div class="posts-list">${postsHTML}</div>`;
-
-        // Create pagination buttons
-        let paginationHTML = '';
-        if (totalPages > 1) {
-            for (let i = 1; i <= totalPages; i++) {
-                const isActive = i === currentBlogPage ? 'active' : '';
-                // Simple pagination (no filter state persistence in URL for simplicity)
-                paginationHTML += `<a href="blog.html?page=${i}" class="${isActive}">${i}</a>`;
-            }
-        }
-        paginationContainer.innerHTML = paginationHTML;
-    }
+    container.innerHTML = '<div class="loading">Loading posts...</div>';
     
-    // --- Setup Filters ---
-    
-    // 1. Category Filter Setup (Buttons)
-    if (categoryFilters) {
-        categoryFilters.addEventListener('click', (e) => {
-            if (e.target.classList.contains('btn')) {
-                categoryFilters.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
-                e.target.classList.add('active');
-                // Ensure Tags filter is reset when Category changes
-                tagFilters.querySelectorAll('.tag').forEach(tag => tag.classList.remove('active'));
-                currentTagFilter = 'All'; 
+    const allPosts = await fetchAllPosts();
 
-                currentCategoryFilter = e.target.getAttribute('data-filter') || 'All';
-                currentBlogPage = 1; 
-                updateBlogList();
-            }
-        });
-    }
-
-    // 2. Tag Filter Setup (Tags)
-    if (tagFilters) {
-        tagFilters.addEventListener('click', (e) => {
-            if (e.target.classList.contains('tag')) {
-                // Determine the new filter value
-                const selectedTag = e.target.getAttribute('data-filter');
-                
-                // Toggle logic: If the selected tag is currently active, unselect it.
-                const isCurrentlyActive = e.target.classList.contains('active');
-                
-                // Reset active class on all tags
-                tagFilters.querySelectorAll('.tag').forEach(tag => tag.classList.remove('active'));
-                
-                if (!isCurrentlyActive) {
-                    // Activate the selected tag
-                    e.target.classList.add('active');
-                    currentTagFilter = selectedTag;
-                } else {
-                    // Deactivate all
-                    currentTagFilter = 'All';
-                }
-
-                currentBlogPage = 1; 
-                updateBlogList();
-                e.preventDefault(); 
-            }
-        });
-    }
-
-    // Initial rendering
-    updateBlogList();
-}
-
-
-// Renders the full content for a single post (blog-details.html)
-async function renderDetailPost() {
-    const container = document.getElementById('single-post-container');
-    if (!container) return; 
-
-    // 1. Get the ID from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const postId = parseInt(urlParams.get('id'));
-
-    // 2. Find the corresponding post
-    let post = sortedPosts.find(p => p.id === postId);
-
-    if (!post) {
-        container.innerHTML = '<h1>Error: Article not found.</h1>';
+    if (allPosts.length === 0) {
+        container.innerHTML = '<p>No posts found.</p>';
+        if (paginationContainer) paginationContainer.innerHTML = '';
         return;
     }
 
-    // Try to fetch a markdown source for this post and enrich the post object
-    const slugParam = urlParams.get('slug');
-    post = await fetchMarkdownForPost(post, slugParam);
-
-    const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+    // Apply category and tag filters
+    const filteredPosts = allPosts.filter(post => {
+        const categoryMatch = currentCategoryFilter === 'All' || post.category === currentCategoryFilter;
+        const tagMatch = currentTagFilter === 'All' || (post.tags && post.tags.includes(currentTagFilter));
+        return categoryMatch && tagMatch;
     });
 
-    const detailImage = post.imageUrl ? `<img src="${post.imageUrl}" alt="${post.title}" style="max-width:100%;border-radius:12px;margin-bottom:18px;"/>` : '';
+    if (filteredPosts.length === 0) {
+        container.innerHTML = '<p>No posts found matching your filters.</p>';
+        if (paginationContainer) paginationContainer.innerHTML = '';
+        return;
+    }
 
-    // Prefer fetched markdown detail if available. Otherwise always convert the
-    // fallback `post.detail` through the markdown parser so headings/lists render.
-    let detailHTML = '';
-    if (post.markdownDetail) {
-        detailHTML = markdownToHTML(post.markdownDetail);
+    // Calculate pagination based on filtered posts
+    const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+    
+    // Ensure currentBlogPage is within valid range
+    if (currentBlogPage > totalPages) {
+        currentBlogPage = 1;
+    }
+    
+    // Get posts for current page
+    const startIdx = (currentBlogPage - 1) * POSTS_PER_PAGE;
+    const endIdx = startIdx + POSTS_PER_PAGE;
+    const postsToDisplay = filteredPosts.slice(startIdx, endIdx);
+
+    // Render blog posts
+    container.innerHTML = ''; 
+    postsToDisplay.forEach(post => {
+        const thumb = post.image || post.imageUrl || './image/default-post.png';
+        // Xử lý tóm tắt: Nếu là static, dùng content sẵn. Nếu firebase, dùng summary hoặc cắt content
+        let excerpt = post.summary;
+        if (!excerpt && post.content) {
+             excerpt = post.content.substring(0, 100) + '...';
+        }
+
+        const cardHTML = `
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    <a href="blog-details.html?id=${post.id}">
+                        <img src="${thumb}" alt="${post.title}">
+                    </a>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-meta">
+                        <span class="blog-date"><i class="far fa-calendar-alt"></i> ${post.date}</span>
+                        ${post.category ? `<span class="blog-category">${post.category}</span>` : ''}
+                    </div>
+                    <h3 class="blog-title">
+                        <a href="blog-details.html?id=${post.id}">${post.title}</a>
+                    </h3>
+                    <p class="blog-excerpt">${excerpt}</p>
+                    <a href="blog-details.html?id=${post.id}" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+        `;
+        container.innerHTML += cardHTML;
+    });
+
+    // Render pagination controls
+    if (paginationContainer) {
+        renderPaginationControls(paginationContainer, totalPages, currentBlogPage);
+    }
+}
+
+// Helper function to render pagination buttons
+function renderPaginationControls(container, totalPages, currentPage) {
+    if (totalPages <= 1) {
+        container.innerHTML = '';
+        return;
+    }
+
+    let paginationHTML = '';
+
+    // Previous button
+    if (currentPage > 1) {
+        paginationHTML += `<a href="#" onclick="goToBlogPage(${currentPage - 1}); return false;" class="prev-page"><i class="fas fa-chevron-left"></i> Previous</a>`;
+    }
+
+    // Page numbers
+    for (let i = 1; i <= totalPages; i++) {
+        const isActive = i === currentPage ? 'active' : '';
+        paginationHTML += `<a href="#" onclick="goToBlogPage(${i}); return false;" class="page-number ${isActive}">${i}</a>`;
+    }
+
+    // Next button
+    if (currentPage < totalPages) {
+        paginationHTML += `<a href="#" onclick="goToBlogPage(${currentPage + 1}); return false;" class="next-page">Next <i class="fas fa-chevron-right"></i></a>`;
+    }
+
+    container.innerHTML = paginationHTML;
+}
+
+// Function to navigate to a specific blog page
+function goToBlogPage(pageNumber) {
+    currentBlogPage = pageNumber;
+    renderBlogPage();
+    // Scroll to top of blog section
+    document.getElementById('blog-posts-container')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Function to set category filter and reset to page 1
+function filterByCategory(category) {
+    currentCategoryFilter = category;
+    currentBlogPage = 1; // Reset to first page when filter changes
+    renderBlogPage();
+    updateCategoryFilterUI();
+}
+
+// Function to set tag filter and reset to page 1
+function filterByTag(tag) {
+    currentTagFilter = tag;
+    currentBlogPage = 1; // Reset to first page when filter changes
+    renderBlogPage();
+    updateTagFilterUI();
+}
+
+// Function to update category filter button UI
+function updateCategoryFilterUI() {
+    const categoryFilters = document.getElementById('category-filters');
+    if (categoryFilters) {
+        const buttons = categoryFilters.querySelectorAll('button');
+        buttons.forEach(btn => {
+            const filterValue = btn.getAttribute('data-filter');
+            if (filterValue === currentCategoryFilter) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+}
+
+// Function to update tag filter UI
+function updateTagFilterUI() {
+    const tagFilters = document.getElementById('tag-filters');
+    if (tagFilters) {
+        const tags = tagFilters.querySelectorAll('a.tag');
+        tags.forEach(tag => {
+            const filterValue = tag.getAttribute('data-filter');
+            if (filterValue === currentTagFilter) {
+                tag.classList.add('active');
+            } else {
+                tag.classList.remove('active');
+            }
+        });
+    }
+}
+
+// Function to initialize blog page filters
+function initializeBlogFilters() {
+    // Setup category filter event listeners
+    const categoryFilters = document.getElementById('category-filters');
+    if (categoryFilters) {
+        const categoryButtons = categoryFilters.querySelectorAll('button');
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const category = btn.getAttribute('data-filter') || 'All';
+                filterByCategory(category);
+            });
+        });
+    }
+
+    // Setup tag filter event listeners
+    const tagFilters = document.getElementById('tag-filters');
+    if (tagFilters) {
+        const tagLinks = tagFilters.querySelectorAll('a.tag');
+        tagLinks.forEach(tag => {
+            tag.addEventListener('click', (e) => {
+                e.preventDefault();
+                const tagValue = tag.getAttribute('data-filter') || 'All';
+                filterByTag(tagValue);
+            });
+        });
+    }
+}
+
+// --- 4.2 Trang Chi tiết Bài viết ---
+// Helper function to generate markdown filename from post data
+function generatePostMarkdownFilename(post) {
+    // Format: YYYY-MM-DD-{id}-{slugified-title}.md
+    // Example: 2025-12-15-14-how-startup-studio-build-successful-startups.md
+    const slug = slugify(post.title);
+    return `${post.date}-${post.id}-${slug}.md`;
+}
+
+// Helper function to fetch and convert markdown file for a post
+async function fetchPostMarkdownContent(post) {
+    const filename = generatePostMarkdownFilename(post);
+    const filepath = `./posts/${filename}`;
+    
+    try {
+        const res = await fetch(filepath);
+        if (!res.ok) throw new Error(`File not found: ${filepath}`);
+        const markdown = await res.text();
+        const htmlContent = markdownToHTML(markdown);
+        return htmlContent;
+    } catch (err) {
+        console.warn(`Could not load markdown file (${filepath}). Using content from script instead.`, err);
+        // Fallback to post.content if markdown file not found
+        return markdownToHTML(post.content);
+    }
+}
+
+async function renderDetailPost() {
+    const container = document.getElementById('single-post-container');
+    if (!container) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('id');
+
+    if (!postId) {
+        container.innerHTML = '<p>Post not found.</p>';
+        return;
+    }
+
+    container.innerHTML = '<div class="loading">Loading content...</div>';
+
+    const post = await fetchPostById(postId);
+
+    if (!post) {
+        container.innerHTML = '<p>Post not found or deleted.</p>';
+        return;
+    }
+
+    const thumb = post.image || post.imageUrl || './image/default-post.png';
+    
+    // Fetch markdown content from posts folder
+    // For static posts: try to load from markdown file
+    // For Firebase posts: convert markdown content to HTML
+    let contentHTML = '';
+    
+    if (post.isStatic) {
+        // For static posts, fetch from markdown file in posts/ folder
+        contentHTML = await fetchPostMarkdownContent(post);
     } else {
-        // Force-convert fallback detail (handles plain text, headings, lists, etc.)
-        detailHTML = markdownToHTML(String(post.detail || ''));
+        // For Firebase posts, convert the content field (assumed to be markdown)
+        contentHTML = markdownToHTML(post.content);
     }
 
     container.innerHTML = `
         <article class="single-post">
-            ${detailImage}
-            <h1>${post.title}</h1>
-            <p class="post-meta">Published on: ${formattedDate}</p>
-            <hr>
-            ${detailHTML}
+            <div class="post-header">
+                <h1 class="post-title">${post.title}</h1>
+                <div class="post-meta">
+                    <span><i class="far fa-calendar-alt"></i> ${post.date}</span>
+                    ${post.category ? `<span> | ${post.category}</span>` : ''}
+                </div>
+            </div>
+            <div class="post-featured-image">
+                <img src="${thumb}" alt="${post.title}">
+            </div>
+            <div class="post-content-body">
+                ${contentHTML}
+            </div>
+            <div class="post-navigation">
+                <a href="blog.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Blog</a>
+            </div>
         </article>
     `;
-    // Update the document title dynamically
-    document.getElementById('post-title-meta').textContent = post.title;
 }
 
+// --- 4.3 Trang Chủ (Featured Posts - up to 3) ---
+async function renderHomePosts() {
+    const container = document.getElementById('home-posts-container');
+    if (!container) return;
 
-// --- 4. RENDER COMPANIES GRID (Bao gồm logic lọc Vertical) ---
-// Thêm một biến trạng thái toàn cục mới để lưu bộ lọc Vertical
+    const posts = await fetchAllPosts(); // Lấy tất cả (đã sort)
+    
+    // Filter for featured posts and sort by date (newest first)
+    const featuredPosts = posts
+        .filter(post => post.featured === true)
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 3); // Lấy tối đa 3 posts
+
+    // If less than 3 featured posts, fill with recent non-featured posts
+    let homePosts = [...featuredPosts];
+    if (homePosts.length < 3) {
+        const nonFeaturedPosts = posts
+            .filter(post => post.featured !== true)
+            .sort((a, b) => new Date(b.date) - new Date(a.date))
+            .slice(0, 3 - homePosts.length);
+        homePosts = [...homePosts, ...nonFeaturedPosts];
+    }
+
+    container.innerHTML = '';
+    homePosts.forEach(post => {
+        const thumb = post.image || post.imageUrl || './image/default-post.png';
+        let excerpt = post.summary;
+        if (!excerpt && post.content) excerpt = post.content.substring(0, 80) + '...'; // Cắt ngắn nếu cần
+
+        const cardHTML = `
+            <div class="col-md-4">
+                <div class="news-item">
+                    <div class="news-thumb">
+                        <a href="blog-details.html?id=${post.id}">
+                            <img src="${thumb}" alt="${post.title}">
+                        </a>
+                    </div>
+                    <div class="news-content">
+                        <span class="date">${post.date}</span>
+                        <h3><a href="blog-details.html?id=${post.id}">${post.title}</a></h3>
+                        <p>${excerpt}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHTML;
+    });
+}
+
+// ==========================================
+// II. RENDER TRANG COMPANY
+// ==========================================
+
+
 let currentVerticalFilter = 'All'; 
 
 // --- RENDER COMPANIES GRID (Updated with Mobile Dropdown) ---
@@ -638,7 +937,9 @@ function renderCompaniesPage() {
     });
 }
 
-// --- 5. CAREERS PAGE RENDERING FUNCTIONS (Kept the same) ---
+// ==========================================
+// III. RENDER TRANG CAREERS
+// ==========================================
 
 // Function to create the HTML structure for a single job posting (reusing .post-row style)
 function createJobHTML(job) {
@@ -779,10 +1080,6 @@ async function renderJobDetails() {
     heroDesc.textContent = `${job.department} position in ${job.location}.`;
     jobTitleField.value = pageTitle; // Đặt tên công việc vào trường ẩn của form
 
-    // 6. Setup Form Submission
-
-    // Thay thế đoạn xử lý form trong hàm renderJobDetails() tại script.js
-
 // 6. Setup Form Submission
  form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -818,12 +1115,7 @@ async function renderJobDetails() {
         // Hàm gửi dữ liệu sang Google Script
         const sendData = (dataPayload) => {
             // *** Dán URL Web App của bạn vào đây ***
-             const scriptURL = 'https://script.google.com/macros/s/AKfycbz187iS-sxcj1tMO_Y1u29X-ZxCC0RpJTqPBqhOmSdlPjY1uuVtdk2fzvYtl4HNwxHgSA/exec'; // - File chung - work nhưng không có title // 
-             
-             
-            // const scriptURL = 'https://script.google.com/macros/s/AKfycbyPQAtN15m-kGsvW5G2tqfQBdEAKFsQ7lcg_NfdLEBgOUwgB76ti6cv894VSrZ-88hRwQ/exec';  // - File chung mới - no work //
-            // const scriptURL = 'https://script.google.com/macros/s/AKfycbzMkJ4NATeoPrNJWxxSUxPkIrWGRuQuvmxCtOKI8OSVhICYZe-RnhsUjUoVvW0j8JI06A/exec';  //- File riêng - work, nhưng không đổi đc thông tin tiếng anh //
-            // const scriptURL = 'https://script.google.com/macros/s/AKfycbyD4KBvYHfc6kZgBpFdqnWYkLMi_xJbd9vOATEGslqtUeBX1wTKvqgEUzuRLu0QUsE/exec';  //- File mới  -chưa chạy //
+             const scriptURL = 'https://script.google.com/macros/s/AKfycbz187iS-sxcj1tMO_Y1u29X-ZxCC0RpJTqPBqhOmSdlPjY1uuVtdk2fzvYtl4HNwxHgSA/exec'; // - File chung // 
 
             fetch(scriptURL, {
                 method: 'POST',
@@ -873,25 +1165,19 @@ async function renderJobDetails() {
         }
     });
 
-
-
 }
 
 // --- 6. MOBILE MENU TOGGLE ---
 // Function to handle the mobile menu toggle functionality (Kept the same)
 
+// --- 4.4 Mobile Menu Logic ---
 function initMobileMenu() {
     const menuToggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
-
-    // Chỉ chạy nếu cả nút và menu đều tồn tại (giúp code không bị lỗi nếu header khác nhau)
     if (menuToggle && navLinks) {
-        // Thêm nút toggle vào header (chỉ hiển thị trên mobile qua CSS)
         menuToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
-
-        // Đóng menu khi người dùng chọn một liên kết (chỉ áp dụng cho mobile)
         navLinks.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
@@ -901,7 +1187,6 @@ function initMobileMenu() {
         });
     }
 }
-
 
 
 // --- 7. GLOBAL INITIALIZATION UPDATE (Kept the same) ---
@@ -915,6 +1200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderDetailPost();
     } else if (document.getElementById('blog-posts-container')) {
         renderBlogPage();
+        initializeBlogFilters(); // Initialize blog filters
     } else if (document.getElementById('home-posts-container')) {
         renderHomePosts();
     } else if (document.querySelector('.companies-grid')) { // Check for companies page container

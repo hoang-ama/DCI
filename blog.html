@@ -40,38 +40,40 @@
     </section>
 
     <div class="blog-page">
+
         <main id="blog-posts-container" class="blog-main">
         </main>
 
-     <aside class="blog-sidebar">
-            <div class="sidebar-card">
-                <h3>Categories</h3>
-                <div class="categories" id="category-filters"> 
-                    <button class="btn nav-btn active" data-filter="All">All</button>
-                    <button class="btn" data-filter="Studio">Startup Studio</button>
-                    <button class="btn" data-filter="Investor">Investor</button>
-                    <button class="btn" data-filter="Founder">Founder</button>
-                    <button class="btn" data-filter="Startup">Startup</button>
+        <aside class="blog-sidebar">
+                <div class="sidebar-card">
+                    <h3>Categories</h3>
+                    <div class="categories" id="category-filters"> 
+                        <button class="btn nav-btn active" data-filter="All">All</button>
+                        <button class="btn" data-filter="Studio">Startup Studio</button>
+                        <button class="btn" data-filter="Investor">Investor</button>
+                        <button class="btn" data-filter="Founder">Founder</button>
+                        <button class="btn" data-filter="Startup">Startup</button>
+                    </div>
                 </div>
-            </div>
 
-            <div class="sidebar-card">
-                <h3>Tags</h3>
-                <div class="tags" id="tag-filters"> 
-                    <a class="tag active" href="#" data-filter="All">All</a> 
-                    <a class="tag" href="#" data-filter="model">Business Model</a>
-                    <a class="tag" href="#" data-filter="product">Product</a>
-                    <a class="tag" href="#" data-filter="ai">AI</a>
-                    <a class="tag" href="#" data-filter="blockchain">Blockchain</a>
-                    <a class="tag" href="#" data-filter="clound">Cloud Computing</a>
-                    <a class="tag" href="#" data-filter="quantum">Quantum Computing</a>
-                    <a class="tag" href="#" data-filter="data">Data</a>
-                    <a class="tag" href="#" data-filter="management">Management</a>
-                    <a class="tag" href="#" data-filter="cybersecurity">Cybersecurity</a>
+                <div class="sidebar-card">
+                    <h3>Tags</h3>
+                    <div class="tags" id="tag-filters"> 
+                        <a class="tag active" href="#" data-filter="All">All</a> 
+                        <a class="tag" href="#" data-filter="model">Business Model</a>
+                        <a class="tag" href="#" data-filter="product">Product</a>
+                        <a class="tag" href="#" data-filter="ai">AI</a>
+                        <a class="tag" href="#" data-filter="blockchain">Blockchain</a>
+                        <a class="tag" href="#" data-filter="clound">Cloud Computing</a>
+                        <a class="tag" href="#" data-filter="quantum">Quantum Computing</a>
+                        <a class="tag" href="#" data-filter="data">Data</a>
+                        <a class="tag" href="#" data-filter="management">Management</a>
+                        <a class="tag" href="#" data-filter="cybersecurity">Cybersecurity</a>
 
+                    </div>
                 </div>
-            </div>
         </aside>
+        
     </div>
     
     <div id="pagination-controls" class="pagination"> </div>
@@ -102,6 +104,12 @@
                 <p>Copyright © 2025 by DCI</p>
         </div> 
     </footer>
+
+    <!-- Thêm tải thư viện Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <!-- KẾT THÚC ĐOẠN CẦN THÊM -->
 
     <script src="script.js"></script>
 </body>

@@ -1,20 +1,20 @@
 There are different implementations of the studio approach, depending on who the founders are, what the vision of the organization is. But the recipe is similar. 
 ### Steps
 Here are the common steps to build a startup studio:
-- Take a core team & entrepreneurs in residence;
-- Add shared infrastructure & in-house funding;
-- Generate ideas internally, or in some cases, act as a cofounder;
-- Build multiple startups in parallel;
-- Trash what doesn’t work, reassign team – so you keep all the expertise;
-- Spin off what works into a dedicated company;
-- Grow. Exit. Repeat.
+- Take a core team & entrepreneurs in residence.
+- Add shared infrastructure & in-house funding.
+- Generate ideas internally, or in some cases, act as a cofounder.
+- Build multiple startups in parallel.
+- Trash what doesn’t work, reassign team – so you keep all the expertise.
+- Spin off what works into a dedicated company.
+- Grow. Exit. Repeat
 
 ### Advantages
 Compared to the old startup building recipe, startup studios make early-stage building easier:
-- You have a team of experienced company builders;
-- The studio provides a safety net, reducing the risk of failure;
-- Because the team sticks together even if an idea fails, their experience grows, they become even better builders;
-- A studio is perfect for quick, low-cost experimentation;
+- You have a team of experienced company builders.
+- The studio provides a safety net, reducing the risk of failure.
+- Because the team sticks together even if an idea fails, their experience grows, they become even better builders.
+- A studio is perfect for quick, low-cost experimentation.
 - You build trusted relationship with investors, so getting follow-on investments for your portfolio companies becomes easier.
 
 ### Challenges and risks

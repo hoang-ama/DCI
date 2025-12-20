@@ -1,4 +1,4 @@
-Which ones are best for launching a startup? 
+Which ones are best for launching a startup?
 This is a touch question for many entrepreneurs. But there is one model that has been gaining traction in recent years: the startup studio.
 This article explores the concept of a startup studio, its key characteristics, and how it differs from other startup creation models.
 

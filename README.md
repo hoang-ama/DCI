@@ -32,6 +32,7 @@ The project follows a standard structure for a static/semi-dynamic website, sepa
 └── panel_script.js # Interactive panel logic (Team/Company/Investor forms, Portfolio flip cards)
 
 ### WEB STRUCTURE 
+
 HOME (index.html) -> Build Popup Panel
    |___About us (about.html)
    |	|__Investor (investor.html) -> Investor Inquiry Form

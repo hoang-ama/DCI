@@ -7,9 +7,9 @@ A startup studio systematically builds companies from scratch, acting as a co-fo
 - Startup studios generate and validate their own business ideas internally, while other models typically work with pre-existing startups.
 
 ### 2. Act as Co-Founder
-- Startup studios take an active role in building the startup from the ground up, often taking significant equity and sharing risk/reward as true partners.
-- Provides resources: They offer a variety of resources, including initial funding, experienced personnel, and infrastructure to develop the company.
-- Other models play as investors or mentors, providing funding or support but not directly building the company.
+- Startup studios take an active role in building the startup from the ground up, often taking significant equity and sharing risk/reward as true partners
+- Provides resources: They offer a variety of resources, including initial funding, experienced personnel, and infrastructure to develop the company
+- Other models play as investors or mentors, providing funding or support but not directly building the company
 
 ### 3. Operational Involvement
 - Studio teams are deeply involved in all aspects of a startup, such as strategy, product development, marketing, and operations.

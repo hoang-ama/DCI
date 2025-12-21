@@ -698,6 +698,52 @@ async function fetchPostMarkdownContent(post) {
     }
 }
 
+// Helper function to update meta tags dynamically
+function updateMetaTags(post) {
+    // Update page title
+    document.title = `${post.title} - DCI Blog`;
+    
+    // Update or create meta description
+    let descriptionMeta = document.querySelector('meta[name="description"]');
+    const metaDescription = post.summary || post.content?.substring(0, 160) || 'Read more about DCI startup insights';
+    
+    if (descriptionMeta) {
+        descriptionMeta.setAttribute('content', metaDescription);
+    } else {
+        descriptionMeta = document.createElement('meta');
+        descriptionMeta.name = 'description';
+        descriptionMeta.content = metaDescription;
+        document.head.appendChild(descriptionMeta);
+    }
+    
+    // Update Open Graph tags for social sharing
+    updateOpenGraphTags(post);
+}
+
+// Helper function to update Open Graph meta tags (for social media sharing)
+function updateOpenGraphTags(post) {
+    const ogTags = {
+        'og:title': post.title,
+        'og:description': post.summary || post.content?.substring(0, 160) || 'Read more about DCI startup insights',
+        'og:image': post.imageUrl || post.image || './image/default-post.png',
+        'og:url': window.location.href,
+        'og:type': 'article'
+    };
+    
+    for (const [property, content] of Object.entries(ogTags)) {
+        let ogMeta = document.querySelector(`meta[property="${property}"]`);
+        
+        if (ogMeta) {
+            ogMeta.setAttribute('content', content);
+        } else {
+            ogMeta = document.createElement('meta');
+            ogMeta.setAttribute('property', property);
+            ogMeta.setAttribute('content', content);
+            document.head.appendChild(ogMeta);
+        }
+    }
+}
+
 async function renderDetailPost() {
     const container = document.getElementById('single-post-container');
     if (!container) return;
@@ -754,6 +800,12 @@ async function renderDetailPost() {
             </div>
         </article>
     `;
+    
+    // Update the document title dynamically
+    document.getElementById('post-title-meta').textContent = post.title;
+    
+    // Update meta tags for SEO
+    updateMetaTags(post);
 }
 
 // --- 4.3 Trang Chủ (Featured Posts - up to 3) ---
@@ -1073,6 +1125,12 @@ async function renderJobDetails() {
             ${markdownToHTML(jobContentMD)}
         </article>
     `;
+    // Insert a bottom back button (same pattern as blog details)
+    const navDiv = document.createElement('div');
+    navDiv.className = 'post-navigation';
+    navDiv.innerHTML = `<a href="careers.html" class="back-btn" aria-label="Back to Careers"><i class="fas fa-arrow-left"></i>&nbsp; Back to Careers</a>`;
+    // Append navigation after the article
+    contentContainer.querySelector('.single-post').appendChild(navDiv);
     
     // 5. Update titles and hidden form field
     const pageTitle = `${job.title} - ${job.company}`;

@@ -1858,6 +1858,70 @@ h2 {
     color: var(--text-color);
 }
 
+/* Company modal (overlay + centered card) */
+.company-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+}
+.company-overlay.show {
+    display: flex;
+}
+.company-overlay .backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(2px);
+}
+.company-modal-content {
+    position: relative;
+    z-index: 1201;
+    width: 100%;
+    max-width: 920px;
+    padding: 24px;
+}
+.company-modal-card {
+    background: var(--white-text);
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    padding: 32px;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+}
+.company-logo-wrap {
+    flex: 0 0 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+.company-logo-large {
+    max-width: 220px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+.company-modal-meta {
+    flex: 1 1 auto;
+}
+.company-modal-title {
+    margin: 0 0 8px 0;
+    color: var(--text-color);
+}
+.company-meta-row { margin: 10px 0; color: var(--grey-text); }
+.company-meta-row.small { font-size: 0.95rem; color: #777; }
+.company-modal-body { margin-top: 12px; color: var(--text-color); }
+
+@media (max-width: 880px) {
+    .company-modal-card { flex-direction: column; padding: 20px; }
+    .company-logo-wrap { flex-basis: auto; width: 100%; }
+    .company-logo-large { max-width: 160px; }
+}
+
 
 /* Style page job-details.html */
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DCI Admin Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="./image/favicon.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- React & ReactDOM -->
@@ -48,6 +49,46 @@
         }
         const db = firebase.firestore();
         const auth = firebase.auth();
+
+        // Helper: simple slugify (same behavior as site)
+        function slugify(text) {
+            if (!text) return '';
+            return text.toString().toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/[\s-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        // Helper: create job with an auto-incrementing numeric sequence (stored in `seq` field)
+        async function createJobWithSeq(collectionName, data) {
+            const counterRef = db.collection('counters').doc(collectionName);
+            try {
+                await db.runTransaction(async (t) => {
+                    const counterDoc = await t.get(counterRef);
+                    let nextId = 1;
+                    if (counterDoc.exists) {
+                        const last = counterDoc.data().lastId || 0;
+                        nextId = last + 1;
+                    }
+
+                    // update counter
+                    t.set(counterRef, { lastId: nextId }, { merge: true });
+
+                    // create new job document with auto doc id and numeric seq
+                    const jobRef = db.collection(collectionName).doc();
+                    const jobData = {
+                        ...data,
+                        seq: nextId,
+                        slug: data.slug || slugify(data.title || ''),
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    };
+                    t.set(jobRef, jobData);
+                });
+            } catch (err) {
+                throw err;
+            }
+        }
 
         const { useState, useEffect } = React;
 
@@ -229,18 +270,27 @@
                 ],
                 'jobs': [
                     { key: 'title', label: 'Job Title', type: 'text' },
+                    { key: 'department', label: 'Department', type: 'select', options: ['Technology', 'Business', 'Marketing', 'HR', 'Other'] },
+                    { key: 'type', label: 'Type', type: 'select', options: ['Full-time', 'Part-time', 'Internship'] },
                     { key: 'location', label: 'Location', type: 'text' },
-                    { key: 'type', label: 'Type (Full-time/Part-time)', type: 'text' },
+                    { key: 'company', label: 'Company', type: 'select', options: ['DCI Studio', 'DiChung', 'Chungxe', 'DC Tech', 'Other'] },
+                    { key: 'summary', label: 'Short Description', type: 'textarea' },
+                    { key: 'link', label: 'Link (Apply or external URL)', type: 'text' },
+                    { key: 'slug', label: 'Slug (optional)', type: 'text' },
                     { key: 'salary', label: 'Salary', type: 'text' },
                     { key: 'content', label: 'Job Description (Markdown)', type: 'markdown' }
                 ],
                 'companies': [
+                    { key: 'id', label: 'ID (auto from name)', type: 'text' },
                     { key: 'name', label: 'Startup/Company Name', type: 'text' },
-                    { key: 'vertical', label: 'Vertical', type: 'text' },
-                    { key: 'logo', label: 'Logo URL', type: 'text' },
+                    { key: 'logo', label: 'Logo', type: 'image' },
+                    { key: 'heroImage', label: 'Hero Image', type: 'image' },
+                    { key: 'vertical', label: 'Vertical', type: 'select', options: ['Shared Mobility', 'Transport', 'Travel', 'Logistics', 'Software', 'Automotive', 'eCommerce', 'Agriculture', 'Community', 'Other'] },
+                    { key: 'stage', label: 'Stage', type: 'select', options: ['Proof-of-Concept', 'Seed', 'Growth', 'Transition'] },
+                    { key: 'year', label: 'Year Founded', type: 'text' },
                     { key: 'website', label: 'Website URL', type: 'text' },
-                    { key: 'stage', label: 'Stage', type: 'text' },
-                    { key: 'description', label: 'Short Description', type: 'textarea' },
+                    { key: 'email', label: 'Contact Email', type: 'text' },
+                    { key: 'description', label: 'Short description', type: 'textarea' },
                     { key: 'content', label: 'Details (Markdown)', type: 'markdown' }
                 ]
             };
@@ -257,13 +307,41 @@
                 try {
                     if (item && item.id) {
                         // Update
-                        await db.collection(collectionName).doc(item.id).update(formData);
+                        await db.collection(collectionName).doc(item.id).update({
+                            ...formData,
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
                     } else {
                         // Create
-                        await db.collection(collectionName).add({
-                            ...formData,
-                            createdAt: new Date()
-                        });
+                        if (collectionName === 'jobs') {
+                            // Use transaction to create job and assign ascending seq id
+                            await createJobWithSeq(collectionName, {
+                                ...formData
+                            });
+                        } else if (collectionName === 'companies') {
+                            // Use company name as document id (slugified)
+                            const companyId = (formData.id && formData.id.trim()) ? formData.id.trim() : slugify(formData.name || '');
+                            if (!companyId) throw new Error('Company name required to generate ID');
+                            await db.collection('companies').doc(companyId).set({
+                                id: companyId,
+                                name: formData.name || '',
+                                logo: formData.logo || '',
+                                heroImage: formData.heroImage || '',
+                                vertical: formData.vertical || '',
+                                stage: formData.stage || '',
+                                year: formData.year || '',
+                                website: formData.website || '',
+                                email: formData.email || '',
+                                description: formData.description || '',
+                                content: formData.content || '',
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                            }, { merge: true });
+                        } else {
+                            await db.collection(collectionName).add({
+                                ...formData,
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                            });
+                        }
                     }
                     onSave();
                 } catch (error) {

@@ -175,7 +175,7 @@ const postsData = [
 const sortedPosts = postsData.sort((a, b) => new Date(b.date) - new Date(a.date));
 
 // --- 1.2 JOBS DATA ---
-const jobsData = [
+const staticJobsData = [
     {
         id: 1,
         title: "Senior Full Stack Developer",
@@ -185,7 +185,8 @@ const jobsData = [
         company: "DC Tech",
         description: "Develop and maintain SaaS platform features using Node.js and React. Requires 5+ years experience.",
         link: "https://dcinvest.vn/careers/senior-dev",
-        slug: "senior-full-stack-developer" // <--- THÊM TRƯỜNG NÀY
+        slug: "senior-full-stack-developer", // <--- THÊM TRƯỜNG NÀY
+        isStatic: true
     },
     {
         id: 2,
@@ -196,7 +197,8 @@ const jobsData = [
         company: "DiChung",
         description: "Define product roadmap for shared mobility services, focusing on user acquisition and retention.",
         link: "https://dcinvest.vn/careers/pm-mobility",
-        slug: "product-manager-mobility"
+        slug: "product-manager-mobility",
+         isStatic: true
     },
     {
         id: 3,
@@ -207,7 +209,8 @@ const jobsData = [
         company: "DCI Studio",
         description: "Manage digital campaigns (SEO, SEM) for DCI and portfolio companies. Focus on performance marketing.",
         link: "https://dcinvest.vn/careers/digital-marketing",
-        slug: "digital-marketing-specialist"
+        slug: "digital-marketing-specialist",
+        isStatic: true
     },
     {
         id: 4,
@@ -218,7 +221,8 @@ const jobsData = [
         company: "Chungxe",
         description: "Assist with fleet management, logistics coordination, and customer service optimization.",
         link: "https://dcinvest.vn/careers/ops-intern",
-        slug: "operations-intern"
+        slug: "operations-intern",
+        isStatic: true
     },
     {
         id: 5,
@@ -229,10 +233,12 @@ const jobsData = [
         company: "DCI Studio",
         description: "Lead recruitment process for senior management and engineering roles across the studio ecosystem.",
         link: "https://dcinvest.vn/careers/hr-talent",
-        slug: "hr-talent-acquisition"
+        slug: "hr-talent-acquisition",
+        isStatic: true
     }
 ];
 
+console.log('staticJobsData initialized with', staticJobsData.length, 'jobs:', staticJobsData.map(j => j.title));
 
 // --- 2. COMMON FUNCTIONS ---
 // Function to create the HTML structure for a single post card
@@ -258,6 +264,243 @@ function createPostHTML(post) {
             </div>
         </article>
     `;
+}
+
+// --- JOBS: Firebase helpers ---
+// Fetch all jobs from Firestore and merge with static jobsData
+async function fetchAllJobs() {
+    console.log('fetchAllJobs called');
+    let firebaseJobs = [];
+    if (db) {
+        try {
+            // Try to fetch with orderBy, if that fails, fetch without ordering
+            try {
+                console.log('Attempting to fetch jobs with orderBy...');
+                const snapshot = await db.collection('jobs').orderBy('createdAt', 'desc').get();
+                console.log('Firestore fetch with orderBy succeeded, docs:', snapshot.size);
+                console.log('Raw Firebase docs:', snapshot.docs.map(doc => ({ id: doc.id, data: doc.data() })));
+                firebaseJobs = snapshot.docs.map(doc => {
+                    const data = doc.data();
+                    
+                    // Helper function to convert Firestore timestamp to date string
+                    const getDateString = (timestamp) => {
+                        if (!timestamp) return new Date().toISOString().split('T')[0];
+                        try {
+                            // If it's a Firestore Timestamp object, use .toDate()
+                            if (timestamp.toDate && typeof timestamp.toDate === 'function') {
+                                return timestamp.toDate().toISOString().split('T')[0];
+                            }
+                            // If it's already a Date or can be converted to Date
+                            return new Date(timestamp).toISOString().split('T')[0];
+                        } catch (e) {
+                            console.warn('Error converting date:', timestamp, e);
+                            return new Date().toISOString().split('T')[0];
+                        }
+                    };
+                    
+                    // Normalize fields to match static jobsData shape
+                    return {
+                        id: doc.id,
+                        seq: data.seq || null,
+                        title: data.title || data.name || 'Untitled',
+                        department: data.department || 'Other',
+                        type: data.type || data.employmentType || 'Full-time',
+                        location: data.location || '',
+                        company: data.company || data.companyName || 'DCI Studio',
+                        // Enhanced description fallback chain for multiple possible field names
+                        description: data.description || data.content || data.jobDescription || 'No description available',
+                        summary: data.summary || data.description || data.content || '',
+                        content: data.content || data.description || data.jobDescription || '',
+                        salary: data.salary || '',
+                        // generate slug if not provided
+                        slug: data.slug || slugify(data.title || data.name || doc.id),
+                        createdAt: data.createdAt || new Date(),
+                        date: getDateString(data.createdAt),
+                        isFirebase: true,
+                        isStatic: false
+                    };
+                });
+                console.log('Processed Firebase jobs:', firebaseJobs);
+            } catch (orderErr) {
+                // If orderBy fails, try without ordering
+                console.warn('orderBy failed, fetching without sort:', orderErr);
+                const snapshot = await db.collection('jobs').get();
+                console.log('Firestore fetch without orderBy succeeded, docs:', snapshot.size);
+                console.log('Raw Firebase docs:', snapshot.docs.map(doc => ({ id: doc.id, data: doc.data() })));
+                
+                // Helper function to convert Firestore timestamp to date string
+                const getDateString = (timestamp) => {
+                    if (!timestamp) return new Date().toISOString().split('T')[0];
+                    try {
+                        // If it's a Firestore Timestamp object, use .toDate()
+                        if (timestamp.toDate && typeof timestamp.toDate === 'function') {
+                            return timestamp.toDate().toISOString().split('T')[0];
+                        }
+                        // If it's already a Date or can be converted to Date
+                        return new Date(timestamp).toISOString().split('T')[0];
+                    } catch (e) {
+                        console.warn('Error converting date:', timestamp, e);
+                        return new Date().toISOString().split('T')[0];
+                    }
+                };
+                
+                firebaseJobs = snapshot.docs.map(doc => {
+                    const data = doc.data();
+                    return {
+                        id: doc.id,
+                        title: data.title || data.name || 'Untitled',
+                        department: data.department || 'Other',
+                        type: data.type || data.employmentType || 'Full-time',
+                        location: data.location || '',
+                        company: data.company || data.companyName || 'DCI Studio',
+                        // Enhanced description fallback chain for multiple possible field names
+                        description: data.description || data.content || data.jobDescription || 'No description available',
+                        summary: data.summary || data.description || data.content || '',
+                        content: data.content || data.description || data.jobDescription || '',
+                        salary: data.salary || '',
+                        slug: data.slug || slugify(data.title || data.name || doc.id),
+                        createdAt: data.createdAt || new Date(),
+                        date: getDateString(data.createdAt),
+                        isFirebase: true,
+                        isStatic: false
+                    };
+                }).sort((a, b) => {
+                    try {
+                        const dateA = new Date(b.date);
+                        const dateB = new Date(a.date);
+                        return dateA - dateB;
+                    } catch (e) {
+                        return 0;
+                    }
+                });
+                console.log('Processed Firebase jobs:', firebaseJobs);
+            }
+        } catch (err) {
+            console.error('Error fetching jobs from Firebase:', err);
+            console.error('Error stack:', err.stack);
+            // If Firebase fails completely, just use static jobs
+            firebaseJobs = [];
+        }
+    } else {
+        console.warn('Firebase db not initialized');
+    }
+
+    // Combine firebase jobs first (newer) then static jobs
+    console.log('Static job data available:', staticJobsData?.length || 0, 'Firebase jobs:', firebaseJobs.length);
+    const staticJobs = (staticJobsData || []).map(j => ({
+        ...j,
+        isFirebase: false,
+        isStatic: true,
+        date: j.date || new Date().toISOString().split('T')[0],
+        summary: j.description || ''
+    }));
+    
+    const combined = [...firebaseJobs, ...staticJobs];
+    console.log('Combined jobs total:', combined.length);
+    return combined;
+}
+
+// Fetch a single job by id (handles static numeric ids and Firestore doc ids)
+async function fetchJobById(idParam) {
+    console.log('fetchJobById called with id:', idParam);
+    if (!idParam) {
+        console.warn('fetchJobById: no id provided');
+        return null;
+    }
+    
+    // Try to find in static jobs (compare string/number)
+    console.log('Looking for static job with id:', idParam, 'available static ids:', staticJobsData?.map(j => j.id) || []);
+    const staticMatch = (staticJobsData || []).find(j => String(j.id) === String(idParam));
+    if (staticMatch) {
+        console.log('Found static job:', staticMatch.title);
+        return {
+            ...staticMatch,
+            isFirebase: false,
+            isStatic: true,
+            date: staticMatch.date || new Date().toISOString().split('T')[0],
+            summary: staticMatch.description || '',
+            slug: staticMatch.slug || slugify(staticMatch.title)
+        };
+    }
+    console.log('No static job found for id:', idParam);
+
+    // Otherwise try Firestore
+    if (db) {
+        try {
+            // Helper function to convert Firestore timestamp to date string (same as fetchAllJobs)
+            const getDateString = (timestamp) => {
+                if (!timestamp) return new Date().toISOString().split('T')[0];
+                try {
+                    // If it's a Firestore Timestamp object, use .toDate()
+                    if (timestamp.toDate && typeof timestamp.toDate === 'function') {
+                        return timestamp.toDate().toISOString().split('T')[0];
+                    }
+                    // If it's already a Date or can be converted to Date
+                    return new Date(timestamp).toISOString().split('T')[0];
+                } catch (e) {
+                    console.warn('Error converting date in fetchJobById:', timestamp, e);
+                    return new Date().toISOString().split('T')[0];
+                }
+            };
+
+            // Try direct doc lookup first (doc id)
+            const docRef = await db.collection('jobs').doc(idParam).get();
+            if (docRef.exists) {
+                const data = docRef.data();
+                console.log('Found Firebase job by doc id:', idParam, 'data:', data);
+                return {
+                    id: docRef.id,
+                    title: data.title || data.name || 'Untitled',
+                    department: data.department || 'Other',
+                    type: data.type || data.employmentType || 'Full-time',
+                    location: data.location || '',
+                    company: data.company || data.companyName || 'DCI Studio',
+                    // Enhanced description fallback chain for multiple possible field names
+                    description: data.description || data.content || data.jobDescription || 'No description available',
+                    summary: data.summary || data.description || data.content || '',
+                    content: data.content || data.description || data.jobDescription || '',
+                    salary: data.salary || '',
+                    slug: data.slug || slugify(data.title || data.name || docRef.id),
+                    createdAt: data.createdAt || new Date(),
+                    date: getDateString(data.createdAt),
+                    isFirebase: true,
+                    isStatic: false
+                };
+            }
+
+            // If not found by doc id, try searching documents (optional - can be slow)
+            try {
+                const snapshot = await db.collection('jobs').where('seq', '==', Number(idParam)).get();
+                if (!snapshot.empty) {
+                    const doc = snapshot.docs[0];
+                    const data = doc.data();
+                    return {
+                        id: doc.id,
+                        title: data.title || 'Untitled',
+                        department: data.department || 'Other',
+                        type: data.type || 'Full-time',
+                        location: data.location || '',
+                        company: data.company || data.companyName || 'DCI Studio',
+                        description: data.description || data.content || data.jobDescription || 'No description available',
+                        summary: data.summary || data.description || data.content || '',
+                        content: data.content || data.description || data.jobDescription || '',
+                        salary: data.salary || '',
+                        slug: data.slug || slugify(data.title || doc.id),
+                        createdAt: data.createdAt || new Date(),
+                        date: getDateString(data.createdAt),
+                        isFirebase: true,
+                        isStatic: false
+                    };
+                }
+            } catch (searchErr) {
+                // Search failed, that's ok - just continue
+                console.warn('Search by id field failed:', searchErr);
+            }
+        } catch (err) {
+            console.error('Error fetching job detail from Firebase:', err);
+        }
+    }
+    return null;
 }
 
 // --- Markdown helpers (kept the same) ---
@@ -450,13 +693,6 @@ async function fetchPostById(id) {
 }
 
 // End --- 
-
-function isProbablyMarkdown(text) {
-    if (!text || typeof text !== 'string') return false;
-    // Look for common markdown patterns: headings, lists, blockquotes or multiple line breaks
-    const mdPatterns = [/^#\s+/m, /^##\s+/m, /^###\s+/m, /^-\s+/m, /^>\s+/m, /\n\s*\n/];
-    return mdPatterns.some(re => re.test(text));
-}
 
 
 // --- 3. PAGE-SPECIFIC RENDERING FUNCTIONS ---
@@ -696,6 +932,36 @@ async function fetchPostMarkdownContent(post) {
         // Fallback to post.content if markdown file not found
         return markdownToHTML(post.content);
     }
+}
+
+// Helper function to fetch and convert markdown file for a job
+async function fetchJobMarkdownContent(job) {
+    // For Firebase jobs with markdown content, convert directly
+    if (job.isFirebase && job.content && isProbablyMarkdown(job.content)) {
+        return markdownToHTML(job.content);
+    }
+    
+    // For static jobs, fetch from jobs-details folder
+    const filepath = `./jobs-details/${job.slug}.md`;
+    
+    try {
+        const res = await fetch(filepath);
+        if (!res.ok) throw new Error(`File not found: ${filepath}`);
+        const markdown = await res.text();
+        const htmlContent = markdownToHTML(markdown);
+        return htmlContent;
+    } catch (err) {
+        console.warn(`Could not load markdown file (${filepath}). Using content from script instead.`, err);
+        // Fallback to job.content or job.description
+        return markdownToHTML(job.content || job.description || '');
+    }
+}
+
+// Helper function to detect if text is probably markdown
+function isProbablyMarkdown(text) {
+    if (!text || typeof text !== 'string') return false;
+    // Check for common markdown patterns
+    return /^#|^-|^\*|^>|^\d+\.|```|```/m.test(text.trim());
 }
 
 // Helper function to update meta tags dynamically
@@ -996,12 +1262,14 @@ function renderCompaniesPage() {
 // Function to create the HTML structure for a single job posting (reusing .post-row style)
 function createJobHTML(job) {
     // SỬA ĐỔI LINK Apply Now
-    const jobLink = `job-details.html?id=${job.id}&slug=${job.slug}`;
+    // Prefer numeric seq for user-friendly ascending IDs when available
+    const linkId = (job.seq !== undefined && job.seq !== null) ? job.seq : job.id;
+    const jobLink = `job-details.html?id=${linkId}&slug=${job.slug}`;
     return `
         <article class="post-row job-row">
             <div class="post-summary" style="flex: 1;">
                 <h3 style="margin-bottom: 5px;">${job.title} - ${job.company}</h3>
-                <p class="excerpt">${job.description}</p>
+                <p class="excerpt">${(job.summary || job.description || job.content || '').trim()}</p>
                 <p class="post-meta" style="margin-top: 10px;">
                     <i class="fas fa-building"></i> ${job.department} &bull; 
                     <i class="fas fa-map-marker-alt"></i> ${job.location} &bull; 
@@ -1020,29 +1288,47 @@ function renderCareersPage() {
     const container = document.getElementById('jobs-list');
     const departmentFilters = document.getElementById('department-filters');
     const typeFilters = document.getElementById('type-filters');
-    if (!container) return;
+    if (!container) {
+        console.error('Jobs container not found');
+        return;
+    }
 
     let currentDepartmentFilter = 'All';
     let currentTypeFilter = 'All';
 
     // Core rendering function
     function updateJobList() {
-        container.innerHTML = '';
-        const filteredJobs = jobsData.filter(job => {
-            const departmentMatch = currentDepartmentFilter === 'All' || job.department === currentDepartmentFilter;
-            const typeMatch = currentTypeFilter === 'All' || job.type === currentTypeFilter;
-            return departmentMatch && typeMatch;
-        });
+        container.innerHTML = '<p style="text-align: center; color: var(--grey-text);">Loading job openings...</p>';
+        
+        // Load combined jobs from Firestore + static
+        fetchAllJobs().then(allJobs => {
+            console.log('fetchAllJobs returned:', allJobs);
+            
+            const filteredJobs = allJobs.filter(job => {
+                const departmentMatch = currentDepartmentFilter === 'All' || job.department === currentDepartmentFilter;
+                const typeMatch = currentTypeFilter === 'All' || job.type === currentTypeFilter;
+                return departmentMatch && typeMatch;
+            });
 
-        if (filteredJobs.length === 0) {
-            container.innerHTML = `<p style="text-align: center; color: var(--grey-text); padding: 30px;">No open positions found matching the current filters.</p>`;
-        } else {
+            if (filteredJobs.length === 0) {
+                console.warn('No filtered jobs found');
+                container.innerHTML = `<p style="text-align: center; color: var(--grey-text); padding: 30px;">No open positions found matching the current filters.</p>`;
+                return;
+            }
+
             let jobsHTML = '';
             filteredJobs.forEach(job => {
+                // Ensure slug exists
+                if (!job.slug) job.slug = slugify(job.title || job.company || String(job.id));
+                // Ensure description/content fallback
+                job.description = job.description || job.content || '';
                 jobsHTML += createJobHTML(job);
             });
             container.innerHTML = jobsHTML;
-        }
+        }).catch(err => {
+            console.error('Error loading jobs:', err);
+            container.innerHTML = `<p style="text-align: center; color: var(--grey-text); padding: 30px;">Unable to load job openings at this time.</p>`;
+        });
     }
 
     // Initialize job list
@@ -1083,7 +1369,7 @@ function renderCareersPage() {
     }
 }
 
-// Function to fetch and render the Markdown content for a single job (Kept the same)
+// Function to fetch and render the Markdown content for a single job
 async function renderJobDetails() {
     const contentContainer = document.getElementById('job-content-container');
     const titleMeta = document.getElementById('job-title-meta');
@@ -1093,38 +1379,39 @@ async function renderJobDetails() {
 
     if (!contentContainer) return;
 
-    // 1. Get the ID and slug from URL
+    // 1. Get the ID from URL
     const urlParams = new URLSearchParams(window.location.search);
-    const jobId = parseInt(urlParams.get('id'));
-    const jobSlug = urlParams.get('slug');
+    const jobId = urlParams.get('id');
 
-    // 2. Find the job data
-    const job = jobsData.find(j => j.id === jobId);
+    if (!jobId) {
+        contentContainer.innerHTML = '<h1>Error: Job ID not provided in URL.</h1>';
+        return;
+    }
 
-    if (!job || !jobSlug) {
+    // 2. Find the job data (static or Firestore)
+    const job = await fetchJobById(jobId);
+
+    if (!job) {
         contentContainer.innerHTML = '<h1>Error: Job posting not found.</h1>';
         return;
     }
 
-    // 3. Construct Markdown filename and fetch content
-    const filename = `./jobs-details/${jobSlug}.md`;
-    let jobContentMD = '';
-
+    // 3. Fetch markdown content using the helper function
+    let jobContentHTML = '';
     try {
-        const res = await fetch(filename);
-        if (!res.ok) throw new Error('Markdown file not found');
-        jobContentMD = await res.text();
+        jobContentHTML = await fetchJobMarkdownContent(job);
     } catch (err) {
-        // Fallback: Use job description if markdown fails
-        jobContentMD = `# ${job.title} - ${job.company}\n\n### Mô tả Tóm tắt\n${job.description}\n\n*Vui lòng kiểm tra lại cấu trúc file Markdown tại: ${filename}*`;
+        console.warn('Error loading job markdown content:', err);
+        jobContentHTML = markdownToHTML(job.content || job.description || 'No job details available.');
     }
 
     // 4. Render Content
     contentContainer.innerHTML = `
         <article class="single-post">
-            ${markdownToHTML(jobContentMD)}
+            ${jobContentHTML}
         </article>
     `;
+    
     // Insert a bottom back button (same pattern as blog details)
     const navDiv = document.createElement('div');
     navDiv.className = 'post-navigation';
@@ -1136,93 +1423,96 @@ async function renderJobDetails() {
     const pageTitle = `${job.title} - ${job.company}`;
     titleMeta.textContent = pageTitle;
     heroDesc.textContent = `${job.department} position in ${job.location}.`;
-    jobTitleField.value = pageTitle; // Đặt tên công việc vào trường ẩn của form
+    jobTitleField.value = pageTitle;
 
-// 6. Setup Form Submission
- form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const submitBtn = form.querySelector('.btn');
-        const status = document.getElementById('applyFormStatus');
+    // 6. Setup Form Submission
+    if (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const submitBtn = form.querySelector('.btn');
+            const status = document.getElementById('applyFormStatus');
 
-        // 1. Kiểm tra nhập liệu
-        if (!form.checkValidity()) {
-            status.textContent = 'Please fill all required fields.';
-            status.style.color = 'red';
-            return;
-        }
-
-        // 2. Chuẩn bị gửi
-        status.textContent = 'Sending application & uploading CV...';
-        status.style.color = 'var(--primary-color)';
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Processing...';
-
-        // 3. Lấy dữ liệu
-        const formDataObj = {
-            jobTitle: document.getElementById('jobTitleField').value,
-            applicantName: form.querySelector('input[name="applicantName"]').value,
-            applicantEmail: form.querySelector('input[name="applicantEmail"]').value,
-            applicantPhone: form.querySelector('input[name="applicantPhone"]').value,
-            applicantMessage: form.querySelector('textarea[name="applicantMessage"]').value
-        };
-
-        const fileInput = form.querySelector('input[name="applicantCV"]');
-        const file = fileInput.files[0];
-
-        // Hàm gửi dữ liệu sang Google Script
-        const sendData = (dataPayload) => {
-            // *** Dán URL Web App của bạn vào đây ***
-             const scriptURL = 'https://script.google.com/macros/s/AKfycbz187iS-sxcj1tMO_Y1u29X-ZxCC0RpJTqPBqhOmSdlPjY1uuVtdk2fzvYtl4HNwxHgSA/exec'; // - File chung // 
-
-            fetch(scriptURL, {
-                method: 'POST',
-                body: JSON.stringify(dataPayload)
-            })
-            .then(res => res.json())
-            .then(response => {
-                if (response.result === 'success') {
-                    status.textContent = 'Application submitted successfully! We will contact you soon.';
-                    status.style.color = 'green';
-                    form.reset();
-                } else {
-                    throw new Error(response.error);
-                }
-            })
-            .catch(error => {
-                console.error(error);
-                status.textContent = 'Error submitting application. Please try again later.';
+            // 1. Kiểm tra nhập liệu
+            if (!form.checkValidity()) {
+                status.textContent = 'Please fill all required fields.';
                 status.style.color = 'red';
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Application';
-            });
-        };
-
-        // 4. Đọc file (nếu có) và gửi
-        if (file) {
-            if (file.size > 5 * 1024 * 1024) { // Giới hạn 5MB
-                status.textContent = 'File is too large. Max size is 5MB.';
-                status.style.color = 'red';
-                submitBtn.disabled = false;
                 return;
             }
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                // Lấy chuỗi mã hóa file để gửi đi
-                formDataObj.fileData = e.target.result.split(',')[1];
-                formDataObj.fileName = file.name;
-                formDataObj.fileMimeType = file.type;
-                sendData(formDataObj); // Gửi
-            };
-            reader.readAsDataURL(file);
-        } else {
-            sendData(formDataObj); // Gửi không kèm file
-        }
-    });
+            // 2. Chuẩn bị gửi
+            status.textContent = 'Sending application & uploading CV...';
+            status.style.color = 'var(--primary-color)';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
 
+            // 3. Lấy dữ liệu
+            const formDataObj = {
+                jobTitle: document.getElementById('jobTitleField').value,
+                applicantName: form.querySelector('input[name="applicantName"]').value,
+                applicantEmail: form.querySelector('input[name="applicantEmail"]').value,
+                applicantPhone: form.querySelector('input[name="applicantPhone"]').value,
+                applicantMessage: form.querySelector('textarea[name="applicantMessage"]').value
+            };
+
+            const fileInput = form.querySelector('input[name="applicantCV"]');
+            const file = fileInput.files[0];
+
+            // Hàm gửi dữ liệu sang Google Script
+            const sendData = (dataPayload) => {
+                // *** Dán URL Web App của bạn vào đây ***
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbz187iS-sxcj1tMO_Y1u29X-ZxCC0RpJTqPBqhOmSdlPjY1uuVtdk2fzvYtl4HNwxHgSA/exec'; // - File chung // 
+
+                fetch(scriptURL, {
+                    method: 'POST',
+                    body: JSON.stringify(dataPayload)
+                })
+                .then(res => res.json())
+                .then(response => {
+                    if (response.result === 'success') {
+                        status.textContent = 'Application submitted successfully! We will contact you soon.';
+                        status.style.color = 'green';
+                        form.reset();
+                    } else {
+                        throw new Error(response.error);
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    status.textContent = 'Error submitting application. Please try again later.';
+                    status.style.color = 'red';
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Application';
+                });
+            };
+
+            // 4. Upload CV nếu có
+            if (file) {
+                // Kiểm tra kích thước file (5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    status.textContent = 'CV file is too large. Maximum 5MB.';
+                    status.style.color = 'red';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Application';
+                    return;
+                }
+
+                // Tạo FormData để upload
+                const formData = new FormData();
+                formData.append('file', file);
+
+                // Upload đến Firebase Storage hoặc API endpoint khác
+                // Nếu chỉ gửi metadata qua Google Sheets
+                formDataObj.cvFileName = file.name;
+                formDataObj.cvSize = file.size;
+                sendData(formDataObj); // Gửi luôn
+            } else {
+                sendData(formDataObj);
+            }
+        });
+    }
 }
 
 // --- 6. MOBILE MENU TOGGLE ---

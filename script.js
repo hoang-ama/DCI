@@ -17,7 +17,7 @@
 if (typeof firebase !== 'undefined' && !firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
-// Khởi tạo Firestore database
+// Khởi tạo Firestore databasegooo
 const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
 
 
@@ -71,6 +71,83 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// --- ENHANCED TRACKING HELPERS ---
+// Add user properties (device, new/returning, source/medium), engagement timer and basic auto events
+(function(){
+    if (typeof gtag !== 'function') return; // require gtag
+
+    function getDeviceType(){
+        const ua = navigator.userAgent || '';
+        if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)) {
+            if (/iPad|Tablet|PlayBook/i.test(ua)) return 'tablet';
+            return 'mobile';
+        }
+        return 'desktop';
+    }
+
+    function captureUtm(){
+        try{
+            const params = new URLSearchParams(window.location.search);
+            const utm = {};
+            ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'].forEach(k=>{ const v = params.get(k); if(v) utm[k]=v; });
+            if (Object.keys(utm).length) { localStorage.setItem('dci_utm', JSON.stringify(utm)); return utm; }
+            const s = localStorage.getItem('dci_utm'); return s ? JSON.parse(s) : null;
+        }catch(e){return null}
+    }
+
+    function isReturning(){
+        try{
+            const k='dci_first_ts';
+            if (!localStorage.getItem(k)) { localStorage.setItem(k, String(Date.now())); return false; }
+            return true;
+        }catch(e){return false}
+    }
+
+    function setUserProps(){
+        try{
+            const props = {
+                device_type: getDeviceType(),
+                user_recency: isReturning() ? 'returning' : 'new',
+                language: navigator.language || '',
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || ''
+            };
+            const utm = captureUtm();
+            if (utm){ if (utm.utm_source) props.utm_source = utm.utm_source; if (utm.utm_medium) props.utm_medium = utm.utm_medium; }
+            gtag('set', {'user_properties': props});
+        }catch(e){/* ignore */}
+    }
+
+    // Track page view explicitly (config may already send it)
+    function trackPageView(){ try{ gtag('event','page_view',{ page_path: location.pathname+location.search, page_title: document.title }); }catch(e){} }
+
+    // Engagement metric: consider engaged after 10s
+    let engaged=false; setTimeout(()=>{ if(!engaged){ engaged=true; try{ gtag('event','engaged_10s'); }catch(e){} } },10000);
+
+    // Time on page: send on unload
+    const startTs = Date.now();
+    window.addEventListener('beforeunload', ()=>{
+        try{
+            const secs = Math.round((Date.now()-startTs)/1000);
+            gtag('event','time_on_page',{duration_seconds: secs});
+        }catch(e){}
+    });
+
+    // Auto event listeners
+    document.addEventListener('click', function(e){
+        const c = e.target.closest('.company-open, .company-item');
+        if (c){ const id = c.getAttribute('data-id') || c.getAttribute('data-company-id') || ''; try{ gtag('event','view_company',{company_id: id}); }catch(e){} }
+        const apply = e.target.closest('.job-apply, .apply-now, a[href*="job-details.html"]');
+        if (apply){ try{ gtag('event','job_apply_click',{href: apply.getAttribute('href')||''}); }catch(e){} }
+        const readMore = e.target.closest('.read-more'); if (readMore){ try{ gtag('event','read_more',{href: readMore.getAttribute('href')||''}); }catch(e){} }
+    }, {passive:true});
+
+    // Form submits
+    document.addEventListener('submit', function(e){ try{ const name = e.target.getAttribute('id') || e.target.getAttribute('name') || 'form'; gtag('event','form_submit',{form: name}); }catch(e){} }, true);
+
+    // init on load
+    document.addEventListener('DOMContentLoaded', function(){ setUserProps(); trackPageView(); });
+})();
 
 // ==========================================
 // 2. DỮ LIỆU TĨNH (STATIC DATA - DỮ LIỆU CŨ)

@@ -21,6 +21,57 @@ if (typeof firebase !== 'undefined' && !firebase.apps.length) {
 const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
 
 
+// === GOOGLE ANALYTICS INITIALIZATION (GA4) ===
+// This handles: Pageviews, Source/Medium, Location, Device Type, and User Recency
+const gtagId = firebaseConfig.measurementId; // Uses your existing G-6EXZF52E4T
+
+// Load the gtag.js script dynamically
+const script = document.createElement('script');
+script.src = `https://www.googletagmanager.com/gtag/js?id=${gtagId}`;
+script.async = true;
+document.head.appendChild(script);
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+// Standard configuration captures Pageviews and basic Session data automatically
+gtag('config', gtagId, {
+  'send_page_view': true,
+  'anonymize_ip': true // Privacy best practice
+});
+
+// === CUSTOM EVENT & GOAL TRACKING ===
+// Use this function to track specific actions (Goal Conversions)
+function trackDCIGoal(eventName, eventParams = {}) {
+    gtag('event', eventName, eventParams);
+    console.log(`Tracking Event: ${eventName}`, eventParams);
+}
+
+// Example: Track when someone clicks "Build with us" on the Home Page
+document.addEventListener('DOMContentLoaded', () => {
+    const heroBtn = document.querySelector('.hero-btn');
+    if (heroBtn) {
+        heroBtn.addEventListener('click', () => {
+            trackDCIGoal('conversion_build_click', {
+                'event_category': 'Engagement',
+                'event_label': 'Hero Section Build Button'
+            });
+        });
+    }
+
+    // Example: Track Career Applications (Goal Conversion)
+    const jobForm = document.getElementById('jobApplyForm');
+    if (jobForm) {
+        jobForm.addEventListener('submit', () => {
+            trackDCIGoal('generate_lead_career', {
+                'service': 'Career Application',
+                'location': 'Hanoi'
+            });
+        });
+    }
+});
+
 // ==========================================
 // 2. DỮ LIỆU TĨNH (STATIC DATA - DỮ LIỆU CŨ)
 // ==========================================

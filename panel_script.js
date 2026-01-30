@@ -211,7 +211,7 @@ const companiesData = [
     },
     {
         id: 'parkchung', name: 'Parkchung', logo: './image/logos/Parkchung_logo.png', heroImage: './image/logos/Parkchung_hero.png', vertical: 'Shared Mobility', stage: 'Proof-of-Concept', year: 2025,
-        website: 'https://parkchung.com', email: 'contact@parkchung.vn',
+        website: 'https://parkchung.com', email: 'contact@parkchung.com',
         description: 'Online Parking marketplace.'
     },
     {
@@ -256,7 +256,7 @@ const companiesData = [
     },
     {
         id: 'totmart', name: 'TotMart', logo: './image/logos/TotMart_logo.png', heroImage: './image/logos/TotMart_hero.png', vertical: 'eCommerce', stage: 'Seed', year: 2020,
-        website: 'https://totmart.com.vn/', email: 'contact@totmart.com.vn',
+        website: 'https://totmart.com.vn', email: 'contact@totmart.com.vn',
         description: 'eCommerce for Green products.'
     },
     {

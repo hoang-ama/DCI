@@ -211,7 +211,7 @@ const companiesData = [
     },
     {
         id: 'parkchung', name: 'Parkchung', logo: './image/logos/Parkchung_logo.png', heroImage: './image/logos/Parkchung_hero.png', vertical: 'Shared Mobility', stage: 'Proof-of-Concept', year: 2025,
-        website: 'https://parkchung.vn', email: 'contact@parkchung.vn',
+        website: 'https://parkchung.com', email: 'contact@parkchung.vn',
         description: 'Online Parking marketplace.'
     },
     {

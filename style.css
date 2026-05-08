@@ -217,11 +217,12 @@ h2 {
 /* Mission Section */
 .mission-section {
     text-align: center;
+    max-width: 1500px;
 }
 
 .mission-cards-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
     margin-top: 40px;
 }
@@ -264,6 +265,10 @@ h2 {
 
 .icon-4 {
     background-image: url('./image/mission-4.svg');
+}
+
+.icon-5 {
+    background-image: url('./image/mission-5.svg');
 }
 
 /* Who We Are Section */
@@ -1506,6 +1511,12 @@ h2 {
     display: block;
 }
 
+.funnel-description {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: var(--grey-text);
+    text-align: left;
+}
 /* Verticals Section */
 .about-verticals {
     padding: 80px 5%;
@@ -2020,6 +2031,11 @@ h2 {
     padding: 30px 5%;
 }
 
+.founder-co-creation-journey {
+    padding: 0px 5% 30px;
+    text-align: left;
+}
+
 /* Investor-philosophy Section */
 .investor-philosophy {
     padding: 80px 5%;
@@ -2109,6 +2125,7 @@ h2 {
     margin-bottom: 10px;
     color: var(--primary-color);
 }
+
 
 /* Investor-Approach Section */
 .investor-approach {

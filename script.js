@@ -1256,117 +1256,192 @@ async function renderHomePosts() {
 // ==========================================
 
 
-let currentVerticalFilter = 'All'; 
+const COMPANY_PILLAR_BY_INDUSTRY = {
+    'Shared Mobility': 'Sharing & Rental Economy',
+    'Transport': 'Membership & Subscription Economy',
+    'Travel': 'Green & Circular Economy',
+    'Logistics': 'Green & Circular Economy',
+    'Software': 'Membership & Subscription Economy',
+    'Automotive': 'Sharing & Rental Economy',
+    'eCommerce': 'Green & Circular Economy',
+    'Agriculture': 'Green & Circular Economy',
+    'Community': 'Membership & Subscription Economy',
+    'Education': 'Membership & Subscription Economy'
+};
 
-// --- RENDER COMPANIES GRID (Updated with Mobile Dropdown) ---
+const COMPANY_PILLAR_VALUES = [
+    'Sharing & Rental Economy',
+    'Membership & Subscription Economy',
+    'Green & Circular Economy'
+];
+
+let currentCompanyFilters = {
+    pillar: 'All',
+    industry: 'All',
+    stage: 'All'
+};
+
+let openCompanyFilterKey = null;
+
+function getCompanyIndustry(company) {
+    return company.vertical || company.industry || 'Other';
+}
+
+function getCompanyStage(company) {
+    return company.stage || company.status || 'Unknown';
+}
+
+function getCompanyStageLabel(stage) {
+    return stage === 'Proof-of-Concept' ? 'Proof-of-Concepts' : stage;
+}
+
+function getCompanyPillar(company) {
+    if (company.pillar) return company.pillar;
+    return COMPANY_PILLAR_BY_INDUSTRY[getCompanyIndustry(company)] || COMPANY_PILLAR_VALUES[0];
+}
+
 function renderCompaniesPage() {
     const companiesGridContainer = document.querySelector('.companies-grid');
-    const verticalFiltersContainer = document.getElementById('vertical-filters'); 
-    const mobileSelect = document.getElementById('mobile-vertical-filter'); // NEW: Lấy thẻ Select
+    const filterControlsContainer = document.getElementById('company-filter-controls');
+    if (!companiesGridContainer) return;
 
-    if (!companiesGridContainer) return; 
+    const industries = ['All', ...new Set(companiesData.map(getCompanyIndustry))];
+    const stageOrder = ['Transition', 'Growth', 'Seed', 'Proof-of-Concept'];
+    const stagesInData = [...new Set(companiesData.map(getCompanyStage))];
+    const sortedStages = stagesInData.sort((a, b) => {
+        const idxA = stageOrder.indexOf(a);
+        const idxB = stageOrder.indexOf(b);
+        const normA = idxA === -1 ? Number.MAX_SAFE_INTEGER : idxA;
+        const normB = idxB === -1 ? Number.MAX_SAFE_INTEGER : idxB;
+        return normA - normB || a.localeCompare(b);
+    });
 
-    // 1. Thu thập các Vertical độc nhất
-    const allVerticals = companiesData.map(c => c.vertical);
-    const uniqueVerticals = ['All', ...new Set(allVerticals)];
+    const filterDefinitions = [
+        { key: 'pillar', label: 'Pillar', options: ['All', ...COMPANY_PILLAR_VALUES] },
+        { key: 'industry', label: 'Industry', options: industries },
+        { key: 'stage', label: 'Stage', options: ['All', ...sortedStages] }
+    ];
 
-    // Core rendering/filtering logic function
     function updateCompaniesGrid() {
-        companiesGridContainer.innerHTML = ''; 
+        companiesGridContainer.innerHTML = '';
 
-        // Filtering Logic
-        const filteredCompanies = companiesData.filter(company => {
-            return currentVerticalFilter === 'All' || company.vertical === currentVerticalFilter;
+        const filteredCompanies = companiesData.filter((company) => {
+            const pillarMatch =
+                currentCompanyFilters.pillar === 'All' || getCompanyPillar(company) === currentCompanyFilters.pillar;
+            const industryMatch =
+                currentCompanyFilters.industry === 'All' || getCompanyIndustry(company) === currentCompanyFilters.industry;
+            const stageMatch =
+                currentCompanyFilters.stage === 'All' || getCompanyStage(company) === currentCompanyFilters.stage;
+            return pillarMatch && industryMatch && stageMatch;
         });
 
-        if (filteredCompanies.length === 0) {
-            companiesGridContainer.innerHTML = `<p style="text-align: center; color: var(--grey-text); padding: 30px; grid-column: 1 / -1;">No companies found in the selected vertical.</p>`;
-        } else {
-            filteredCompanies.forEach(company => {
-                const companyItem = document.createElement('div');
-                companyItem.classList.add('company-item');
-                companyItem.innerHTML = `
-                    <img src="${company.logo}" alt="${company.name} Logo">
-                `;
-                companyItem.addEventListener('click', () => openCompanyPanel(company));
-                companiesGridContainer.appendChild(companyItem);
-            });
+        if (!filteredCompanies.length) {
+            companiesGridContainer.innerHTML = `
+                <p style="text-align: center; color: var(--grey-text); padding: 30px; grid-column: 1 / -1;">
+                    No companies found for the selected filters.
+                </p>
+            `;
+            return;
         }
-    }
-    
-    // 2. Render Filter Controls (Both Buttons and Dropdown)
-    
-    // A. Render Desktop Buttons
-    if (verticalFiltersContainer) {
-        let buttonsHTML = '';
-        uniqueVerticals.forEach(vertical => {
-            const isActive = vertical === currentVerticalFilter ? 'active' : '';
-            buttonsHTML += `<button class="btn nav-btn ${isActive}" data-filter="${vertical}">${vertical}</button>`;
+
+        filteredCompanies.forEach((company) => {
+            const companyItem = document.createElement('div');
+            companyItem.classList.add('company-item');
+            companyItem.innerHTML = `
+                <img src="${company.logo}" alt="${company.name} Logo">
+            `;
+            companyItem.addEventListener('click', () => openCompanyPanel(company));
+            companiesGridContainer.appendChild(companyItem);
         });
-        verticalFiltersContainer.innerHTML = buttonsHTML;
     }
 
-    // B. Render Mobile Dropdown Options (NEW)
-    if (mobileSelect) {
-        let optionsHTML = '';
-        uniqueVerticals.forEach(vertical => {
-            // Chọn option tương ứng với filter hiện tại
-            const isSelected = vertical === currentVerticalFilter ? 'selected' : '';
-            optionsHTML += `<option value="${vertical}" ${isSelected}>${vertical}</option>`;
+    function renderFilterControls() {
+        if (!filterControlsContainer) return;
+
+        filterControlsContainer.innerHTML = filterDefinitions
+            .map((definition) => {
+                const selectedValue = currentCompanyFilters[definition.key];
+                const selectedValueLabel =
+                    definition.key === 'stage' ? getCompanyStageLabel(selectedValue) : selectedValue;
+                const isOpen = openCompanyFilterKey === definition.key ? 'open' : '';
+                const optionsHTML = definition.options
+                    .map((option) => {
+                        const active = option === selectedValue ? 'active' : '';
+                        const optionLabel =
+                            definition.key === 'stage' ? getCompanyStageLabel(option) : option;
+                        return `
+                            <button
+                                type="button"
+                                class="company-filter-option ${active}"
+                                data-filter-key="${definition.key}"
+                                data-filter-value="${option}"
+                            >
+                                ${optionLabel}
+                            </button>
+                        `;
+                    })
+                    .join('');
+
+                return `
+                    <div class="company-filter-group ${isOpen}" data-filter-key="${definition.key}">
+                        <button
+                            type="button"
+                            class="company-filter-trigger"
+                            data-filter-key="${definition.key}"
+                            aria-expanded="${openCompanyFilterKey === definition.key ? 'true' : 'false'}"
+                        >
+                            <span class="filter-label">${definition.label}</span>
+                            <span class="filter-value">${selectedValueLabel}</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="company-filter-menu">
+                            ${optionsHTML}
+                        </div>
+                    </div>
+                `;
+            })
+            .join('');
+    }
+
+    if (filterControlsContainer) {
+        filterControlsContainer.addEventListener('click', (event) => {
+            event.stopPropagation();
+
+            const optionButton = event.target.closest('.company-filter-option');
+            if (optionButton) {
+                const filterKey = optionButton.getAttribute('data-filter-key');
+                const filterValue = optionButton.getAttribute('data-filter-value') || 'All';
+                if (!filterKey) return;
+
+                currentCompanyFilters[filterKey] = filterValue;
+                openCompanyFilterKey = null;
+                renderFilterControls();
+                updateCompaniesGrid();
+                return;
+            }
+
+            const triggerButton = event.target.closest('.company-filter-trigger');
+            if (!triggerButton) return;
+
+            const filterKey = triggerButton.getAttribute('data-filter-key');
+            if (!filterKey) return;
+
+            openCompanyFilterKey = openCompanyFilterKey === filterKey ? null : filterKey;
+            renderFilterControls();
         });
-        mobileSelect.innerHTML = optionsHTML;
-    }
 
-    // 3. Setup Event Listeners
-
-    // A. Desktop Buttons Click
-    if (verticalFiltersContainer) {
-        verticalFiltersContainer.addEventListener('click', (e) => {
-            if (e.target.classList.contains('btn')) {
-                currentVerticalFilter = e.target.getAttribute('data-filter') || 'All';
-                
-                // Update UI: Re-render buttons/select to reflect active state
-                renderControlsAndGrid(); 
+        document.addEventListener('click', (event) => {
+            if (event.target.closest('#company-filter-controls')) return;
+            if (openCompanyFilterKey !== null) {
+                openCompanyFilterKey = null;
+                renderFilterControls();
             }
         });
     }
 
-    // B. Mobile Dropdown Change (NEW)
-    if (mobileSelect) {
-        mobileSelect.addEventListener('change', (e) => {
-            currentVerticalFilter = e.target.value;
-            
-            // Update UI
-            renderControlsAndGrid();
-        });
-    }
-
-    // Helper to refresh grid and sync both controls
-    function renderControlsAndGrid() {
-        updateCompaniesGrid();
-        
-        // Sync Buttons Active State
-        if (verticalFiltersContainer) {
-            const buttons = verticalFiltersContainer.querySelectorAll('.btn');
-            buttons.forEach(btn => {
-                if (btn.getAttribute('data-filter') === currentVerticalFilter) {
-                    btn.classList.add('active');
-                } else {
-                    btn.classList.remove('active');
-                }
-            });
-        }
-
-        // Sync Select Value
-        if (mobileSelect) {
-            mobileSelect.value = currentVerticalFilter;
-        }
-    }
-    
-    // Initial render
+    renderFilterControls();
     updateCompaniesGrid();
 
-    // ... (Phần logic đóng/mở panel giữ nguyên) ...
     const closeBtn = document.getElementById('companyClose');
     const backdrop = document.getElementById('companyBackdrop');
     const overlay = document.getElementById('company-overlay');
@@ -1374,12 +1449,12 @@ function renderCompaniesPage() {
     if (closeBtn) closeBtn.addEventListener('click', closeCompanyPanel);
     if (backdrop) backdrop.addEventListener('click', closeCompanyPanel);
     if (overlay) {
-         overlay.addEventListener('click', (event) => {
+        overlay.addEventListener('click', (event) => {
             if (event.target === overlay) closeCompanyPanel();
         });
     }
-    document.addEventListener('keydown', (e) => { 
-        if (e.key === 'Escape' && overlay.classList.contains('show')) closeCompanyPanel();
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay && overlay.classList.contains('show')) closeCompanyPanel();
     });
 }
 

@@ -28,6 +28,7 @@
     --gradient-5: #00DB0A;
 }
 
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -1727,36 +1728,119 @@ h2 {
 
 /* ----- COMPANIES PAGE ----- */
 
-/* --- NEW: COMPANIES FILTER BAR --- */
+/* --- COMPANIES FILTER BAR --- */
 .companies-filter-section {
-    max-width: 1200px; /* Sử dụng max-width tương tự các section khác */
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 5%;
-    padding-top: 40px; /* Khoảng cách từ hero section */
+    padding-top: 36px;
 }
 
-.companies-filter-section h3 {
-    text-align: left;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
-    color: var(--grey-text);
+.companies-filter-inner {
+    margin-bottom: 20px;
 }
 
-/* Hiển thị ngang và cuộn cho các nút lọc */
-.filter-buttons-row {
+.companies-filter-controls {
     display: flex;
-    flex-wrap: wrap; /* Cho phép các nút xuống dòng */
-    gap: 10px;
-    margin-bottom: 40px;
+    align-items: center;
+    gap: 14px;
 }
 
-/* Tùy chỉnh nút trong hàng lọc (làm cho chúng nhỏ hơn các nút CTA chính) */
-.filter-buttons-row .btn {
-    padding: 8px 16px; 
-    border-radius: 20px;
+.company-filter-group {
+    position: relative;
+    min-width: 240px;
+}
+
+.company-filter-trigger {
+    width: 100%;
+    border: 1px solid #d6dee7;
+    border-radius: 12px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 10px 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.company-filter-trigger:hover,
+.company-filter-group.open .company-filter-trigger {
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 24px rgba(16, 53, 115, 0.08);
+}
+
+.company-filter-trigger .filter-label {
+    color: var(--grey-text);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.company-filter-trigger .filter-value {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+    text-align: left;
+}
+
+.company-filter-trigger .fa-chevron-down {
+    color: #8592a6;
+    font-size: 0.8rem;
+    transition: transform 0.2s ease;
+}
+
+.company-filter-group.open .company-filter-trigger .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.company-filter-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e0e6ee;
+    border-radius: 12px;
+    box-shadow: 0 14px 28px rgba(16, 53, 115, 0.13);
+    padding: 8px;
+    display: none;
+    z-index: 100;
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+.company-filter-group.open .company-filter-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.company-filter-option {
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    color: var(--text-color);
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
     font-size: 0.9rem;
-    text-align: center;
-    flex-shrink: 0;
+    padding: 8px 10px;
+    text-align: left;
+    width: 100%;
+}
+
+.company-filter-option:hover {
+    background: #f3f6fb;
+}
+
+.company-filter-option.active {
+    background: rgba(16, 53, 115, 0.1);
+    color: var(--primary-color);
+    font-weight: 600;
 }
 
 /* Companies Grid Section */
@@ -1791,49 +1875,6 @@ h2 {
     /* Đảm bảo chiều rộng không vượt quá giới hạn tối đa mong muốn */
     flex-grow: 0; 
 }
-
-
-/* --- MOBILE FILTER DROPDOWN STYLES --- */
-
-/* Mặc định ẩn drop-down trên Desktop */
-.mobile-filter-wrapper {
-    display: none;
-}
-
-/* Style cho select drop-down */
-.mobile-filter-select {
-    width: 100%;
-    padding: 12px 20px;
-    font-size: 1rem;
-    font-family: 'Poppins', sans-serif;
-    color: var(--primary-color);
-    background-color: var(--white-text);
-    border: 1px solid var(--primary-color);
-    border-radius: 50px; /* Bo tròn giống nút */
-    appearance: none; /* Ẩn mũi tên mặc định của trình duyệt */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    cursor: pointer;
-    outline: none;
-}
-
-/* Container để định vị icon mũi tên */
-.mobile-filter-wrapper {
-    position: relative;
-    max-width: 100%;
-}
-
-/* Icon mũi tên tùy chỉnh */
-.mobile-filter-wrapper .select-icon {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--primary-color);
-    pointer-events: none; /* Để click xuyên qua icon vào select */
-    font-size: 0.9rem;
-}
-
 
 
 .company-item {
@@ -2414,25 +2455,19 @@ h2 {
 
 
     .companies-filter-section {
-    /* Đảm bảo padding ngang nhất quán với các phần khác */
-    padding: 20px 5%; /* Dùng 5% để khớp với padding chung */
-    margin-top: 0; 
+        padding: 20px 5%;
+        margin-top: 0;
     }
 
-    /* Áp dụng cuộn ngang cho các nút lọc trên mobile */
-    .filter-buttons-row {
-        /* Bật chế độ flex và overflow cho cuộn ngang */
-        display: flex; 
-        flex-wrap: nowrap; /* Bắt buộc các nút nằm trên một hàng */
-        overflow-x: auto; /* Cho phép cuộn ngang */
-        -webkit-overflow-scrolling: touch; /* Tăng trải nghiệm cuộn trên iOS */
-        padding-bottom: 10px; /* Thêm padding dưới để thấy thanh cuộn */
-        gap: 8px; /* Giảm khoảng cách giữa các nút */
+    .companies-filter-controls {
+        gap: 10px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 8px;
     }
-    
-    /* Đảm bảo các nút không chiếm toàn bộ chiều rộng và có thể cuộn */
-    .filter-buttons-row .btn {
-        flex-shrink: 0; /* Ngăn nút bị co lại */
+
+    .company-filter-group {
+        min-width: 210px;
     }
     
     /* Đảm bảo các section trên mobile không có margin-top quá lớn */
@@ -2754,18 +2789,12 @@ h2 {
         font-size: 1rem;
     }
 
-    /* Ẩn danh sách nút trên mobile */
-    .filter-buttons-row {
-        display: none !important;
+    .companies-filter-controls {
+        flex-wrap: nowrap;
     }
 
-    /* Hiển thị drop-down trên mobile */
-    .mobile-filter-wrapper {
-        display: block;
-    }
-    
-    .companies-filter-section h3 {
-        text-align: center; /* Căn giữa tiêu đề trên mobile cho đẹp */
+    .company-filter-group {
+        min-width: 240px;
     }
 
 }

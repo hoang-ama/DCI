@@ -200,81 +200,98 @@ document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel
 // --- COMPANY DATA ---
 const companiesData = [
     {
-        id: 'dichung', name: 'DiChung', logo: './image/logos/DC_trans.png', heroImage: './image/logos/DC_hero.png', vertical: 'Shared Mobility', stage: 'Transition', year: 2013,
+        id: 'dichung', name: 'DiChung', logo: './image/logos/DC_trans.png', heroImage: './image/logos/DC_hero.png', vertical: 'Shared Mobility', pillar: 'Sharing & Rental Economy', stage: 'Transition', year: 2013,
         website: 'https://dichung.vn', email: 'contact@dichung.vn',
         description: 'Carpooling & Ridesharing platform. '
     },
     {
-        id: 'chungxe', name: 'Chungxe', logo: './image/logos/CX_trans.png', heroImage: './image/logos/CX_hero.png', vertical: 'Shared Mobility', stage: 'Transition', year: 2018,
+        id: 'chungxe', name: 'Chungxe', logo: './image/logos/CX_trans.png', heroImage: './image/logos/CX_hero.png', vertical: 'Shared Mobility', pillar: 'Sharing & Rental Economy', stage: 'Transition', year: 2018,
         website: 'https://chungxe.vn', email: 'contact@chungxe.vn',
         description: 'Vehicle Rental and Sharing platform.'
     },
     {
-        id: 'parkchung', name: 'Parkchung', logo: './image/logos/Parkchung_logo.png', heroImage: './image/logos/Parkchung_hero.png', vertical: 'Shared Mobility', stage: 'Proof-of-Concept', year: 2025,
+        id: 'parkchung', name: 'Parkchung', logo: './image/logos/Parkchung_logo.png', heroImage: './image/logos/Parkchung_hero.png', vertical: 'Shared Mobility', pillar: 'Sharing & Rental Economy', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://parkchung.com', email: 'contact@parkchung.com',
         description: 'Online Parking marketplace.'
     },
     {
-        id: 'oncar', name: 'onCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/onCar_hero.png', vertical: 'Transport', stage: 'Proof-of-Concept', year: 2025,
+        id: 'oncar', name: 'onCar', logo: './image/logos/onCar_logo.png', heroImage: './image/logos/onCar_hero.png', vertical: 'Transport', pillar: 'Sharing & Rental Economy', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://oncar.vn', email: 'partner@oncar.vn',
         description: 'Bus charter rental.'
     },
     {
-        id: 'vshare', name: 'Vshare', logo: './image/logos/Vshare_logo.png', heroImage: './image/logos/Vshare_hero.png', vertical: 'Transport', stage: 'Seed', year: 2022,
+        id: 'vshare', name: 'Vshare', logo: './image/logos/Vshare_logo.png', heroImage: './image/logos/Vshare_hero.png', vertical: 'Transport', pillar: 'Membership & Subscription Economy', stage: 'Seed', year: 2022,
         website: 'https://vshare.asia', email: 'contact@vshare.asia',
         description: 'Residential Carsharing service.'
     },
     {
-        id: 'dctransport', name: 'DC Transport', logo: './image/logos/DCTransport_trans.png', heroImage: './image/logos/DCTransport_hero.png', vertical: 'Transport', stage: 'Transition', year: 2019,
+        id: 'dctransport', name: 'DC Transport', logo: './image/logos/DCTransport_trans.png', heroImage: './image/logos/DCTransport_hero.png', vertical: 'Transport', pillar: 'Sharing & Rental Economy', stage: 'Transition', year: 2019,
         website: 'https://dichungtransport.com', email: 'contact@dichungtransport.com',
         description: 'Mobility Operator'
     },
     {
-        id: 'dichungtravel', name: 'DC Travel', logo: './image/logos/DCTravel_trans.png', heroImage: './image/logos/DCTravel_hero.jpg', vertical: 'Travel', stage: 'Seed', year: 2021,
+        id: 'dichungtravel', name: 'DC Travel', logo: './image/logos/DCTravel_trans.png', heroImage: './image/logos/DCTravel_hero.jpg', vertical: 'Travel', pillar: 'Sharing & Rental Economy', stage: 'Seed', year: 2021,
         website: 'https://dichungtravel.com', email: 'info@dichungtravel.com',
         description: 'Personalized Travel services.'
     },
     {
-        id: 'nextu', name: 'NextU', logo: './image/logos/NextU_logo.png', heroImage: './image/logos/NextU_hero.png', vertical: 'Travel', stage: 'Proof-of-Concept', year: 2025,
+        id: 'nextu', name: 'NextU', logo: './image/logos/NextU_logo.png', heroImage: './image/logos/NextU_hero.png', vertical: 'Travel', pillar: 'Membership & Subscription Economy', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://nextu.vn', email: 'hello@nextliving.com',
         description: 'Co-Living platform.'
     },
     {
-        id: 'dcexpress', name: 'DC Express', logo: './image/logos/DCExpress_trans.png', heroImage: './image/logos/DCExpress_hero.png', vertical: 'Logistics', stage: 'Growth', year: 2020,
+        id: 'dcexpress', name: 'DC Express', logo: './image/logos/DCExpress_trans.png', heroImage: './image/logos/DCExpress_hero.png', vertical: 'Logistics', pillar: 'Sharing & Rental Economy', stage: 'Growth', year: 2020,
         website: 'https://dichungexpress.com', email: 'contact@dichungexpress.com',
         description: 'Ultrafast Interprovince Delivery.'
     },
     {
-        id: 'dctech', name: 'DC Tech', logo: './image/logos/DCTech_trans.png', heroImage: './image/logos/DCTech_hero.png', vertical: 'Software', stage: 'Growth', year: 2020,
+        id: 'dctech', name: 'DC Tech', logo: './image/logos/DCTech_trans.png', heroImage: './image/logos/DCTech_hero.png', vertical: 'Software', pillar: 'Membership & Subscription Economy', stage: 'Growth', year: 2020,
         website: 'https://dctech.vn', email: 'contact@dctech.vn',
         description: 'SaaS platform for Mobility.'
     },
     {
-        id: 'carx', name: 'CarX', logo: './image/logos/CarX_logo.png', heroImage: './image/logos/CarX_hero.png', vertical: 'Automotive', stage: 'Proof-of-Concept', year: 2020,
+        id: 'carx', name: 'CarX', logo: './image/logos/CarX_logo.png', heroImage: './image/logos/CarX_hero.png', vertical: 'Automotive', pillar: 'Membership & Subscription Economy', stage: 'Proof-of-Concept', year: 2020,
         website: 'https://carx.vn', email: 'contact@carx.vn',
         description: 'Online Auto mall.'
     },
     {
-        id: 'totmart', name: 'TotMart', logo: './image/logos/TotMart_logo.png', heroImage: './image/logos/TotMart_hero.png', vertical: 'eCommerce', stage: 'Seed', year: 2020,
+        id: 'totmart', name: 'TotMart', logo: './image/logos/TotMart_logo.png', heroImage: './image/logos/TotMart_hero.png', vertical: 'eCommerce', pillar: 'Membership & Subscription Economy', stage: 'Seed', year: 2020,
         website: 'https://totmart.com.vn', email: 'contact@totmart.com.vn',
         description: 'eCommerce for Green products.'
     },
     {
-        id: 'agrix', name: 'AgriX', logo: './image/logos/AgriX_logo.png', heroImage: './image/logos/AgriX_hero.png', vertical: 'Agriculture', stage: 'Proof-of-Concept', year: 2025,
+        id: 'agrix', name: 'AgriX', logo: './image/logos/AgriX_logo.png', heroImage: './image/logos/AgriX_hero.png', vertical: 'Agriculture', pillar: 'Sharing & Rental Economy', stage: 'Proof-of-Concept', year: 2025,
         website: 'https://agrix.vn', email: 'contact@agrix.vn',
         description: 'AgiDrone for smart Agriculture.'
     },
     {
-        id: 'youthplus', name: 'Youth+', logo: './image/logos/Youthplus_logo.png', heroImage: './image/logos/Youthplus_hero.png', vertical: 'Community', stage: 'Seed', year: 2018,
+        id: 'youthplus', name: 'Youth+', logo: './image/logos/Youthplus_logo.png', heroImage: './image/logos/Youthplus_hero.png', vertical: 'Community', pillar: 'Membership & Subscription Economy', stage: 'Transition', year: 2018,
         website: 'https://youth.com.vn', email: 'contact@youth.com.vn',
         description: 'Young Community platform.'
     },
     {
-        id: 'fafifun', name: 'FaFiFun', logo: './image/logos/FFF_logo.webp', heroImage: './image/logos/FFF_hero.png', vertical: 'Education', stage: 'Growth', year: 2021,
+        id: 'fafifun', name: 'FaFiFun', logo: './image/logos/FFF_logo.webp', heroImage: './image/logos/FFF_hero.png', vertical: 'Education', pillar: 'Membership & Subscription Economy', stage: 'Growth', year: 2021,
         website: 'https://fafifun.edu.vn', email: 'chamsockhachhang@mdj.vn',
         description: 'Financial Education for Kids.'
     },
 ];
+
+function getPanelCompanyIndustry(company) {
+    return company.vertical || company.industry || 'Other';
+}
+
+function getPanelCompanyPillar(company) {
+    return company.pillar || 'Unknown';
+}
+
+function getPanelCompanyStage(company) {
+    return company.stage || company.status || 'Unknown';
+}
+
+function getPanelCompanyStageLabel(company) {
+    const stage = getPanelCompanyStage(company);
+    return stage === 'Proof-of-Concept' ? 'Proof-of-Concepts' : stage;
+}
 // Try to fetch markdown profile by company id or slug
 async function fetchCompanyMarkdown(company) {
     const candidates = [
@@ -347,13 +364,18 @@ async function openCompanyPanel(company) {
                 </div>
                 
                 <div class="company-meta-item">
-                    <span class="meta-label">Vertical</span>
-                    <span class="meta-value">${company.vertical}</span>
+                    <span class="meta-label">Pillar</span>
+                    <span class="meta-value">${getPanelCompanyPillar(company)}</span>
                 </div>
                 
                 <div class="company-meta-item">
+                    <span class="meta-label">Industry</span>
+                    <span class="meta-value">${getPanelCompanyIndustry(company)}</span>
+                </div>
+
+                <div class="company-meta-item">
                     <span class="meta-label">Stage</span>
-                    <span class="meta-value">${company.stage}</span>
+                    <span class="meta-value">${getPanelCompanyStageLabel(company)}</span>
                 </div>
             </div>
 

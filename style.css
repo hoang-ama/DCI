@@ -1843,6 +1843,184 @@ h2 {
     font-weight: 600;
 }
 
+.companies-mobile-filter {
+    display: none;
+}
+
+.companies-mobile-filter-toggle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid rgba(72, 163, 0, 0.32);
+    background: #f2faeb;
+    color: var(--primary-color);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(72, 163, 0, 0.14);
+    transition: box-shadow 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.companies-mobile-filter-toggle:hover {
+    box-shadow: 0 10px 24px rgba(72, 163, 0, 0.24);
+    transform: translateY(-1px);
+    background: #eaf8dc;
+}
+
+.companies-mobile-filter-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1400;
+    background: #f3f4f6;
+    display: none;
+}
+
+.companies-mobile-filter-overlay.show {
+    display: flex;
+    flex-direction: column;
+}
+
+.companies-mobile-filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 20px 14px;
+}
+
+.companies-mobile-filter-title {
+    font-size: 0.9rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #777f8d;
+    font-weight: 500;
+}
+
+.companies-mobile-filter-close {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #1a1e24;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.companies-mobile-filter-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 20px 120px;
+}
+
+.companies-mobile-filter-group {
+    border-bottom: 1px solid #e1e4ea;
+}
+
+.companies-mobile-filter-trigger {
+    width: 100%;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    cursor: pointer;
+    color: #1f2733;
+    font-size: 1.05rem;
+    font-family: 'Poppins', sans-serif;
+    text-align: left;
+}
+
+.companies-mobile-filter-trigger i {
+    color: #222b36;
+    transition: transform 0.2s ease;
+}
+
+.companies-mobile-filter-group.open .companies-mobile-filter-trigger i {
+    transform: rotate(180deg);
+}
+
+.companies-mobile-filter-options {
+    display: none;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 2px 0 16px;
+}
+
+.companies-mobile-filter-group.open .companies-mobile-filter-options {
+    display: flex;
+}
+
+.companies-mobile-filter-option {
+    border: none;
+    border-radius: 999px;
+    background: #eceef2;
+    color: #222;
+    font-size: 0.95rem;
+    padding: 7px 14px;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+}
+
+.companies-mobile-filter-option.active {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+.companies-mobile-filter-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f3f4f6;
+    border-top: 1px solid #e1e4ea;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px 20px calc(14px + env(safe-area-inset-bottom));
+}
+
+.companies-mobile-filter-reset {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid #d6dee7;
+    background: transparent;
+    color: #252b33;
+    cursor: pointer;
+    font-size: 1.15rem;
+}
+
+.companies-mobile-filter-apply {
+    border: none;
+    border-radius: 999px;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 14px 22px;
+    min-width: 176px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.companies-mobile-filter-apply:hover {
+    background: var(--hover-color);
+}
+
+body.company-filter-lock {
+    overflow: hidden;
+}
+
 /* Companies Grid Section */
 .companies-grid-section {
     background-color: var(--secondary-color);
@@ -2469,7 +2647,7 @@ h2 {
     .company-filter-group {
         min-width: 210px;
     }
-    
+
     /* Đảm bảo các section trên mobile không có margin-top quá lớn */
     .companies-grid-section {
     padding-top: 0;
@@ -2479,6 +2657,15 @@ h2 {
 
 
 @media (max-width: 768px) {
+    .companies-mobile-filter {
+        display: flex !important;
+        justify-content: flex-end;
+    }
+
+    .companies-filter-controls {
+        display: none !important;
+    }
+
 
 
     /* Đảm bảo thanh nav luôn nằm ngang và trải đều */

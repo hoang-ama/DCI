@@ -1,5 +1,4 @@
 // script.js
-
 // ==========================================
 // 1. CẤU HÌNH FIREBASE 
 // ==========================================
@@ -1303,6 +1302,7 @@ function getCompanyPillar(company) {
 function renderCompaniesPage() {
     const companiesGridContainer = document.querySelector('.companies-grid');
     const filterControlsContainer = document.getElementById('company-filter-controls');
+    const mobileFilterContainer = document.getElementById('companies-mobile-filter');
     if (!companiesGridContainer) return;
 
     const industries = ['All', ...new Set(companiesData.map(getCompanyIndustry))];
@@ -1321,11 +1321,17 @@ function renderCompaniesPage() {
         { key: 'industry', label: 'Industry', options: industries },
         { key: 'stage', label: 'Stage', options: ['All', ...sortedStages] }
     ];
+    const mobileFilterLabels = {
+        pillar: 'Pillar',
+        industry: 'Industry',
+        stage: 'Stage'
+    };
+    let openMobileCompanyFilterKey = 'pillar';
+    let isMobileFilterOpen = false;
+    const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
 
-    function updateCompaniesGrid() {
-        companiesGridContainer.innerHTML = '';
-
-        const filteredCompanies = companiesData.filter((company) => {
+    function getFilteredCompanies() {
+        return companiesData.filter((company) => {
             const pillarMatch =
                 currentCompanyFilters.pillar === 'All' || getCompanyPillar(company) === currentCompanyFilters.pillar;
             const industryMatch =
@@ -1334,7 +1340,23 @@ function renderCompaniesPage() {
                 currentCompanyFilters.stage === 'All' || getCompanyStage(company) === currentCompanyFilters.stage;
             return pillarMatch && industryMatch && stageMatch;
         });
+    }
 
+    function closeMobileFilter() {
+        isMobileFilterOpen = false;
+        document.body.classList.remove('company-filter-lock');
+    }
+
+    function openMobileFilter() {
+        isMobileFilterOpen = true;
+        if (!openMobileCompanyFilterKey) openMobileCompanyFilterKey = 'pillar';
+        document.body.classList.add('company-filter-lock');
+    }
+
+    function updateCompaniesGrid() {
+        companiesGridContainer.innerHTML = '';
+
+        const filteredCompanies = getFilteredCompanies();
         if (!filteredCompanies.length) {
             companiesGridContainer.innerHTML = `
                 <p style="text-align: center; color: var(--grey-text); padding: 30px; grid-column: 1 / -1;">
@@ -1355,8 +1377,111 @@ function renderCompaniesPage() {
         });
     }
 
+    function renderMobileFilterControls() {
+        if (!mobileFilterContainer) return;
+        if (!isMobileViewport()) {
+            closeMobileFilter();
+            mobileFilterContainer.innerHTML = '';
+            return;
+        }
+
+        const filteredCount = getFilteredCompanies().length;
+        const activeFilterCount = Object.values(currentCompanyFilters).filter((value) => value !== 'All').length;
+
+        const groupsHTML = filterDefinitions
+            .map((definition) => {
+                const isOpen = openMobileCompanyFilterKey === definition.key ? 'open' : '';
+                const optionsHTML = definition.options
+                    .map((option) => {
+                        const active = option === currentCompanyFilters[definition.key] ? 'active' : '';
+                        const optionLabel =
+                            definition.key === 'stage' ? getCompanyStageLabel(option) : option;
+                        return `
+                            <button
+                                type="button"
+                                class="companies-mobile-filter-option ${active}"
+                                data-mobile-filter-key="${definition.key}"
+                                data-mobile-filter-value="${option}"
+                            >
+                                ${optionLabel}
+                            </button>
+                        `;
+                    })
+                    .join('');
+
+                return `
+                    <div class="companies-mobile-filter-group ${isOpen}">
+                        <button
+                            type="button"
+                            class="companies-mobile-filter-trigger"
+                            data-mobile-filter-toggle="${definition.key}"
+                        >
+                            <span>${mobileFilterLabels[definition.key] || definition.label}</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <div class="companies-mobile-filter-options">
+                            ${optionsHTML}
+                        </div>
+                    </div>
+                `;
+            })
+            .join('');
+
+        mobileFilterContainer.innerHTML = `
+            ${!isMobileFilterOpen ? `
+                <button
+                    type="button"
+                    class="companies-mobile-filter-toggle"
+                    id="companies-mobile-filter-toggle"
+                    aria-label="Open filters"
+                >
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+            ` : ''}
+            ${isMobileFilterOpen ? `
+                <div class="companies-mobile-filter-overlay show">
+                    <div class="companies-mobile-filter-header">
+                        <p class="companies-mobile-filter-title">Filter by</p>
+                        <button
+                            type="button"
+                            class="companies-mobile-filter-close"
+                            aria-label="Close filters"
+                        >
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="companies-mobile-filter-body">
+                        ${groupsHTML}
+                    </div>
+                    <div class="companies-mobile-filter-actions">
+                        <button
+                            type="button"
+                            class="companies-mobile-filter-reset"
+                            aria-label="Reset filters"
+                        >
+                            <i class="fas fa-undo-alt"></i>
+                        </button>
+                        <button type="button" class="companies-mobile-filter-apply">
+                            Show results ${filteredCount}
+                            <i class="fas fa-arrow-up-right-from-square"></i>
+                        </button>
+                    </div>
+                </div>
+            ` : ''}
+        `;
+
+        const toggleButton = mobileFilterContainer.querySelector('#companies-mobile-filter-toggle');
+        if (toggleButton) {
+            toggleButton.setAttribute('title', activeFilterCount ? `${activeFilterCount} filter(s) active` : 'Open filters');
+        }
+    }
+
     function renderFilterControls() {
         if (!filterControlsContainer) return;
+        if (isMobileViewport()) {
+            filterControlsContainer.innerHTML = '';
+            return;
+        }
 
         filterControlsContainer.innerHTML = filterDefinitions
             .map((definition) => {
@@ -1403,6 +1528,15 @@ function renderCompaniesPage() {
             .join('');
     }
 
+    function applyCompanyFilter(filterKey, filterValue) {
+        if (!filterKey || !(filterKey in currentCompanyFilters)) return;
+        currentCompanyFilters[filterKey] = filterValue;
+        openCompanyFilterKey = null;
+        renderFilterControls();
+        renderMobileFilterControls();
+        updateCompaniesGrid();
+    }
+
     if (filterControlsContainer) {
         filterControlsContainer.addEventListener('click', (event) => {
             event.stopPropagation();
@@ -1413,10 +1547,7 @@ function renderCompaniesPage() {
                 const filterValue = optionButton.getAttribute('data-filter-value') || 'All';
                 if (!filterKey) return;
 
-                currentCompanyFilters[filterKey] = filterValue;
-                openCompanyFilterKey = null;
-                renderFilterControls();
-                updateCompaniesGrid();
+                applyCompanyFilter(filterKey, filterValue);
                 return;
             }
 
@@ -1439,7 +1570,71 @@ function renderCompaniesPage() {
         });
     }
 
+    if (mobileFilterContainer && !mobileFilterContainer.dataset.bound) {
+        mobileFilterContainer.dataset.bound = 'true';
+        mobileFilterContainer.addEventListener('click', (event) => {
+            const toggleButton = event.target.closest('#companies-mobile-filter-toggle');
+            if (toggleButton) {
+                openMobileFilter();
+                renderMobileFilterControls();
+                return;
+            }
+
+            const closeButton = event.target.closest('.companies-mobile-filter-close');
+            if (closeButton) {
+                closeMobileFilter();
+                renderMobileFilterControls();
+                return;
+            }
+
+            const resetButton = event.target.closest('.companies-mobile-filter-reset');
+            if (resetButton) {
+                currentCompanyFilters = {
+                    pillar: 'All',
+                    industry: 'All',
+                    stage: 'All'
+                };
+                openCompanyFilterKey = null;
+                renderFilterControls();
+                renderMobileFilterControls();
+                updateCompaniesGrid();
+                return;
+            }
+
+            const applyButton = event.target.closest('.companies-mobile-filter-apply');
+            if (applyButton) {
+                closeMobileFilter();
+                renderMobileFilterControls();
+                return;
+            }
+
+            const groupToggle = event.target.closest('.companies-mobile-filter-trigger');
+            if (groupToggle) {
+                const filterKey = groupToggle.getAttribute('data-mobile-filter-toggle');
+                openMobileCompanyFilterKey = openMobileCompanyFilterKey === filterKey ? null : filterKey;
+                renderMobileFilterControls();
+                return;
+            }
+
+            const optionButton = event.target.closest('.companies-mobile-filter-option');
+            if (optionButton) {
+                const filterKey = optionButton.getAttribute('data-mobile-filter-key');
+                const filterValue = optionButton.getAttribute('data-mobile-filter-value') || 'All';
+                applyCompanyFilter(filterKey, filterValue);
+            }
+        });
+    }
+
+    window.addEventListener('resize', () => {
+        if (!isMobileViewport()) {
+            closeMobileFilter();
+        }
+        renderFilterControls();
+        renderMobileFilterControls();
+    });
+
     renderFilterControls();
+    renderMobileFilterControls();
     updateCompaniesGrid();
 
     const closeBtn = document.getElementById('companyClose');
@@ -1455,6 +1650,10 @@ function renderCompaniesPage() {
     }
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && overlay && overlay.classList.contains('show')) closeCompanyPanel();
+        if (e.key === 'Escape' && isMobileFilterOpen) {
+            closeMobileFilter();
+            renderMobileFilterControls();
+        }
     });
 }
 

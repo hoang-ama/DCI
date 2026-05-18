@@ -1,13 +1,13 @@
 ---
-title: Founding Partner & Chief Soul Evolution (CSE)
+title: Founding Partner & SEA (Strategic/Soul Evolution Architecture)
 linkedin: https://www.linkedin.com/in/jenvuhuong/
 ---
 
-Jen VuHuong serves as Chief Soul Evolution (CSE) at DCI, stewarding the inner foundation of founders, leaders, and ventures as they grow.
+Jen VuHuong serves as Soul Evolution Architecture (SEA) at DCI, stewarding the inner foundation of founders, leaders, and ventures as they grow.
 While capital builds companies, soul evolution builds leaders who can carry companies through time. Jen’s role is to ensure that growth at DCI is not only fast or scalable — but aligned, conscious, and sustainable.
 
 ### Overview
-With over 15 years of experience working with founders, investors, and leadership communities across 50+ countries, Jen specializes in guiding early-stage and scaling leaders through the identity shifts required for real venture-building — from idea-holder to founder, from operator to leader, from ambition to responsibility.
+15+ years of experience in leadership development, transformational founder coaching, innovation ecosystems, incubation programs, and global community building across 50+ countries.
 
 At DCI, Jen leads:
 - Founder inner alignment & leadership evolution
@@ -22,11 +22,11 @@ Jen works closely with founders during the most fragile phases of venture buildi
 
 Her approach blends coaching, systems thinking, behavioral insight, and deep human presence, ensuring founders grow without losing themselves — and companies scale without breaking their core.
 
-As CSE, Jen is not a controller of direction, but a guardian of alignment — holding the question:
+As SEA, Jen is not a controller of direction, but a guardian of alignment — holding the question:
 “Who must the founder become for this company to truly succeed?”
 
 ### Experience
-- Incubation Program Director at BK Holdings logo
+- Incubation Program Director at BK Holdings
 - Co-founder, Director at Lab2Market
 - Founder, Chairperson, Mentor and Coach at Hanoi Entrepreneur Community (HEC)
 - Founder, Trainer, Writer and Coach at J.E.N International People and Leadership Development Ltd.

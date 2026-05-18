@@ -1,4 +1,4 @@
-Startup Studios have been around for some time and the business model has come a long way since its inception, which can be traced all the way back to Bill Gross​, who founded Idealab in 1996.
+Startup/Venture Studio have been around for some time and the business model has come a long way since its inception, which can be traced all the way back to Bill Gross​, who founded Idealab in 1996.
 
 ### Summary
 - The startup studio model has evolved through several waves since its inception in the 1990s.

@@ -3,7 +3,7 @@ title: Founder at YouthPlus
 linkedin: https://www.linkedin.com/in/peterhoangminh/
 ---
 
-Linh, a Founder at YouthPlus which a member of DCI Startup Studio, is dedicated to empowering young individuals through community-driven initiatives. These initiatives encompass educational programs, mentorship, and social impact projects.
+Linh, a Founder at YouthPlus which a member of Venture Studio, is dedicated to empowering young individuals through community-driven initiatives. These initiatives encompass educational programs, mentorship, and social impact projects.
 
 ### Overview
 Linh has founded three organizations: Youth+ Job Center, Inc., YouthPlus, and AYES English.

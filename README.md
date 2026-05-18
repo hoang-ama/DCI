@@ -1,6 +1,6 @@
-# DCI - High-Impact Startup Studio Website
+# DCI - High-Impact Venture Studio Website
 
-This repository contains the front-end code for the DCI (Impact Startup Studio) corporate website, focusing on digital and sustainable transformation ventures in Vietnam.
+This repository contains the front-end code for the DCI (Impact Venture Studio) corporate website, focusing on digital and sustainable transformation ventures in Vietnam.
 
 ## 📁 Project Structure
 
@@ -62,7 +62,7 @@ HOME (index.html) -> Build Popup Panel
 | File/Folder | Mục đích chính | Nội dung nổi bật |
 | :--- | :--- | :--- |
 | **`index.html`** | The main landing page, featuring mission overview, portfolio highlights (with flip cards), and blog previews. | Hero, Mission, Portfolio, Blog Preview, CTA. |
-| **`about.html`** | Details about the DCI Startup Studio model, vision, mission, and verticals (Sharing, Green, Circular Economy). | Infographics, Mission/Vision statements, Core Activities. |
+| **`about.html`** | Details about the DCI Venture Studio model, vision, mission, and verticals (Sharing, Green, Circular Economy). | Infographics, Mission/Vision statements, Core Activities. |
 | **`companies.html`** | A grid view listing all portfolio companies with interactive detail panels. | Dynamic company grid loaded by `panel_script.js`. |
 | **`team.html`** | A grid view listing all founding and leadership team members with interactive bio panels. | Dynamic team grid loaded by `panel_script.js`. |
 | **`blog.html`**, **`blog-details.html`** | Pages for displaying the blog list and single posts. | Dynamic post rendering handled by **`script.js`**. |

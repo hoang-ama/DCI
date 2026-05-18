@@ -174,7 +174,7 @@ h2 {
 }
 
 .nav-logo {
-    height: 120px;
+    height: 60px;
     width: auto;
     display: block;
 }
@@ -1184,7 +1184,7 @@ h2 {
 
 /* support a modifier for pages that display a visually larger logo while keeping header height */
 .site-header--large-logo .nav-logo {
-    height: 96px;
+    height: 48px;
     /* visually large but restrained to avoid huge header */
 }
 
@@ -2697,7 +2697,7 @@ body.company-filter-lock {
 
     /* Logo: Đảm bảo logo có kích thước phù hợp và nằm ở góc trái */
     .nav-logo {
-        height: 100px;
+        height: 50px;
         /* Kích thước nhỏ hơn trên mobile */
         width: auto;
         align-items: center;
@@ -2877,6 +2877,11 @@ body.company-filter-lock {
         gap: 20px;
         align-items: left;
         padding: 0px 30px;
+    }
+
+    .footer-left .footer-logo .footer-logo-image {
+        width: 40%;
+        height: auto;
     }
 
     .footer-bottom {

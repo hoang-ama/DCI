@@ -90,6 +90,164 @@
             }
         }
 
+        // Static blog catalog used for one-time migration from script.js + /posts/*.md to Firestore.
+        const STATIC_POST_IMPORT_CATALOG = [
+            { staticId: "14", title: "How Venture Studio build successful startups?", date: "2025-12-15", image: "./image/DCI_SSfunnel.png", summary: "How Venture Studios systematically create and scale successful startups...", category: "Studio", tags: ["model"], featured: true, markdownFile: "2025-12-15-14-how-startup-studio-build-successful-startups.md" },
+            { staticId: "13", title: "What is the Venture Studio?", date: "2025-12-08", image: "./image/What-is-Startup-Studio.png", summary: "Understanding the venture studio model, its key characteristics, and how it differs ...", category: "Studio", tags: ["model"], featured: true, markdownFile: "2025-12-08-13-what-is-the-startup-studio.md" },
+            { staticId: "12", title: "Startup/Venture Studio vs. Other models", date: "2025-12-08", image: "./image/Venture-Studio-vs-Incubators-Accelerators-VCs.png", summary: "What is make a Startup/Venture Studio different from Incubator, Accelerator and VC...", category: "Studio", tags: ["model"], featured: true, markdownFile: "2025-12-08-12-startup-studio-vs-other-models.md" },
+            { staticId: "11", title: "The Evolution of Startup/Venture Studio", date: "2025-12-08", image: "./image/The-Evolution-of-Startup-Studios.jpg", summary: "The Startup/Venture Studio model has evolved through several waves since its inception in the 1990s...", category: "Studio", tags: ["model"], featured: false, markdownFile: "2025-12-08-11-the-evolution-of-startup-studios.md" },
+            { staticId: "10", title: "5 Keys to Success for Tech Startups", date: "2025-10-25", image: "./image/The-Startups-Keys-to-Success.png", summary: "Discover the breakthrough strategies to take your startup to the next level...", category: "Startup", tags: ["model", "management"], featured: false, markdownFile: "2025-10-25-10-5-keys-to-success-for-tech-startups.md" },
+            { staticId: "9", title: "Investing in AI: Opportunity or Challenge?", date: "2025-10-20", image: "https://thecriticalscript.com/public/uploads/blog/6447c929746bc_tmpphpwtkyrf.jpg", summary: "An in-depth analysis of the potential and risks of investing in AI...", category: "Investor", tags: ["ai"], featured: false, markdownFile: "2025-10-20-9-investing-in-ai-opportunity-or-challenge.md" },
+            { staticId: "8", title: "Sustainable Growth: A New Direction for Startups", date: "2025-10-15", image: "https://www.toolagen.com/wp-content/uploads/2024/05/Strategies-to-Build-a-Sustainable-Startup-1024x559.png", summary: "How startups can integrate sustainability into their business model...", category: "Startup", tags: ["model", "management"], featured: false, markdownFile: "2025-10-15-8-sustainable-growth-a-new-direction-for-startups.md" },
+            { staticId: "7", title: "The Rise of No-Code Platforms", date: "2025-10-10", image: "https://media.licdn.com/dms/image/v2/D5612AQHYWh46tdk16g/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1714564591065?e=2147483647&v=beta&t=5ohMG7jQuBHwbTLnE77M7mXlIzr5nAxWFLeeKpIVoz8", summary: "Empowering non-developers to build powerful applications quickly.", category: "Startup", tags: ["product"], featured: false, markdownFile: "2025-10-10-7-the-rise-of-no-code-platforms.md" },
+            { staticId: "6", title: "Deep Dive into Blockchain Technology", date: "2025-09-30", image: "https://media.licdn.com/dms/image/v2/D4D12AQHhWfQkzG9xiA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1679411636821?e=2147483647&v=beta&t=MFCaCi-sXWPrfmlEQ1m9ZmAxXJRa44D9BLTi-EENngs", summary: "Understanding the decentralized ledger and its impact across industries.", category: "Startup", tags: ["blockchain"], featured: false, markdownFile: "2025-09-30-6-deep-dive-into-blockchain-technology.md" },
+            { staticId: "5", title: "Cybersecurity Essentials for Small Businesses", date: "2025-09-25", image: "https://www.clearnetwork.com/wp-content/uploads/2018/05/cybersecurity-for-small-business.jpg", summary: "Protecting your data from common digital threats.", category: "Founder", tags: ["cybersecurity"], featured: false, markdownFile: "2025-09-25-5-cybersecurity-essentials-for-small-businesses.md" },
+            { staticId: "4", title: "Mastering Remote Team Management", date: "2025-09-20", image: "https://www.proofhub.com/articles/wp-content/uploads/2023/11/A-Manager-Guide-to-Manage-Remote-Team.jpg", summary: "Strategies for leading high-performing teams from anywhere.", category: "Founder", tags: ["management"], featured: false, markdownFile: "2025-09-20-4-mastering-remote-team-management.md" },
+            { staticId: "3", title: "The Power of Data Visualization", date: "2025-09-15", image: "https://assets.justinmind.com/wp-content/uploads/2024/06/data-visualization-header-768x512.png", summary: "Turning complex data into actionable insights with compelling visuals.", category: "Startup", tags: ["data", "product"], featured: false, markdownFile: "2025-09-15-3-the-power-of-data-visualization.md" },
+            { staticId: "2", title: "Introduction to Cloud Computing", date: "2025-09-01", image: "https://homenest.com.vn/wp-content/uploads/2025/11/Cloud-Computing-Tat-ca-ve-dien-toan-dam-may-va-cac-buoc-trien-khai-scaled.jpg", summary: "A fundamental guide to Infrastructure as a Service (IaaS) and more.", category: "Startup", tags: ["clound"], featured: false, markdownFile: "2025-09-01-2-introduction-to-cloud-computing.md" },
+            { staticId: "1", title: "Future of Quantum Computing", date: "2025-08-01", image: "https://gmo-research.ai/en/application/files/5716/6080/5815/Quantum_Computing_Image.png", summary: "Exploring the next generation of computing power and its implications...", category: "Startup", tags: ["quantum"], featured: false, markdownFile: "2025-08-01-1-future-of-quantum-computing.md" }
+        ];
+
+        function stripFrontmatter(mdText) {
+            const match = mdText.match(/^---\s*[\s\S]*?\s*---\s*([\s\S]*)$/m);
+            return match ? match[1].trim() : (mdText || '').trim();
+        }
+
+        async function importStaticPostsToFirestore() {
+            let successCount = 0;
+            const errors = [];
+            for (const post of STATIC_POST_IMPORT_CATALOG) {
+                try {
+                    const res = await fetch(`./posts/${post.markdownFile}`);
+                    const markdownText = res.ok ? await res.text() : '';
+                    const markdownBody = stripFrontmatter(markdownText);
+                    const docId = `static-post-${post.staticId}`;
+
+                    await db.collection('posts').doc(docId).set({
+                        staticId: post.staticId,
+                        title: post.title,
+                        date: post.date,
+                        image: post.image,
+                        summary: post.summary,
+                        content: markdownBody || post.summary || '',
+                        category: post.category,
+                        tags: post.tags,
+                        featured: !!post.featured,
+                        slug: slugify(post.title),
+                        source: 'static-import',
+                        isVisible: true,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+
+                    successCount += 1;
+                } catch (err) {
+                    errors.push(`${post.markdownFile}: ${err.message}`);
+                }
+            }
+            return { successCount, total: STATIC_POST_IMPORT_CATALOG.length, errors };
+        }
+
+        const STATIC_JOB_IMPORT_CATALOG = [
+            { staticId: "1", title: "Senior Full Stack Developer", department: "Technology", type: "Full-time", location: "Hanoi/Remote", company: "DC Tech", summary: "Develop and maintain SaaS platform features using Node.js and React. Requires 5+ years experience.", link: "https://dcinvest.vn/careers/senior-dev", slug: "senior-full-stack-developer", markdownFile: "senior-full-stack-developer.md" },
+            { staticId: "2", title: "Product Manager (Mobility)", department: "Business", type: "Full-time", location: "Hanoi", company: "DiChung", summary: "Define product roadmap for shared mobility services, focusing on user acquisition and retention.", link: "https://dcinvest.vn/careers/pm-mobility", slug: "product-manager-mobility", markdownFile: "product-manager-mobility.md" },
+            { staticId: "3", title: "Digital Marketing Specialist", department: "Marketing", type: "Full-time", location: "Hanoi", company: "DCI Studio", summary: "Manage digital campaigns (SEO, SEM) for DCI and portfolio companies. Focus on performance marketing.", link: "https://dcinvest.vn/careers/digital-marketing", slug: "digital-marketing-specialist", markdownFile: "digital-marketing-specialist.md" },
+            { staticId: "4", title: "Operations Intern", department: "Business", type: "Internship", location: "Ho Chi Minh City", company: "Chungxe", summary: "Assist with fleet management, logistics coordination, and customer service optimization.", link: "https://dcinvest.vn/careers/ops-intern", slug: "operations-intern", markdownFile: "operations-intern.md" },
+            { staticId: "5", title: "HR & Talent Acquisition", department: "HR", type: "Full-time", location: "Hanoi", company: "DCI Studio", summary: "Lead recruitment process for senior management and engineering roles across the studio ecosystem.", link: "https://dcinvest.vn/careers/hr-talent", slug: "hr-talent-acquisition", markdownFile: "hr-talent-acquisition.md" }
+        ];
+
+        async function importStaticJobsToFirestore() {
+            let successCount = 0;
+            const errors = [];
+            for (const job of STATIC_JOB_IMPORT_CATALOG) {
+                try {
+                    const res = await fetch(`./jobs-details/${job.markdownFile}`);
+                    const markdownText = res.ok ? await res.text() : '';
+                    const markdownBody = stripFrontmatter(markdownText);
+                    const docId = `static-job-${job.staticId}`;
+
+                    await db.collection('jobs').doc(docId).set({
+                        staticId: job.staticId,
+                        seq: Number(job.staticId),
+                        title: job.title,
+                        department: job.department,
+                        type: job.type,
+                        location: job.location,
+                        company: job.company,
+                        link: job.link,
+                        slug: job.slug || slugify(job.title),
+                        summary: job.summary,
+                        description: job.summary,
+                        content: markdownBody || job.summary || '',
+                        source: 'static-import',
+                        isVisible: true,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+
+                    successCount += 1;
+                } catch (err) {
+                    errors.push(`${job.markdownFile}: ${err.message}`);
+                }
+            }
+            return { successCount, total: STATIC_JOB_IMPORT_CATALOG.length, errors };
+        }
+
+        const STATIC_COMPANY_IMPORT_CATALOG = [
+            { id: "dichung", name: "DiChung", logo: "./image/logos/DC_trans.png", heroImage: "./image/logos/DC_hero.png", vertical: "Shared Mobility", pillar: "Sharing & Rental Economy", stage: "Transition", year: "2013", website: "https://dichung.vn", email: "contact@dichung.vn", description: "Carpooling & Ridesharing platform.", markdownFile: "dichung.md" },
+            { id: "chungxe", name: "Chungxe", logo: "./image/logos/CX_trans.png", heroImage: "./image/logos/CX_hero.png", vertical: "Shared Mobility", pillar: "Sharing & Rental Economy", stage: "Transition", year: "2018", website: "https://chungxe.vn", email: "contact@chungxe.vn", description: "Vehicle Rental and Sharing platform.", markdownFile: "chungxe.md" },
+            { id: "parkchung", name: "Parkchung", logo: "./image/logos/Parkchung_logo.png", heroImage: "./image/logos/Parkchung_hero.png", vertical: "Shared Mobility", pillar: "Sharing & Rental Economy", stage: "Proof-of-Concept", year: "2025", website: "https://parkchung.com", email: "contact@parkchung.com", description: "Online Parking marketplace.", markdownFile: "parkchung.md" },
+            { id: "oncar", name: "onCar", logo: "./image/logos/onCar_logo.png", heroImage: "./image/logos/onCar_hero.png", vertical: "Transport", pillar: "Sharing & Rental Economy", stage: "Proof-of-Concept", year: "2025", website: "https://oncar.vn", email: "partner@oncar.vn", description: "Bus charter rental.", markdownFile: "oncar.md" },
+            { id: "vshare", name: "Vshare", logo: "./image/logos/Vshare_logo.png", heroImage: "./image/logos/Vshare_hero.png", vertical: "Transport", pillar: "Membership & Subscription Economy", stage: "Seed", year: "2022", website: "https://vshare.asia", email: "contact@vshare.asia", description: "Residential Carsharing service.", markdownFile: "vshare.md" },
+            { id: "dctransport", name: "DC Transport", logo: "./image/logos/DCTransport_trans.png", heroImage: "./image/logos/DCTransport_hero.png", vertical: "Transport", pillar: "Sharing & Rental Economy", stage: "Transition", year: "2019", website: "https://dichungtransport.com", email: "contact@dichungtransport.com", description: "Mobility Operator", markdownFile: "dctransport.md" },
+            { id: "dichungtravel", name: "DC Travel", logo: "./image/logos/DCTravel_trans.png", heroImage: "./image/logos/DCTravel_hero.jpg", vertical: "Travel", pillar: "Sharing & Rental Economy", stage: "Seed", year: "2021", website: "https://dichungtravel.com", email: "info@dichungtravel.com", description: "Personalized Travel services.", markdownFile: "dichungtravel.md" },
+            { id: "nextu", name: "NextU", logo: "./image/logos/NextU_logo.png", heroImage: "./image/logos/NextU_hero.png", vertical: "Travel", pillar: "Membership & Subscription Economy", stage: "Proof-of-Concept", year: "2025", website: "https://nextu.vn", email: "hello@nextliving.com", description: "Co-Living platform.", markdownFile: "nextu.md" },
+            { id: "dcexpress", name: "DC Express", logo: "./image/logos/DCExpress_trans.png", heroImage: "./image/logos/DCExpress_hero.png", vertical: "Logistics", pillar: "Sharing & Rental Economy", stage: "Growth", year: "2020", website: "https://dichungexpress.com", email: "contact@dichungexpress.com", description: "Ultrafast Interprovince Delivery.", markdownFile: "dcexpress.md" },
+            { id: "dctech", name: "DC Tech", logo: "./image/logos/DCTech_trans.png", heroImage: "./image/logos/DCTech_hero.png", vertical: "Software", pillar: "Membership & Subscription Economy", stage: "Growth", year: "2020", website: "https://dctech.vn", email: "contact@dctech.vn", description: "SaaS platform for Mobility.", markdownFile: "dctech.md" },
+            { id: "carx", name: "CarX", logo: "./image/logos/CarX_logo.png", heroImage: "./image/logos/CarX_hero.png", vertical: "Automotive", pillar: "Membership & Subscription Economy", stage: "Proof-of-Concept", year: "2020", website: "https://carx.vn", email: "contact@carx.vn", description: "Online Auto mall.", markdownFile: "carx.md" },
+            { id: "totmart", name: "TotMart", logo: "./image/logos/TotMart_logo.png", heroImage: "./image/logos/TotMart_hero.png", vertical: "eCommerce", pillar: "Membership & Subscription Economy", stage: "Seed", year: "2020", website: "https://totmart.com.vn", email: "contact@totmart.com.vn", description: "eCommerce for Green products.", markdownFile: "totmart.md" },
+            { id: "agrix", name: "AgriX", logo: "./image/logos/AgriX_logo.png", heroImage: "./image/logos/AgriX_hero.png", vertical: "Agriculture", pillar: "Sharing & Rental Economy", stage: "Proof-of-Concept", year: "2025", website: "https://agrix.vn", email: "contact@agrix.vn", description: "AgiDrone for smart Agriculture.", markdownFile: "agrix.md" },
+            { id: "youthplus", name: "Youth+", logo: "./image/logos/Youthplus_logo.png", heroImage: "./image/logos/Youthplus_hero.png", vertical: "Community", pillar: "Membership & Subscription Economy", stage: "Transition", year: "2018", website: "https://youth.com.vn", email: "contact@youth.com.vn", description: "Young Community platform.", markdownFile: "youthplus.md" },
+            { id: "fafifun", name: "FaFiFun", logo: "./image/logos/FFF_logo.webp", heroImage: "./image/logos/FFF_hero.png", vertical: "Education", pillar: "Membership & Subscription Economy", stage: "Growth", year: "2021", website: "https://fafifun.edu.vn", email: "chamsockhachhang@mdj.vn", description: "Financial Education for Kids.", markdownFile: "fafifun.md" }
+        ];
+
+        async function importStaticCompaniesToFirestore() {
+            let successCount = 0;
+            const errors = [];
+            for (const company of STATIC_COMPANY_IMPORT_CATALOG) {
+                try {
+                    const res = await fetch(`./companies/${company.markdownFile}`);
+                    const markdownText = res.ok ? await res.text() : '';
+                    const markdownBody = stripFrontmatter(markdownText);
+
+                    await db.collection('companies').doc(company.id).set({
+                        id: company.id,
+                        name: company.name,
+                        logo: company.logo,
+                        heroImage: company.heroImage,
+                        vertical: company.vertical,
+                        pillar: company.pillar,
+                        stage: company.stage,
+                        year: company.year,
+                        website: company.website,
+                        email: company.email,
+                        description: company.description,
+                        content: markdownBody || company.description || '',
+                        source: 'static-import',
+                        isVisible: true,
+                        showOnHome: false,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    }, { merge: true });
+
+                    successCount += 1;
+                } catch (err) {
+                    errors.push(`${company.markdownFile}: ${err.message}`);
+                }
+            }
+            return { successCount, total: STATIC_COMPANY_IMPORT_CATALOG.length, errors };
+        }
+
         const { useState, useEffect } = React;
 
         // ==========================================
@@ -251,8 +409,27 @@
 
         // --- Generic Item Editor (Dynamic Form) ---
         const ItemEditor = ({ collectionName, item, onSave, onCancel }) => {
-            const [formData, setFormData] = useState(item || {});
+            const [formData, setFormData] = useState(() => {
+                if (!item) return {};
+                const normalized = { ...item };
+                if (Array.isArray(normalized.tags)) {
+                    normalized.tags = normalized.tags.join(', ');
+                }
+                return normalized;
+            });
             const [saving, setSaving] = useState(false);
+
+            useEffect(() => {
+                if (!item) {
+                    setFormData({});
+                    return;
+                }
+                const normalized = { ...item };
+                if (Array.isArray(normalized.tags)) {
+                    normalized.tags = normalized.tags.join(', ');
+                }
+                setFormData(normalized);
+            }, [item]);
 
             // Data schema configuration for each type
             const schema = {
@@ -285,6 +462,7 @@
                     { key: 'logo', label: 'Logo', type: 'image' },
                     { key: 'heroImage', label: 'Hero Image', type: 'image' },
                     { key: 'vertical', label: 'Vertical', type: 'select', options: ['Shared Mobility', 'Transport', 'Travel', 'Logistics', 'Software', 'Automotive', 'eCommerce', 'Agriculture', 'Community', 'Other'] },
+                    { key: 'pillar', label: 'Pillar', type: 'select', options: ['Sharing & Rental Economy', 'Membership & Subscription Economy', 'Green & Circular Economy'] },
                     { key: 'stage', label: 'Stage', type: 'select', options: ['Proof-of-Concept', 'Seed', 'Growth', 'Transition'] },
                     { key: 'year', label: 'Year Founded', type: 'text' },
                     { key: 'website', label: 'Website URL', type: 'text' },
@@ -304,10 +482,24 @@
                 e.preventDefault();
                 setSaving(true);
                 try {
+                    const preparedData = { ...formData };
+                    if (preparedData.isVisible === undefined) preparedData.isVisible = true;
+                    if (collectionName === 'posts') {
+                        preparedData.slug = preparedData.slug || slugify(preparedData.title || '');
+                        preparedData.tags = typeof preparedData.tags === 'string'
+                            ? preparedData.tags.split(',').map(t => t.trim()).filter(Boolean)
+                            : (Array.isArray(preparedData.tags) ? preparedData.tags : []);
+                        if (!preparedData.summary && preparedData.content) {
+                            preparedData.summary = preparedData.content.slice(0, 180).trim();
+                        }
+                    } else if (collectionName === 'jobs') {
+                        preparedData.slug = preparedData.slug || slugify(preparedData.title || '');
+                    }
+
                     if (item && item.id) {
                         // Update
                         await db.collection(collectionName).doc(item.id).update({
-                            ...formData,
+                            ...preparedData,
                             updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                         });
                     } else {
@@ -315,7 +507,7 @@
                         if (collectionName === 'jobs') {
                             // Use transaction to create job and assign ascending seq id
                             await createJobWithSeq(collectionName, {
-                                ...formData
+                                ...preparedData
                             });
                         } else if (collectionName === 'companies') {
                             // Use company name as document id (slugified)
@@ -323,21 +515,25 @@
                             if (!companyId) throw new Error('Company name required to generate ID');
                             await db.collection('companies').doc(companyId).set({
                                 id: companyId,
-                                name: formData.name || '',
-                                logo: formData.logo || '',
-                                heroImage: formData.heroImage || '',
-                                vertical: formData.vertical || '',
-                                stage: formData.stage || '',
-                                year: formData.year || '',
-                                website: formData.website || '',
-                                email: formData.email || '',
-                                description: formData.description || '',
-                                content: formData.content || '',
+                                name: preparedData.name || '',
+                                logo: preparedData.logo || '',
+                                heroImage: preparedData.heroImage || '',
+                                vertical: preparedData.vertical || '',
+                                pillar: preparedData.pillar || '',
+                                stage: preparedData.stage || '',
+                                year: preparedData.year || '',
+                                website: preparedData.website || '',
+                                email: preparedData.email || '',
+                                description: preparedData.description || '',
+                                content: preparedData.content || '',
+                                details: preparedData.content || '',
+                                isVisible: preparedData.isVisible !== false,
+                                showOnHome: preparedData.showOnHome === true,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             }, { merge: true });
                         } else {
                             await db.collection(collectionName).add({
-                                ...formData,
+                                ...preparedData,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             });
                         }
@@ -428,7 +624,7 @@
         };
 
         // --- Data List Component ---
-        const DataList = ({ collectionName, onEdit }) => {
+        const DataList = ({ collectionName, onEdit, onImportStaticPosts, onImportStaticJobs, onImportStaticCompanies, importInProgress, importMessage }) => {
             const [items, setItems] = useState([]);
             const [loading, setLoading] = useState(true);
 
@@ -458,6 +654,44 @@
                 }
             };
 
+            const handleToggleVisibility = async (item) => {
+                try {
+                    const currentlyVisible = item.isVisible !== false;
+                    await db.collection(collectionName).doc(item.id).update({
+                        isVisible: !currentlyVisible,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } catch (err) {
+                    alert('Update visibility failed: ' + err.message);
+                }
+            };
+
+            const handleToggleHomeFeatured = async (item) => {
+                if (collectionName !== 'companies') return;
+                try {
+                    const onHome = item.showOnHome === true;
+                    await db.collection(collectionName).doc(item.id).update({
+                        showOnHome: !onHome,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } catch (err) {
+                    alert('Update homepage visibility failed: ' + err.message);
+                }
+            };
+
+            const handleTogglePostFeatured = async (item) => {
+                if (collectionName !== 'posts') return;
+                try {
+                    const featured = item.featured === true;
+                    await db.collection(collectionName).doc(item.id).update({
+                        featured: !featured,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } catch (err) {
+                    alert('Update featured post failed: ' + err.message);
+                }
+            };
+
             if (loading) return <div className="flex justify-center p-10"><div className="loader"></div></div>;
 
             return (
@@ -466,9 +700,11 @@
                         <h2 className="text-2xl font-bold text-gray-800 capitalize">
                             List of {collectionName === 'posts' ? 'Posts' : collectionName === 'jobs' ? 'Jobs' : 'Portfolio'}
                         </h2>
-                        <button onClick={() => onEdit(null)} className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
-                            <i className="fas fa-plus mr-2"></i> Add New
-                        </button>
+                        <div className="flex gap-2">
+                            <button onClick={() => onEdit(null)} className="bg-blue-600 text-white font-bold py-2 px-4 rounded hover:bg-blue-700">
+                                <i className="fas fa-plus mr-2"></i> Add New
+                            </button>
+                        </div>
                     </div>
 
                     <div className="bg-white shadow-md rounded my-6 overflow-x-auto">
@@ -484,20 +720,45 @@
                                 {items.length === 0 ? (
                                     <tr><td colSpan="3" className="text-center py-6">No data available.</td></tr>
                                 ) : items.map(item => (
-                                    <tr key={item.id} className="border-b border-gray-200 hover:bg-gray-100">
+                                    <tr key={item.id} className={`border-b border-gray-200 hover:bg-gray-100 ${item.isVisible === false ? 'bg-gray-100 opacity-70' : ''}`}>
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <span className="font-medium">{item.title || item.name}</span>
                                         </td>
                                         <td className="py-3 px-6 text-left">
-                                            {collectionName === 'posts' && <span>{item.date}</span>}
-                                            {collectionName === 'jobs' && <span>{item.location} - {item.type}</span>}
-                                            {collectionName === 'companies' && <span>{item.vertical}</span>}
+                                            {collectionName === 'posts' && <span>{item.date} {item.featured === true ? '• Home: On' : '• Home: Off'} {item.isVisible === false ? '• Hidden' : ''}</span>}
+                                            {collectionName === 'jobs' && <span>{item.location} - {item.type} {item.isVisible === false ? '• Hidden' : ''}</span>}
+                                            {collectionName === 'companies' && <span>{item.vertical} {item.pillar ? `• ${item.pillar}` : ''} {item.showOnHome === true ? '• Home: On' : '• Home: Off'} {item.isVisible === false ? '• Hidden' : ''}</span>}
                                         </td>
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex item-center justify-center">
                                                 <button onClick={() => onEdit(item)} className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
                                                     <i className="fas fa-edit"></i>
                                                 </button>
+                                                <button
+                                                    onClick={() => handleToggleVisibility(item)}
+                                                    className={`w-4 mr-2 transform hover:scale-110 ${item.isVisible === false ? 'hover:text-green-600' : 'hover:text-gray-700'}`}
+                                                    title={item.isVisible === false ? 'Show on frontend' : 'Hide from frontend'}
+                                                >
+                                                    <i className={`fas ${item.isVisible === false ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                                                </button>
+                                                {collectionName === 'posts' && (
+                                                    <button
+                                                        onClick={() => handleTogglePostFeatured(item)}
+                                                        className={`w-4 mr-2 transform hover:scale-110 ${item.featured === true ? 'text-amber-500 hover:text-amber-600' : 'text-gray-400 hover:text-gray-500'}`}
+                                                        title={item.featured === true ? 'Hide from homepage blog section' : 'Show in homepage blog section'}
+                                                    >
+                                                        <i className="fas fa-star"></i>
+                                                    </button>
+                                                )}
+                                                {collectionName === 'companies' && (
+                                                    <button
+                                                        onClick={() => handleToggleHomeFeatured(item)}
+                                                        className={`w-4 mr-2 transform hover:scale-110 ${item.showOnHome === true ? 'text-amber-500 hover:text-amber-600' : 'text-gray-400 hover:text-gray-500'}`}
+                                                        title={item.showOnHome === true ? 'Hide from homepage portfolio' : 'Show on homepage portfolio'}
+                                                    >
+                                                        <i className="fas fa-star"></i>
+                                                    </button>
+                                                )}
                                                 <button onClick={() => handleDelete(item.id)} className="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
                                                     <i className="fas fa-trash-alt"></i>
                                                 </button>
@@ -519,6 +780,8 @@
             const [viewMode, setViewMode] = useState('list'); // list, edit
             const [currentItem, setCurrentItem] = useState(null);
             const [initializing, setInitializing] = useState(true);
+            const [importInProgress, setImportInProgress] = useState(false);
+            const [importMessage, setImportMessage] = useState('');
 
             useEffect(() => {
                 const unsubscribe = auth.onAuthStateChanged((u) => {
@@ -546,6 +809,66 @@
                 setCurrentItem(null);
             };
 
+            const handleImportStaticPosts = async () => {
+                const confirmed = confirm('Import all static posts from script/posts into Firestore?\n\nThis will upsert documents with ids like static-post-14.');
+                if (!confirmed) return;
+                setImportInProgress(true);
+                setImportMessage('Importing static posts...');
+                try {
+                    const result = await importStaticPostsToFirestore();
+                    if (result.errors.length) {
+                        setImportMessage(`Imported ${result.successCount}/${result.total}. ${result.errors.length} file(s) failed. Check console for details.`);
+                        console.warn('Static import errors:', result.errors);
+                    } else {
+                        setImportMessage(`Imported successfully: ${result.successCount}/${result.total} static posts.`);
+                    }
+                } catch (err) {
+                    setImportMessage(`Import failed: ${err.message}`);
+                } finally {
+                    setImportInProgress(false);
+                }
+            };
+
+            const handleImportStaticJobs = async () => {
+                const confirmed = confirm('Import all static careers from script/jobs-details into Firestore?\n\nThis will upsert documents with ids like static-job-1.');
+                if (!confirmed) return;
+                setImportInProgress(true);
+                setImportMessage('Importing static jobs...');
+                try {
+                    const result = await importStaticJobsToFirestore();
+                    if (result.errors.length) {
+                        setImportMessage(`Imported ${result.successCount}/${result.total}. ${result.errors.length} file(s) failed. Check console for details.`);
+                        console.warn('Static job import errors:', result.errors);
+                    } else {
+                        setImportMessage(`Imported successfully: ${result.successCount}/${result.total} static jobs.`);
+                    }
+                } catch (err) {
+                    setImportMessage(`Import failed: ${err.message}`);
+                } finally {
+                    setImportInProgress(false);
+                }
+            };
+
+            const handleImportStaticCompanies = async () => {
+                const confirmed = confirm('Import all static portfolio companies from panel_script/companies/*.md into Firestore?\n\nThis will upsert documents by company id.');
+                if (!confirmed) return;
+                setImportInProgress(true);
+                setImportMessage('Importing static portfolio companies...');
+                try {
+                    const result = await importStaticCompaniesToFirestore();
+                    if (result.errors.length) {
+                        setImportMessage(`Imported ${result.successCount}/${result.total}. ${result.errors.length} file(s) failed. Check console for details.`);
+                        console.warn('Static company import errors:', result.errors);
+                    } else {
+                        setImportMessage(`Imported successfully: ${result.successCount}/${result.total} static portfolio companies.`);
+                    }
+                } catch (err) {
+                    setImportMessage(`Import failed: ${err.message}`);
+                } finally {
+                    setImportInProgress(false);
+                }
+            };
+
             const renderContent = () => {
                 if (viewMode === 'edit') {
                     return (
@@ -557,7 +880,17 @@
                         />
                     );
                 }
-                return <DataList collectionName={activeTab} onEdit={handleEdit} />;
+                return (
+                    <DataList
+                        collectionName={activeTab}
+                        onEdit={handleEdit}
+                        onImportStaticPosts={handleImportStaticPosts}
+                        onImportStaticJobs={handleImportStaticJobs}
+                        onImportStaticCompanies={handleImportStaticCompanies}
+                        importInProgress={importInProgress}
+                        importMessage={importMessage}
+                    />
+                );
             };
 
             return (

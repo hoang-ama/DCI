@@ -394,135 +394,71 @@ function createPostHTML(post) {
 }
 
 // --- JOBS: Firebase helpers ---
-// Fetch all jobs from Firestore and merge with static jobsData
+function normalizeJobFromFirestore(doc) {
+    const data = doc.data ? doc.data() : doc;
+    const title = data.title || data.name || 'Untitled';
+    const slug = data.slug || slugify(title || doc.id);
+    const createdAt = data.createdAt || null;
+    let date = data.date || '';
+    if (!date && createdAt) {
+        try {
+            date = (createdAt.toDate ? createdAt.toDate() : new Date(createdAt)).toISOString().split('T')[0];
+        } catch (e) {
+            date = new Date().toISOString().split('T')[0];
+        }
+    }
+    if (!date) date = new Date().toISOString().split('T')[0];
+
+    return {
+        id: doc.id || data.id,
+        staticId: data.staticId ? String(data.staticId) : null,
+        seq: data.seq !== undefined ? data.seq : null,
+        title,
+        department: data.department || 'Other',
+        type: data.type || data.employmentType || 'Full-time',
+        location: data.location || '',
+        company: data.company || data.companyName || 'DCI Studio',
+        description: data.description || data.content || data.jobDescription || 'No description available',
+        summary: data.summary || data.description || data.content || '',
+        content: data.content || data.description || data.jobDescription || '',
+        salary: data.salary || '',
+        link: data.link || '',
+        isVisible: data.isVisible !== false,
+        slug,
+        createdAt,
+        date,
+        isFirebase: true,
+        isStatic: false
+    };
+}
+
+function isVisibleItem(item) {
+    return item && item.isVisible !== false;
+}
+
+// Cleanup mode: jobs are loaded from Firestore only.
 async function fetchAllJobs() {
     console.log('fetchAllJobs called');
     let firebaseJobs = [];
     if (db) {
         try {
-            // Try to fetch with orderBy, if that fails, fetch without ordering
-            try {
-                console.log('Attempting to fetch jobs with orderBy...');
-                const snapshot = await db.collection('jobs').orderBy('createdAt', 'desc').get();
-                console.log('Firestore fetch with orderBy succeeded, docs:', snapshot.size);
-                console.log('Raw Firebase docs:', snapshot.docs.map(doc => ({ id: doc.id, data: doc.data() })));
-                firebaseJobs = snapshot.docs.map(doc => {
-                    const data = doc.data();
-                    
-                    // Helper function to convert Firestore timestamp to date string
-                    const getDateString = (timestamp) => {
-                        if (!timestamp) return new Date().toISOString().split('T')[0];
-                        try {
-                            // If it's a Firestore Timestamp object, use .toDate()
-                            if (timestamp.toDate && typeof timestamp.toDate === 'function') {
-                                return timestamp.toDate().toISOString().split('T')[0];
-                            }
-                            // If it's already a Date or can be converted to Date
-                            return new Date(timestamp).toISOString().split('T')[0];
-                        } catch (e) {
-                            console.warn('Error converting date:', timestamp, e);
-                            return new Date().toISOString().split('T')[0];
-                        }
-                    };
-                    
-                    // Normalize fields to match static jobsData shape
-                    return {
-                        id: doc.id,
-                        seq: data.seq || null,
-                        title: data.title || data.name || 'Untitled',
-                        department: data.department || 'Other',
-                        type: data.type || data.employmentType || 'Full-time',
-                        location: data.location || '',
-                        company: data.company || data.companyName || 'DCI Studio',
-                        // Enhanced description fallback chain for multiple possible field names
-                        description: data.description || data.content || data.jobDescription || 'No description available',
-                        summary: data.summary || data.description || data.content || '',
-                        content: data.content || data.description || data.jobDescription || '',
-                        salary: data.salary || '',
-                        // generate slug if not provided
-                        slug: data.slug || slugify(data.title || data.name || doc.id),
-                        createdAt: data.createdAt || new Date(),
-                        date: getDateString(data.createdAt),
-                        isFirebase: true,
-                        isStatic: false
-                    };
-                });
-                console.log('Processed Firebase jobs:', firebaseJobs);
-            } catch (orderErr) {
-                // If orderBy fails, try without ordering
-                console.warn('orderBy failed, fetching without sort:', orderErr);
-                const snapshot = await db.collection('jobs').get();
-                console.log('Firestore fetch without orderBy succeeded, docs:', snapshot.size);
-                console.log('Raw Firebase docs:', snapshot.docs.map(doc => ({ id: doc.id, data: doc.data() })));
-                
-                // Helper function to convert Firestore timestamp to date string
-                const getDateString = (timestamp) => {
-                    if (!timestamp) return new Date().toISOString().split('T')[0];
-                    try {
-                        // If it's a Firestore Timestamp object, use .toDate()
-                        if (timestamp.toDate && typeof timestamp.toDate === 'function') {
-                            return timestamp.toDate().toISOString().split('T')[0];
-                        }
-                        // If it's already a Date or can be converted to Date
-                        return new Date(timestamp).toISOString().split('T')[0];
-                    } catch (e) {
-                        console.warn('Error converting date:', timestamp, e);
-                        return new Date().toISOString().split('T')[0];
-                    }
-                };
-                
-                firebaseJobs = snapshot.docs.map(doc => {
-                    const data = doc.data();
-                    return {
-                        id: doc.id,
-                        title: data.title || data.name || 'Untitled',
-                        department: data.department || 'Other',
-                        type: data.type || data.employmentType || 'Full-time',
-                        location: data.location || '',
-                        company: data.company || data.companyName || 'DCI Studio',
-                        // Enhanced description fallback chain for multiple possible field names
-                        description: data.description || data.content || data.jobDescription || 'No description available',
-                        summary: data.summary || data.description || data.content || '',
-                        content: data.content || data.description || data.jobDescription || '',
-                        salary: data.salary || '',
-                        slug: data.slug || slugify(data.title || data.name || doc.id),
-                        createdAt: data.createdAt || new Date(),
-                        date: getDateString(data.createdAt),
-                        isFirebase: true,
-                        isStatic: false
-                    };
-                }).sort((a, b) => {
-                    try {
-                        const dateA = new Date(b.date);
-                        const dateB = new Date(a.date);
-                        return dateA - dateB;
-                    } catch (e) {
-                        return 0;
-                    }
-                });
-                console.log('Processed Firebase jobs:', firebaseJobs);
-            }
+            const snapshot = await db.collection('jobs').get();
+            firebaseJobs = snapshot.docs.map(doc => normalizeJobFromFirestore(doc));
         } catch (err) {
             console.error('Error fetching jobs from Firebase:', err);
-            console.error('Error stack:', err.stack);
-            // If Firebase fails completely, just use static jobs
             firebaseJobs = [];
         }
     } else {
         console.warn('Firebase db not initialized');
     }
 
-    // Combine firebase jobs first (newer) then static jobs
-    console.log('Static job data available:', staticJobsData?.length || 0, 'Firebase jobs:', firebaseJobs.length);
-    const staticJobs = (staticJobsData || []).map(j => ({
-        ...j,
-        isFirebase: false,
-        isStatic: true,
-        date: j.date || new Date().toISOString().split('T')[0],
-        summary: j.description || ''
-    }));
-    
-    const combined = [...firebaseJobs, ...staticJobs];
+    const combined = [...firebaseJobs]
+        .filter(isVisibleItem)
+        .sort((a, b) => {
+        const aTime = new Date(a.date || 0).getTime();
+        const bTime = new Date(b.date || 0).getTime();
+        return bTime - aTime;
+    });
     console.log('Combined jobs total:', combined.length);
     return combined;
 }
@@ -535,78 +471,32 @@ async function fetchJobById(idParam, slugParam = null) {
         return null;
     }
     
-    // Try to find in static jobs (compare string/number)
-    console.log('Looking for static job with id:', idParam, 'available static ids:', staticJobsData?.map(j => j.id) || []);
-    const staticMatch = (staticJobsData || []).find(j => {
-        const idMatches = String(j.id) === String(idParam);
-        if (!idMatches) return false;
-        // If slug is provided in URL, only accept static match when slug also matches.
-        // This prevents collisions when Firebase numeric seq overlaps static ids.
-        if (slugParam) {
-            const staticSlug = j.slug || slugify(j.title || String(j.id));
-            return staticSlug === slugParam;
-        }
-        return true;
-    });
-    if (staticMatch) {
-        console.log('Found static job:', staticMatch.title);
-        return {
-            ...staticMatch,
-            isFirebase: false,
-            isStatic: true,
-            date: staticMatch.date || new Date().toISOString().split('T')[0],
-            summary: staticMatch.description || '',
-            slug: staticMatch.slug || slugify(staticMatch.title)
-        };
-    }
-    console.log('No static job found for id:', idParam);
-
-    // Otherwise try Firestore
+    // Try Firestore first (DB-first)
     if (db) {
         try {
-            // Helper function to convert Firestore timestamp to date string (same as fetchAllJobs)
-            const getDateString = (timestamp) => {
-                if (!timestamp) return new Date().toISOString().split('T')[0];
-                try {
-                    // If it's a Firestore Timestamp object, use .toDate()
-                    if (timestamp.toDate && typeof timestamp.toDate === 'function') {
-                        return timestamp.toDate().toISOString().split('T')[0];
-                    }
-                    // If it's already a Date or can be converted to Date
-                    return new Date(timestamp).toISOString().split('T')[0];
-                } catch (e) {
-                    console.warn('Error converting date in fetchJobById:', timestamp, e);
-                    return new Date().toISOString().split('T')[0];
+            if (slugParam) {
+                const slugSnapshot = await db.collection('jobs').where('slug', '==', slugParam).limit(1).get();
+                if (!slugSnapshot.empty) {
+                    const normalized = normalizeJobFromFirestore(slugSnapshot.docs[0]);
+                    return isVisibleItem(normalized) ? normalized : null;
                 }
-            };
+            }
 
             // Try direct doc lookup first (doc id)
             const docRef = await db.collection('jobs').doc(idParam).get();
             if (docRef.exists) {
-                const data = docRef.data();
-                console.log('Found Firebase job by doc id:', idParam, 'data:', data);
-                return {
-                    id: docRef.id,
-                    title: data.title || data.name || 'Untitled',
-                    department: data.department || 'Other',
-                    type: data.type || data.employmentType || 'Full-time',
-                    location: data.location || '',
-                    company: data.company || data.companyName || 'DCI Studio',
-                    // Enhanced description fallback chain for multiple possible field names
-                    description: data.description || data.content || data.jobDescription || 'No description available',
-                    summary: data.summary || data.description || data.content || '',
-                    content: data.content || data.description || data.jobDescription || '',
-                    salary: data.salary || '',
-                    slug: data.slug || slugify(data.title || data.name || docRef.id),
-                    createdAt: data.createdAt || new Date(),
-                    date: getDateString(data.createdAt),
-                    isFirebase: true,
-                    isStatic: false
-                };
+                const normalized = normalizeJobFromFirestore(docRef);
+                return isVisibleItem(normalized) ? normalized : null;
             }
 
-            // If not found by doc id, try searching documents (optional - can be slow)
+            // Backward compatibility for numeric id links.
             try {
+                const staticSnapshot = await db.collection('jobs').where('staticId', '==', String(idParam)).limit(1).get();
+                if (!staticSnapshot.empty) {
+                    const normalized = normalizeJobFromFirestore(staticSnapshot.docs[0]);
+                    return isVisibleItem(normalized) ? normalized : null;
+                }
+
                 const snapshot = await db.collection('jobs').where('seq', '==', Number(idParam)).get();
                 if (!snapshot.empty) {
                     const matchedDoc = slugParam
@@ -617,33 +507,17 @@ async function fetchJobById(idParam, slugParam = null) {
                         })
                         : snapshot.docs[0];
                     const doc = matchedDoc || snapshot.docs[0];
-                    const data = doc.data();
-                    return {
-                        id: doc.id,
-                        title: data.title || 'Untitled',
-                        department: data.department || 'Other',
-                        type: data.type || 'Full-time',
-                        location: data.location || '',
-                        company: data.company || data.companyName || 'DCI Studio',
-                        description: data.description || data.content || data.jobDescription || 'No description available',
-                        summary: data.summary || data.description || data.content || '',
-                        content: data.content || data.description || data.jobDescription || '',
-                        salary: data.salary || '',
-                        slug: data.slug || slugify(data.title || doc.id),
-                        createdAt: data.createdAt || new Date(),
-                        date: getDateString(data.createdAt),
-                        isFirebase: true,
-                        isStatic: false
-                    };
+                    const normalized = normalizeJobFromFirestore(doc);
+                    return isVisibleItem(normalized) ? normalized : null;
                 }
             } catch (searchErr) {
-                // Search failed, that's ok - just continue
                 console.warn('Search by id field failed:', searchErr);
             }
         } catch (err) {
             console.error('Error fetching job detail from Firebase:', err);
         }
     }
+
     return null;
 }
 
@@ -785,25 +659,60 @@ async function fetchStaticPostContent(filename) {
 }
 
 // === LOGIC CHÍNH: LẤY CẢ 2 NGUỒN DỮ LIỆU ===
+function normalizePostFromFirestore(doc) {
+    const data = doc.data ? doc.data() : doc;
+    const title = data.title || data.name || 'Untitled';
+    const slug = data.slug || slugify(title);
+    const createdAt = data.createdAt;
+    let resolvedDate = data.date || '';
+    if (!resolvedDate && createdAt) {
+        try {
+            if (createdAt.toDate && typeof createdAt.toDate === 'function') {
+                resolvedDate = createdAt.toDate().toISOString().split('T')[0];
+            } else {
+                resolvedDate = new Date(createdAt).toISOString().split('T')[0];
+            }
+        } catch (e) {
+            resolvedDate = new Date().toISOString().split('T')[0];
+        }
+    }
+    if (!resolvedDate) resolvedDate = new Date().toISOString().split('T')[0];
+
+    return {
+        id: doc.id || data.id,
+        title,
+        date: resolvedDate,
+        image: data.image || data.imageUrl || '',
+        imageUrl: data.imageUrl || data.image || '',
+        content: data.content || '',
+        summary: data.summary || data.excerpt || '',
+        category: data.category || '',
+        tags: Array.isArray(data.tags)
+            ? data.tags
+            : String(data.tags || '').split(',').map(t => t.trim()).filter(Boolean),
+        featured: !!data.featured,
+        slug,
+        staticId: data.staticId ? String(data.staticId) : null,
+        isVisible: data.isVisible !== false,
+        isStatic: false,
+        isFirebase: true
+    };
+}
+
 async function fetchAllPosts() {
     let firebasePosts = [];
     
-    // 1. Lấy từ Firebase
+    // 1. Lấy từ Firebase (DB-first)
     if (db) {
         try {
             const snapshot = await db.collection('posts').get();
-            firebasePosts = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data(),
-                isStatic: false // Đánh dấu là bài từ DB
-            }));
+            firebasePosts = snapshot.docs.map(doc => normalizePostFromFirestore(doc));
         } catch (error) {
             console.error("Lỗi lấy dữ liệu Firebase:", error);
         }
     }
 
-    // 2. Gộp với dữ liệu tĩnh (Static Data)
-    const allPosts = [...firebasePosts, ...postsData];
+    const allPosts = [...firebasePosts].filter(isVisibleItem);
 
     // 3. Sắp xếp theo ngày giảm dần (Mới nhất lên đầu)
     allPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -813,26 +722,26 @@ async function fetchAllPosts() {
 
 // Hàm lấy chi tiết 1 bài viết theo ID (Tìm cả 2 nơi)
 async function fetchPostById(id) {
-    // 1. Tìm trong Static Data trước
-    // Chuyển id thành string để so sánh
-    const staticPost = postsData.find(p => String(p.id) === String(id));
-    
-    if (staticPost) {
-        // Mark as static so renderDetailPost knows to fetch markdown file
-        return { ...staticPost, isStatic: true };
-    }
-
-    // 2. Tìm trong Firebase
+    // 1. Tìm trong Firebase trước (DB-first)
     if (db) {
         try {
             const doc = await db.collection('posts').doc(id).get();
             if (doc.exists) {
-                return { id: doc.id, ...doc.data(), isStatic: false };
+                const normalized = normalizePostFromFirestore(doc);
+                return isVisibleItem(normalized) ? normalized : null;
+            }
+
+            // Backward compatibility: old links still use static numeric ids.
+            const snapshot = await db.collection('posts').where('staticId', '==', String(id)).limit(1).get();
+            if (!snapshot.empty) {
+                const normalized = normalizePostFromFirestore(snapshot.docs[0]);
+                return isVisibleItem(normalized) ? normalized : null;
             }
         } catch (error) {
             console.error("Lỗi lấy chi tiết bài viết Firebase:", error);
         }
     }
+
     return null;
 }
 
@@ -1247,23 +1156,18 @@ async function renderHomePosts() {
 
     const posts = await fetchAllPosts(); // Lấy tất cả (đã sort)
     
-    // Filter for featured posts and sort by date (newest first)
-    const featuredPosts = posts
+    // Homepage only displays featured posts, max 3 newest.
+    const homePosts = posts
         .filter(post => post.featured === true)
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .slice(0, 3); // Lấy tối đa 3 posts
 
-    // If less than 3 featured posts, fill with recent non-featured posts
-    let homePosts = [...featuredPosts];
-    if (homePosts.length < 3) {
-        const nonFeaturedPosts = posts
-            .filter(post => post.featured !== true)
-            .sort((a, b) => new Date(b.date) - new Date(a.date))
-            .slice(0, 3 - homePosts.length);
-        homePosts = [...homePosts, ...nonFeaturedPosts];
+    container.innerHTML = '';
+    if (homePosts.length === 0) {
+        container.innerHTML = '<p>No featured posts available.</p>';
+        return;
     }
 
-    container.innerHTML = '';
     homePosts.forEach(post => {
         const thumb = post.image || post.imageUrl || './image/default-post.png';
         let excerpt = post.summary;
@@ -1338,15 +1242,50 @@ function getCompanyPillar(company) {
     return COMPANY_PILLAR_BY_INDUSTRY[getCompanyIndustry(company)] || COMPANY_PILLAR_VALUES[0];
 }
 
-function renderCompaniesPage() {
+async function fetchAllCompanies() {
+    if (!db) return [];
+
+    try {
+        const snapshot = await db.collection('companies').get();
+        const firebaseCompanies = snapshot.docs.map(doc => {
+            const data = doc.data();
+            const detailContent = data.content || data.details || data.markdown || '';
+            return {
+                id: data.id || doc.id,
+                name: data.name || doc.id,
+                logo: data.logo || '',
+                heroImage: data.heroImage || data.logo || '',
+                vertical: data.vertical || data.industry || 'Other',
+                pillar: data.pillar || COMPANY_PILLAR_BY_INDUSTRY[data.vertical || data.industry || ''] || COMPANY_PILLAR_VALUES[0],
+                stage: data.stage || data.status || 'Unknown',
+                year: data.year || '',
+                website: data.website || '',
+                email: data.email || '',
+                description: data.description || detailContent || '',
+                content: detailContent,
+                isVisible: data.isVisible !== false,
+                source: 'firebase'
+            };
+        });
+
+        return firebaseCompanies.filter(isVisibleItem);
+    } catch (err) {
+        console.warn('Could not load companies from Firestore:', err);
+        return [];
+    }
+}
+
+async function renderCompaniesPage() {
     const companiesGridContainer = document.querySelector('.companies-grid');
     const filterControlsContainer = document.getElementById('company-filter-controls');
     const mobileFilterContainer = document.getElementById('companies-mobile-filter');
     if (!companiesGridContainer) return;
 
-    const industries = ['All', ...new Set(companiesData.map(getCompanyIndustry))];
+    const companiesList = await fetchAllCompanies();
+
+    const industries = ['All', ...new Set(companiesList.map(getCompanyIndustry))];
     const stageOrder = ['Transition', 'Growth', 'Seed', 'Proof-of-Concept'];
-    const stagesInData = [...new Set(companiesData.map(getCompanyStage))];
+    const stagesInData = [...new Set(companiesList.map(getCompanyStage))];
     const sortedStages = stagesInData.sort((a, b) => {
         const idxA = stageOrder.indexOf(a);
         const idxB = stageOrder.indexOf(b);
@@ -1370,7 +1309,7 @@ function renderCompaniesPage() {
     const isMobileViewport = () => window.matchMedia('(max-width: 768px)').matches;
 
     function getFilteredCompanies() {
-        return companiesData.filter((company) => {
+        return companiesList.filter((company) => {
             const pillarMatch =
                 currentCompanyFilters.pillar === 'All' || getCompanyPillar(company) === currentCompanyFilters.pillar;
             const industryMatch =

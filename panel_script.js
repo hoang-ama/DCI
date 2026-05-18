@@ -276,6 +276,48 @@ const companiesData = [
     },
 ];
 
+async function syncCompaniesDataFromFirestore() {
+    if (typeof firebase === 'undefined') {
+        companiesData.splice(0, companiesData.length);
+        return;
+    }
+    try {
+        const firestoreDb = firebase.firestore();
+        const snapshot = await firestoreDb.collection('companies').get();
+        if (snapshot.empty) {
+            companiesData.splice(0, companiesData.length);
+            return;
+        }
+
+        const allFromDb = snapshot.docs.map((doc) => {
+            const data = doc.data();
+            const detailContent = data.content || data.details || data.markdown || '';
+            return {
+                id: data.id || doc.id,
+                name: data.name || doc.id,
+                logo: data.logo || '',
+                heroImage: data.heroImage || data.logo || '',
+                vertical: data.vertical || data.industry || 'Other',
+                pillar: data.pillar || 'Unknown',
+                stage: data.stage || data.status || 'Unknown',
+                year: data.year || '',
+                website: data.website || '',
+                email: data.email || '',
+                description: data.description || detailContent || '',
+                content: detailContent,
+                isVisible: data.isVisible !== false,
+                showOnHome: data.showOnHome === true
+            };
+        });
+
+        const visibleFromDb = allFromDb.filter(c => c.isVisible !== false);
+        companiesData.splice(0, companiesData.length, ...visibleFromDb);
+    } catch (err) {
+        console.warn('Could not sync companies from Firestore:', err);
+        companiesData.splice(0, companiesData.length);
+    }
+}
+
 function getPanelCompanyIndustry(company) {
     return company.vertical || company.industry || 'Other';
 }
@@ -294,28 +336,11 @@ function getPanelCompanyStageLabel(company) {
 }
 // Try to fetch markdown profile by company id or slug
 async function fetchCompanyMarkdown(company) {
-    const candidates = [
-        `./companies/${company.id}.md`,
-        `./companies/${slugify(company.name)}.md`
-    ];
-    for (const url of candidates) {
-        try {
-            const res = await fetch(url);
-            if (!res.ok) continue;
-            const text = await res.text();
-            // Simple check for frontmatter (---) and body
-            if (text.startsWith('---')) {
-                const parts = text.split('---');
-                const body = parts.slice(2).join('---').trim();
-                // Note: Skipping complex frontmatter parsing for simplicity; all required data is in companiesData.
-                return body;
-            }
-            return text; // Return plain text/simple markdown body
-        } catch (err) {
-            // console.warn(`Could not load MD for ${company.name} at ${url}: ${err.message}`);
-        }
+    const inlineContent = company.content || company.details || company.markdown || '';
+    if (inlineContent && String(inlineContent).trim()) {
+        return String(inlineContent).trim();
     }
-    return null; // No markdown file found
+    return null;
 }
 
 // Open the detail panel for a company
@@ -452,8 +477,10 @@ function renderIndexPortfolioGrid() {
     
     container.innerHTML = '';
     
-    // Sort items randomly or by a specific rule if needed, here we use the first 16 items
-    const displayCompanies = companiesData.slice(0, 16); 
+    // Homepage only shows featured startups explicitly marked for home.
+    const displayCompanies = companiesData
+        .filter(c => c.isVisible !== false && c.showOnHome === true)
+        .slice(0, 16);
     
     displayCompanies.forEach(company => {
         const cardHTML = createPortfolioCardHTML(company);
@@ -508,7 +535,9 @@ function closeInvestorFormPanel() {
     }
 
 // --- 4. GLOBAL INITIALIZATION UPDATE ---
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await syncCompaniesDataFromFirestore();
+
     // NEW: Check for the index page portfolio grid
     if (document.getElementById('portfolioGrid')) {
         renderIndexPortfolioGrid();

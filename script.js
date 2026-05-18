@@ -181,7 +181,7 @@ const postsData = [
         id: "12",
         title: "Startup/Venture Studio vs. Other models",
         date: "2025-12-08",
-        imageUrl: "./image/Startup-Studio-vs-Incubators-Accelerators-VCs.png",
+        imageUrl: "./image/Venture-Studio-vs-Incubators-Accelerators-VCs.png",
         content: "What is make a Startup/Venture Studio different from Incubator, Accelerator and VC...",
         category: "Studio",
         tags: ["model"],
@@ -1035,8 +1035,30 @@ function initializeBlogFilters() {
 }
 
 // --- 4.2 Trang Chi tiết Bài viết ---
+// Static mapping to keep markdown filenames stable even if post titles change.
+// Key by static post id so editors can freely update title without breaking detail pages.
+const STATIC_POST_MARKDOWN_BY_ID = {
+    "1": "2025-08-01-1-future-of-quantum-computing.md",
+    "2": "2025-09-01-2-introduction-to-cloud-computing.md",
+    "3": "2025-09-15-3-the-power-of-data-visualization.md",
+    "4": "2025-09-20-4-mastering-remote-team-management.md",
+    "5": "2025-09-25-5-cybersecurity-essentials-for-small-businesses.md",
+    "6": "2025-09-30-6-deep-dive-into-blockchain-technology.md",
+    "7": "2025-10-10-7-the-rise-of-no-code-platforms.md",
+    "8": "2025-10-15-8-sustainable-growth-a-new-direction-for-startups.md",
+    "9": "2025-10-20-9-investing-in-ai-opportunity-or-challenge.md",
+    "10": "2025-10-25-10-5-keys-to-success-for-tech-startups.md",
+    "11": "2025-12-08-11-the-evolution-of-startup-studios.md",
+    "12": "2025-12-08-12-startup-studio-vs-other-models.md",
+    "13": "2025-12-08-13-what-is-the-startup-studio.md",
+    "14": "2025-12-15-14-how-startup-studio-build-successful-startups.md"
+};
+
 // Helper function to generate markdown filename from post data
 function generatePostMarkdownFilename(post) {
+    const mappedFilename = STATIC_POST_MARKDOWN_BY_ID[String(post.id)];
+    if (mappedFilename) return mappedFilename;
+
     // Format: YYYY-MM-DD-{id}-{slugified-title}.md
     // Example: 2025-12-15-14-how-startup-studio-build-successful-startups.md
     const slug = slugify(post.title);

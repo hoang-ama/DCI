@@ -528,8 +528,8 @@ async function fetchAllJobs() {
 }
 
 // Fetch a single job by id (handles static numeric ids and Firestore doc ids)
-async function fetchJobById(idParam) {
-    console.log('fetchJobById called with id:', idParam);
+async function fetchJobById(idParam, slugParam = null) {
+    console.log('fetchJobById called with id:', idParam, 'slug:', slugParam);
     if (!idParam) {
         console.warn('fetchJobById: no id provided');
         return null;
@@ -537,7 +537,17 @@ async function fetchJobById(idParam) {
     
     // Try to find in static jobs (compare string/number)
     console.log('Looking for static job with id:', idParam, 'available static ids:', staticJobsData?.map(j => j.id) || []);
-    const staticMatch = (staticJobsData || []).find(j => String(j.id) === String(idParam));
+    const staticMatch = (staticJobsData || []).find(j => {
+        const idMatches = String(j.id) === String(idParam);
+        if (!idMatches) return false;
+        // If slug is provided in URL, only accept static match when slug also matches.
+        // This prevents collisions when Firebase numeric seq overlaps static ids.
+        if (slugParam) {
+            const staticSlug = j.slug || slugify(j.title || String(j.id));
+            return staticSlug === slugParam;
+        }
+        return true;
+    });
     if (staticMatch) {
         console.log('Found static job:', staticMatch.title);
         return {
@@ -599,7 +609,14 @@ async function fetchJobById(idParam) {
             try {
                 const snapshot = await db.collection('jobs').where('seq', '==', Number(idParam)).get();
                 if (!snapshot.empty) {
-                    const doc = snapshot.docs[0];
+                    const matchedDoc = slugParam
+                        ? snapshot.docs.find(d => {
+                            const data = d.data();
+                            const resolvedSlug = data.slug || slugify(data.title || data.name || d.id);
+                            return resolvedSlug === slugParam;
+                        })
+                        : snapshot.docs[0];
+                    const doc = matchedDoc || snapshot.docs[0];
                     const data = doc.data();
                     return {
                         id: doc.id,
@@ -1806,6 +1823,7 @@ async function renderJobDetails() {
     // 1. Get the ID from URL
     const urlParams = new URLSearchParams(window.location.search);
     const jobId = urlParams.get('id');
+    const jobSlug = urlParams.get('slug');
 
     if (!jobId) {
         contentContainer.innerHTML = '<h1>Error: Job ID not provided in URL.</h1>';
@@ -1813,7 +1831,7 @@ async function renderJobDetails() {
     }
 
     // 2. Find the job data (static or Firestore)
-    const job = await fetchJobById(jobId);
+    const job = await fetchJobById(jobId, jobSlug);
 
     if (!job) {
         contentContainer.innerHTML = '<h1>Error: Job posting not found.</h1>';

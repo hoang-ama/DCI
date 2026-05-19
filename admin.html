@@ -211,10 +211,40 @@
             { id: "fafifun", name: "FaFiFun", logo: "./image/logos/FFF_logo.webp", heroImage: "./image/logos/FFF_hero.png", vertical: "Education", pillar: "Membership & Subscription Economy", stage: "Growth", year: "2021", website: "https://fafifun.edu.vn", email: "chamsockhachhang@mdj.vn", description: "Financial Education for Kids.", markdownFile: "fafifun.md" }
         ];
 
+        function getPortfolioOrderValue(item) {
+            const raw = item && item.portfolioOrder;
+            const parsed = Number(raw);
+            return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+        }
+
+        function toMillisSafe(value) {
+            if (!value) return 0;
+            if (typeof value.toMillis === 'function') return value.toMillis();
+            if (typeof value === 'number') return value;
+            if (typeof value === 'string') {
+                const parsed = Date.parse(value);
+                return Number.isNaN(parsed) ? 0 : parsed;
+            }
+            if (value && typeof value.seconds === 'number') return value.seconds * 1000;
+            return 0;
+        }
+
+        function sortCompanyItems(items) {
+            return [...items].sort((a, b) => {
+                const aOrder = getPortfolioOrderValue(a);
+                const bOrder = getPortfolioOrderValue(b);
+                if (aOrder !== null && bOrder !== null) return aOrder - bOrder;
+                if (aOrder !== null) return -1;
+                if (bOrder !== null) return 1;
+                return toMillisSafe(b.createdAt) - toMillisSafe(a.createdAt);
+            });
+        }
+
         async function importStaticCompaniesToFirestore() {
             let successCount = 0;
             const errors = [];
-            for (const company of STATIC_COMPANY_IMPORT_CATALOG) {
+            for (let index = 0; index < STATIC_COMPANY_IMPORT_CATALOG.length; index += 1) {
+                const company = STATIC_COMPANY_IMPORT_CATALOG[index];
                 try {
                     const res = await fetch(`./companies/${company.markdownFile}`);
                     const markdownText = res.ok ? await res.text() : '';
@@ -236,6 +266,7 @@
                         source: 'static-import',
                         isVisible: true,
                         showOnHome: false,
+                        portfolioOrder: index + 1,
                         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     }, { merge: true });
@@ -513,6 +544,18 @@
                             // Use company name as document id (slugified)
                             const companyId = (formData.id && formData.id.trim()) ? formData.id.trim() : slugify(formData.name || '');
                             if (!companyId) throw new Error('Company name required to generate ID');
+                            let portfolioOrder = getPortfolioOrderValue(preparedData);
+                            if (portfolioOrder === null) {
+                                const existingCompanies = await db.collection('companies').get();
+                                let maxPortfolioOrder = 0;
+                                existingCompanies.docs.forEach((doc) => {
+                                    const orderValue = getPortfolioOrderValue(doc.data() || {});
+                                    if (orderValue !== null && orderValue > maxPortfolioOrder) {
+                                        maxPortfolioOrder = orderValue;
+                                    }
+                                });
+                                portfolioOrder = maxPortfolioOrder + 1;
+                            }
                             await db.collection('companies').doc(companyId).set({
                                 id: companyId,
                                 name: preparedData.name || '',
@@ -529,6 +572,7 @@
                                 details: preparedData.content || '',
                                 isVisible: preparedData.isVisible !== false,
                                 showOnHome: preparedData.showOnHome === true,
+                                portfolioOrder,
                                 createdAt: firebase.firestore.FieldValue.serverTimestamp()
                             }, { merge: true });
                         } else {
@@ -692,6 +736,35 @@
                 }
             };
 
+            const getOrderedItems = (rawItems) => {
+                if (collectionName !== 'companies') return rawItems;
+                return sortCompanyItems(rawItems);
+            };
+
+            const handleMoveCompanyOrder = async (itemId, direction) => {
+                if (collectionName !== 'companies') return;
+                const orderedItems = getOrderedItems(items);
+                const currentIndex = orderedItems.findIndex((entry) => entry.id === itemId);
+                const targetIndex = currentIndex + direction;
+                if (currentIndex === -1 || targetIndex < 0 || targetIndex >= orderedItems.length) return;
+                const swappedItems = [...orderedItems];
+                const temp = swappedItems[currentIndex];
+                swappedItems[currentIndex] = swappedItems[targetIndex];
+                swappedItems[targetIndex] = temp;
+                try {
+                    const batch = db.batch();
+                    swappedItems.forEach((company, index) => {
+                        batch.set(db.collection('companies').doc(company.id), {
+                            portfolioOrder: index + 1,
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        }, { merge: true });
+                    });
+                    await batch.commit();
+                } catch (err) {
+                    alert('Update portfolio order failed: ' + err.message);
+                }
+            };
+
             if (loading) return <div className="flex justify-center p-10"><div className="loader"></div></div>;
 
             return (
@@ -717,9 +790,9 @@
                                 </tr>
                             </thead>
                             <tbody className="text-gray-600 text-sm font-light">
-                                {items.length === 0 ? (
+                                {getOrderedItems(items).length === 0 ? (
                                     <tr><td colSpan="3" className="text-center py-6">No data available.</td></tr>
-                                ) : items.map(item => (
+                                ) : getOrderedItems(items).map((item, index, arr) => (
                                     <tr key={item.id} className={`border-b border-gray-200 hover:bg-gray-100 ${item.isVisible === false ? 'bg-gray-100 opacity-70' : ''}`}>
                                         <td className="py-3 px-6 text-left whitespace-nowrap">
                                             <span className="font-medium">{item.title || item.name}</span>
@@ -727,7 +800,7 @@
                                         <td className="py-3 px-6 text-left">
                                             {collectionName === 'posts' && <span>{item.date} {item.featured === true ? '• Home: On' : '• Home: Off'} {item.isVisible === false ? '• Hidden' : ''}</span>}
                                             {collectionName === 'jobs' && <span>{item.location} - {item.type} {item.isVisible === false ? '• Hidden' : ''}</span>}
-                                            {collectionName === 'companies' && <span>{item.vertical} {item.pillar ? `• ${item.pillar}` : ''} {item.showOnHome === true ? '• Home: On' : '• Home: Off'} {item.isVisible === false ? '• Hidden' : ''}</span>}
+                                            {collectionName === 'companies' && <span>#{index + 1} • {item.vertical} {item.pillar ? `• ${item.pillar}` : ''} {item.showOnHome === true ? '• Home: On' : '• Home: Off'} {item.isVisible === false ? '• Hidden' : ''}</span>}
                                         </td>
                                         <td className="py-3 px-6 text-center">
                                             <div className="flex item-center justify-center">
@@ -748,6 +821,26 @@
                                                         title={item.featured === true ? 'Hide from homepage blog section' : 'Show in homepage blog section'}
                                                     >
                                                         <i className="fas fa-star"></i>
+                                                    </button>
+                                                )}
+                                                {collectionName === 'companies' && (
+                                                    <button
+                                                        onClick={() => handleMoveCompanyOrder(item.id, -1)}
+                                                        disabled={index === 0}
+                                                        className={`w-4 mr-2 transform hover:scale-110 ${index === 0 ? 'text-gray-300 cursor-not-allowed' : 'hover:text-blue-600'}`}
+                                                        title="Move up"
+                                                    >
+                                                        <i className="fas fa-arrow-up"></i>
+                                                    </button>
+                                                )}
+                                                {collectionName === 'companies' && (
+                                                    <button
+                                                        onClick={() => handleMoveCompanyOrder(item.id, 1)}
+                                                        disabled={index === arr.length - 1}
+                                                        className={`w-4 mr-2 transform hover:scale-110 ${index === arr.length - 1 ? 'text-gray-300 cursor-not-allowed' : 'hover:text-blue-600'}`}
+                                                        title="Move down"
+                                                    >
+                                                        <i className="fas fa-arrow-down"></i>
                                                     </button>
                                                 )}
                                                 {collectionName === 'companies' && (

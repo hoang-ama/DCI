@@ -1242,12 +1242,32 @@ function getCompanyPillar(company) {
     return COMPANY_PILLAR_BY_INDUSTRY[getCompanyIndustry(company)] || COMPANY_PILLAR_VALUES[0];
 }
 
+function getPortfolioOrderValue(company) {
+    const parsed = Number(company && company.portfolioOrder);
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}
+
+function sortCompaniesByPortfolioOrder(companies) {
+    return [...companies].sort((a, b) => {
+        const aOrder = getPortfolioOrderValue(a);
+        const bOrder = getPortfolioOrderValue(b);
+        if (aOrder !== null && bOrder !== null) return aOrder - bOrder;
+        if (aOrder !== null) return -1;
+        if (bOrder !== null) return 1;
+        return String(a.name || '').localeCompare(String(b.name || ''));
+    });
+}
+
 async function fetchAllCompanies() {
-    if (!db) return [];
+    const getStaticFallbackCompanies = () => {
+        if (typeof companiesData === 'undefined' || !Array.isArray(companiesData)) return [];
+        return sortCompaniesByPortfolioOrder(companiesData.filter(isVisibleItem));
+    };
+
+    if (!db) return getStaticFallbackCompanies();
 
     try {
-        const snapshot = await db.collection('companies').get();
-        const firebaseCompanies = snapshot.docs.map(doc => {
+        const mapSnapshotToCompanies = (snapshot) => snapshot.docs.map(doc => {
             const data = doc.data();
             const detailContent = data.content || data.details || data.markdown || '';
             return {
@@ -1264,14 +1284,26 @@ async function fetchAllCompanies() {
                 description: data.description || detailContent || '',
                 content: detailContent,
                 isVisible: data.isVisible !== false,
+                portfolioOrder: data.portfolioOrder,
                 source: 'firebase'
             };
         });
 
-        return firebaseCompanies.filter(isVisibleItem);
+        // Retry once to avoid transient empty state on first load.
+        for (let attempt = 0; attempt < 2; attempt += 1) {
+            const snapshot = await db.collection('companies').get();
+            const firebaseCompanies = mapSnapshotToCompanies(snapshot);
+            const visibleCompanies = sortCompaniesByPortfolioOrder(firebaseCompanies.filter(isVisibleItem));
+            if (visibleCompanies.length > 0) return visibleCompanies;
+            if (attempt === 0) {
+                await new Promise((resolve) => setTimeout(resolve, 350));
+            }
+        }
+
+        return getStaticFallbackCompanies();
     } catch (err) {
         console.warn('Could not load companies from Firestore:', err);
-        return [];
+        return getStaticFallbackCompanies();
     }
 }
 

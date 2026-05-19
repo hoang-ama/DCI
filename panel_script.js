@@ -276,16 +276,30 @@ const companiesData = [
     },
 ];
 
+function getPortfolioOrderValue(company) {
+    const parsed = Number(company && company.portfolioOrder);
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}
+
+function sortCompaniesByPortfolioOrder(companies) {
+    return [...companies].sort((a, b) => {
+        const aOrder = getPortfolioOrderValue(a);
+        const bOrder = getPortfolioOrderValue(b);
+        if (aOrder !== null && bOrder !== null) return aOrder - bOrder;
+        if (aOrder !== null) return -1;
+        if (bOrder !== null) return 1;
+        return String(a.name || '').localeCompare(String(b.name || ''));
+    });
+}
+
 async function syncCompaniesDataFromFirestore() {
     if (typeof firebase === 'undefined') {
-        companiesData.splice(0, companiesData.length);
         return;
     }
     try {
         const firestoreDb = firebase.firestore();
         const snapshot = await firestoreDb.collection('companies').get();
         if (snapshot.empty) {
-            companiesData.splice(0, companiesData.length);
             return;
         }
 
@@ -306,15 +320,16 @@ async function syncCompaniesDataFromFirestore() {
                 description: data.description || detailContent || '',
                 content: detailContent,
                 isVisible: data.isVisible !== false,
-                showOnHome: data.showOnHome === true
+                showOnHome: data.showOnHome === true,
+                portfolioOrder: data.portfolioOrder
             };
         });
 
         const visibleFromDb = allFromDb.filter(c => c.isVisible !== false);
-        companiesData.splice(0, companiesData.length, ...visibleFromDb);
+        const sortedVisibleFromDb = sortCompaniesByPortfolioOrder(visibleFromDb);
+        companiesData.splice(0, companiesData.length, ...sortedVisibleFromDb);
     } catch (err) {
         console.warn('Could not sync companies from Firestore:', err);
-        companiesData.splice(0, companiesData.length);
     }
 }
 
